@@ -39,7 +39,9 @@ const estado = {
   revelar: null,
   audioDato: null,
   medios: null,
-  galeriaTimer: null
+  galeriaTimer: null,
+  galeriaGen: 0,
+  carasTimeouts: []
 };
 fetch(ruta("/media/manifest.json")).then((r) => r.ok ? r.json() : null).then((j) => estado.medios = j).catch(() => {
 });
@@ -159,6 +161,9 @@ function cargarMision(i) {
   estado.audioDato = null;
   clearInterval(estado.galeriaTimer);
   estado.galeriaTimer = null;
+  estado.galeriaGen++;
+  estado.carasTimeouts.forEach(clearTimeout);
+  estado.carasTimeouts = [];
   $("galeria").innerHTML = "";
   const m = estado.misiones[i];
   estado.sub = { total: subTotalDe(m), hechos: 0, puntos: 0, errores: 0 };
@@ -486,8 +491,22 @@ function mostrarGaleria(slug) {
     estado.galeriaTimer = setInterval(poner, 3400);
   }, 1e3);
 }
-function mostrarCaras() {
+function tiemposDeNombres(texto) {
+  if (!texto) return null;
+  const cortos = ["Claudia", "María Clara", "Horacio", "Daniel", "Francisco", "Claudio"];
+  let desde = 0;
+  const fracciones = [];
+  for (const n of cortos) {
+    const i = texto.indexOf(n, desde);
+    if (i < 0) return null;
+    fracciones.push(i / texto.length);
+    desde = i + n.length;
+  }
+  return fracciones;
+}
+function mostrarCaras(fracciones) {
   const galeria = $("galeria");
+  const gen = estado.galeriaGen;
   const cargas = CARAS.map(([archivo, nombre]) => new Promise((res) => {
     const img = new Image();
     img.src = ruta(`/media/caras/${archivo}`);
@@ -495,19 +514,13 @@ function mostrarCaras() {
     img.onerror = () => res(null);
   }));
   Promise.all(cargas).then((resultados) => {
-    if (!estado.resuelta) return;
+    if (!estado.resuelta || gen !== estado.galeriaGen) return;
     const caras = resultados.filter(Boolean);
     if (!caras.length) return;
     const porFila = matchMedia("(max-width: 640px)").matches ? 2 : 3;
     const filas = Math.ceil(caras.length / porFila);
-    let i = 0;
-    const poner = () => {
-      if (i >= caras.length) {
-        clearInterval(estado.galeriaTimer);
-        estado.galeriaTimer = null;
-        return;
-      }
-      const { img, nombre } = caras[i];
+    const ponerCara = ({ img, nombre }, i) => {
+      if (gen !== estado.galeriaGen) return;
       const fila = Math.floor(i / porFila);
       const paso = i % porFila - (porFila - 1) / 2;
       const marco = document.createElement("figure");
@@ -528,10 +541,27 @@ function mostrarCaras() {
         { xPercent: -50, yPercent: -50, x: 0, y: yFinal + 30, opacity: 0, scale: 0.9, rotate: 0 },
         { xPercent: -50, yPercent: -50, x: `${paso * 112}%`, y: yFinal, opacity: 1, scale: 1, rotate: paso * 3, duration: 0.6, ease: "power2.out" }
       );
-      i++;
     };
-    poner();
-    estado.galeriaTimer = setInterval(poner, 1e3);
+    const voz = estado.audioDato;
+    const cadencia = () => caras.forEach((cara, i) => estado.carasTimeouts.push(setTimeout(() => ponerCara(cara, i), 400 + i * 1e3)));
+    const conVoz = () => {
+      if (!(isFinite(voz.duration) && voz.duration > 0)) return cadencia();
+      caras.forEach((cara, i) => {
+        const t = Math.max(0.2, (fracciones[i] ?? i / caras.length) * voz.duration - voz.currentTime) * 1e3;
+        estado.carasTimeouts.push(setTimeout(() => ponerCara(cara, i), t));
+      });
+    };
+    if (!fracciones || !voz) return cadencia();
+    if (isFinite(voz.duration) && voz.duration > 0) return conVoz();
+    let fue = false;
+    const unaVez = () => {
+      if (!fue) {
+        fue = true;
+        conVoz();
+      }
+    };
+    voz.addEventListener("loadedmetadata", unaVez, { once: true });
+    estado.carasTimeouts.push(setTimeout(unaVez, 1500));
   });
 }
 function resolverMision(porTiempo) {
@@ -568,7 +598,7 @@ function resolverMision(porTiempo) {
   $("anota-puntos").textContent = ganados > 0 ? `+${ganados} pts ✎` : "quedó asentado en el expediente";
   $("mis-dato").textContent = m.dato;
   estado.audioDato = reproducirVoz(slugMision(m.titulo));
-  if (m.caras) mostrarCaras();
+  if (m.caras) mostrarCaras(tiemposDeNombres(m.voz));
   else if (ganados > 0) mostrarGaleria(slugMision(m.titulo));
   gsap.fromTo(sello, { opacity: 0, scale: 2.2 }, { opacity: 0.9, scale: 1, duration: 0.28, ease: "power4.in" });
   gsap.to($("anota-puntos"), { opacity: 1, duration: 0.4, delay: 0.35 });
@@ -602,13 +632,17 @@ function resolverMision(porTiempo) {
 function terminarJuego() {
   clearInterval(estado.galeriaTimer);
   estado.galeriaTimer = null;
+  estado.galeriaGen++;
+  estado.carasTimeouts.forEach(clearTimeout);
+  estado.carasTimeouts = [];
   $("galeria").innerHTML = "";
   const lista = leerRanking();
   lista.push({ nombre: estado.nombre, telefono: estado.telefono, puntos: estado.puntos, correctas: estado.perfectas, fecha: (new Date()).toISOString() });
   guardarRanking(lista);
   const contCaras = $("final-caras");
   contCaras.innerHTML = "";
-  CARAS.forEach(([archivo, nombre]) => {
+  $("final-frase").classList.remove("oculta");
+  const marcosFinal = CARAS.map(([archivo, nombre]) => {
     const marco = document.createElement("figure");
     marco.className = "cara-final";
     marco.style.display = "none";
@@ -616,18 +650,14 @@ function terminarJuego() {
     vista.className = "cara-final-vista";
     const img = new Image();
     img.src = ruta(`/media/caras/${archivo}`);
-    img.onload = () => {
-      marco.style.display = "";
-      $("final-frase").classList.add("oculta");
-    };
     img.onerror = () => marco.remove();
     vista.append(img);
     const cartel = document.createElement("figcaption");
     cartel.textContent = nombre;
     marco.append(vista, cartel);
     contCaras.append(marco);
+    return marco;
   });
-  $("final-frase").classList.remove("oculta");
   $("final-nombre").textContent = estado.nombre;
   $("final-puntos").textContent = `${estado.puntos} pts`;
   $("final-detalle").textContent = `${estado.perfectas} de ${estado.misiones.length} misiones impecables`;
@@ -644,6 +674,31 @@ function terminarJuego() {
   mostrar("final");
   estado.audioDato?.pause();
   estado.audioDato = reproducirVoz("final");
+  const vozFinal = estado.audioDato;
+  const FR_FINAL = [0.01, 0.104, 0.245, 0.344, 0.436, 0.595];
+  const revelarCara = (marco) => {
+    if (!marco.isConnected) return;
+    marco.style.display = "";
+    $("final-frase").classList.add("oculta");
+    gsap.fromTo(marco, { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" });
+  };
+  const programarCarasFinal = () => {
+    const dur = vozFinal && isFinite(vozFinal.duration) && vozFinal.duration > 0 ? vozFinal.duration : 0;
+    marcosFinal.forEach((marco, i) => setTimeout(() => revelarCara(marco), dur ? Math.max(200, FR_FINAL[i] * dur * 1e3) : 300 + i * 800));
+  };
+  if (vozFinal && !(isFinite(vozFinal.duration) && vozFinal.duration > 0)) {
+    let fue = false;
+    const unaVez = () => {
+      if (!fue) {
+        fue = true;
+        programarCarasFinal();
+      }
+    };
+    vozFinal.addEventListener("loadedmetadata", unaVez, { once: true });
+    setTimeout(unaVez, 1500);
+  } else {
+    programarCarasFinal();
+  }
   gsap.fromTo(".hoja-final", { y: 60, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6, ease: "power3.out" });
 }
 function escapeHtml(s) {
