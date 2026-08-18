@@ -605,6 +605,28 @@ function terminarJuego() {
   const lista = leerRanking();
   lista.push({ nombre: estado.nombre, telefono: estado.telefono, puntos: estado.puntos, correctas: estado.perfectas, fecha: (new Date()).toISOString() });
   guardarRanking(lista);
+  const contCaras = $("final-caras");
+  contCaras.innerHTML = "";
+  CARAS.forEach(([archivo, nombre]) => {
+    const marco = document.createElement("figure");
+    marco.className = "cara-final";
+    marco.style.display = "none";
+    const vista = document.createElement("div");
+    vista.className = "cara-final-vista";
+    const img = new Image();
+    img.src = ruta(`/media/caras/${archivo}`);
+    img.onload = () => {
+      marco.style.display = "";
+      $("final-frase").classList.add("oculta");
+    };
+    img.onerror = () => marco.remove();
+    vista.append(img);
+    const cartel = document.createElement("figcaption");
+    cartel.textContent = nombre;
+    marco.append(vista, cartel);
+    contCaras.append(marco);
+  });
+  $("final-frase").classList.remove("oculta");
   $("final-nombre").textContent = estado.nombre;
   $("final-puntos").textContent = `${estado.puntos} pts`;
   $("final-detalle").textContent = `${estado.perfectas} de ${estado.misiones.length} misiones impecables`;
