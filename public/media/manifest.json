@@ -83,5 +83,98 @@
     "/media/photos/pasillo-celdas.jpg",
     "/media/photos/retratos-mujeres.jpg",
     "/media/photos/teresa-laborde.jpg"
+  ],
+  "la-agrupacion": [
+    "/fichas/colectivo.jpg"
+  ],
+  "las-escuelas": [
+    "/media/documentos/01.jpg",
+    "/media/documentos/02.jpg",
+    "/media/documentos/03.jpg",
+    "/media/documentos/04.jpg"
+  ],
+  "el-informe": [
+    "/media/juicio/01.jpg"
+  ],
+  "la-fisica": [
+    "/media/photos/candado-celda.jpg",
+    "/media/photos/celda-nunca-mas.jpg",
+    "/media/photos/mirilla-nunca.jpg",
+    "/media/photos/pasillo-celdas.jpg",
+    "/media/photos/retratos-mujeres.jpg",
+    "/media/photos/teresa-laborde.jpg"
+  ],
+  "el-fiscal": [
+    "/media/juicio/01.jpg"
+  ],
+  "los-sobrevivientes": [
+    "/media/sobrevivientes/01.jpg"
+  ],
+  "la-mas-chica": [
+    "/media/documentos/01.jpg",
+    "/media/documentos/02.jpg",
+    "/media/documentos/03.jpg",
+    "/media/documentos/04.jpg"
+  ],
+  "el-lugar": [
+    "/fichas/puerta.jpg"
+  ],
+  "las-madres": [
+    "/fichas/marcha.jpg"
+  ],
+  "el-secreto": [
+    "/media/photos/candado-celda.jpg",
+    "/media/photos/celda-nunca-mas.jpg",
+    "/media/photos/mirilla-nunca.jpg",
+    "/media/photos/pasillo-celdas.jpg",
+    "/media/photos/retratos-mujeres.jpg",
+    "/media/photos/teresa-laborde.jpg"
+  ],
+  "la-ficha": [
+    "/media/documentos/01.jpg",
+    "/media/documentos/02.jpg",
+    "/media/documentos/03.jpg",
+    "/media/documentos/04.jpg"
+  ],
+  "la-libertad": [
+    "/fichas/mano.jpg"
+  ],
+  "la-escuela-de-claudio": [
+    "/fichas/pupitres.jpg"
+  ],
+  "la-censura": [
+    "/fichas/cine.jpg"
+  ],
+  "la-vida-de-claudia": [
+    "/media/documentos/01.jpg",
+    "/media/documentos/02.jpg",
+    "/media/documentos/03.jpg",
+    "/media/documentos/04.jpg"
+  ],
+  "la-verdad-y-la-justicia": [
+    "/media/juicio/01.jpg"
+  ],
+  "el-boleto-ida-y-vuelta": [
+    "/fichas/colectivo.jpg"
+  ],
+  "tres-escuelas": [
+    "/media/documentos/01.jpg",
+    "/media/documentos/02.jpg",
+    "/media/documentos/03.jpg",
+    "/media/documentos/04.jpg"
+  ],
+  "las-cuatro-voces": [
+    "/media/sobrevivientes/01.jpg"
+  ],
+  "la-justicia": [
+    "/media/juicio/01.jpg"
+  ],
+  "los-lugares": [
+    "/media/photos/candado-celda.jpg",
+    "/media/photos/celda-nunca-mas.jpg",
+    "/media/photos/mirilla-nunca.jpg",
+    "/media/photos/pasillo-celdas.jpg",
+    "/media/photos/retratos-mujeres.jpg",
+    "/media/photos/teresa-laborde.jpg"
   ]
 }

@@ -186,6 +186,225 @@ const MISIONES = [
     ],
     dato: "Teresa Laborde es hoy docente en Lomas de Zamora.",
     voz: "Adriana Calvo dio a luz en cautiverio y sobrevivió para contarlo: su testimonio fue clave en el Juicio a las Juntas. Su hija, Teresa Laborde, nació allí y permaneció con su madre todo el tiempo: un caso único. Hoy Teresa es docente en Lomas de Zamora."
+  },
+  {
+    tipo: "tachado",
+    titulo: "La agrupación",
+    img: "/fichas/colectivo.jpg",
+    texto: "Muchos de los estudiantes militaban en la [[0]], la agrupación que había impulsado el reclamo del [[1]].",
+    blancos: ["UES", "boleto"],
+    senuelos: ["CGT", "comedor"],
+    dato: "UES: Unión de Estudiantes Secundarios.",
+    voz: "Muchos de los estudiantes secuestrados militaban en la UES, la Unión de Estudiantes Secundarios, la agrupación que había impulsado el reclamo del boleto. Organizarse para pedir un derecho los convirtió en blanco de la dictadura."
+  },
+  {
+    tipo: "tachado",
+    titulo: "Las escuelas",
+    img: "/fichas/pupitres.jpg",
+    texto: "Claudia, María Clara y Francisco estudiaban en el Bachillerato de [[0]]; Horacio y Daniel, en la Escuela [[1]] N.º 3 de La Plata.",
+    blancos: ["Bellas Artes", "Normal"],
+    senuelos: ["Medicina", "Técnica"],
+    dato: "Eran pibes de escuelas públicas de La Plata.",
+    voz: "Claudia Falcone, María Clara Ciocchini y Francisco López Muntaner estudiaban en el Bachillerato de Bellas Artes. Horacio Ungaro y Daniel Racero, en la Escuela Normal número tres. Claudio de Acha, en el Colegio Nacional. Eran pibes de escuelas públicas de La Plata."
+  },
+  {
+    tipo: "tachado",
+    titulo: "El informe",
+    img: "/fichas/juicio.jpg",
+    texto: "En 1984, la comisión [[0]] reunió los testimonios en un informe llamado [[1]].",
+    blancos: ["CONADEP", "Nunca Más"],
+    senuelos: ["UNESCO", "Nunca Olvidar"],
+    dato: "El Nunca Más documentó los centros clandestinos y fue la base del Juicio a las Juntas.",
+    voz: "En 1984, ya en democracia, la comisión CONADEP recorrió el país reuniendo testimonios de sobrevivientes y familiares. Su informe se llamó Nunca Más, y fue la base del Juicio a las Juntas del año siguiente."
+  },
+  {
+    tipo: "tachado",
+    titulo: "La física",
+    img: "/fichas/juicio.jpg",
+    texto: "Adriana Calvo era profesora de [[0]] y estaba [[1]] cuando la secuestraron.",
+    blancos: ["física", "embarazada"],
+    senuelos: ["historia", "jubilada"],
+    dato: "Dio a luz en cautiverio; su hija Teresa nació camino al Pozo de Banfield.",
+    voz: "Adriana Calvo era profesora de física en la Universidad de La Plata y estaba embarazada cuando la secuestraron. Dio a luz en cautiverio, y años después su testimonio ayudó a condenar a los responsables."
+  },
+  {
+    tipo: "tachado",
+    titulo: "El fiscal",
+    img: "/fichas/juicio.jpg",
+    texto: "En el cierre del Juicio a las Juntas, el fiscal [[0]] terminó su alegato con las palabras: «[[1]]».",
+    blancos: ["Strassera", "Nunca más"],
+    senuelos: ["Sabato", "Hasta siempre"],
+    dato: "«Señores jueces: nunca más», dijo Julio César Strassera en 1985.",
+    voz: "En 1985, el fiscal Julio César Strassera cerró su alegato en el Juicio a las Juntas con dos palabras que ya eran de todos: nunca más. La sala entera se puso de pie."
+  },
+  {
+    tipo: "tachado",
+    titulo: "Los sobrevivientes",
+    img: "/fichas/mano.jpg",
+    texto: "De los diez estudiantes, sobrevivieron [[0]]: Pablo, Emilce, Gustavo y [[1]].",
+    blancos: ["cuatro", "Patricia"],
+    senuelos: ["dos", "Marta"],
+    dato: "Pablo Díaz, Emilce Moler, Gustavo Calotti y Patricia Miranda sobrevivieron y pudieron contarlo.",
+    voz: "De los diez estudiantes secuestrados sobrevivieron cuatro: Pablo Díaz, Emilce Moler, Gustavo Calotti y Patricia Miranda. Pasaron por centros clandestinos y por la cárcel, y años después su palabra fue prueba en los juicios."
+  },
+  {
+    tipo: "veredicto",
+    titulo: "La más chica",
+    img: "/fichas/lapices.jpg",
+    afirmacion: "María Claudia Falcone tenía 16 años cuando la secuestraron.",
+    esCierto: true,
+    dato: "Era de las más chicas del grupo; estudiaba dibujo en Bellas Artes.",
+    voz: "Es cierto. María Claudia Falcone tenía dieciséis años y estudiaba dibujo en el Bachillerato de Bellas Artes. Su ficha escolar todavía existe, con su foto de alumna."
+  },
+  {
+    tipo: "veredicto",
+    titulo: "El lugar",
+    img: "/fichas/puerta.jpg",
+    afirmacion: "Los estudiantes fueron secuestrados en la ciudad de Buenos Aires.",
+    esCierto: false,
+    dato: "Fue en La Plata, donde vivían y estudiaban.",
+    voz: "Falso. Los secuestros ocurrieron en La Plata, donde los estudiantes vivían y estudiaban. Grupos armados entraron de madrugada a sus casas, delante de sus familias."
+  },
+  {
+    tipo: "veredicto",
+    titulo: "Las madres",
+    img: "/fichas/marcha.jpg",
+    afirmacion: "Las Madres de Plaza de Mayo empezaron a marchar durante la propia dictadura.",
+    esCierto: true,
+    dato: "Desde 1977 dieron vueltas a la Plaza pidiendo por sus hijos.",
+    voz: "Es cierto. En plena dictadura, en 1977, las madres de los desaparecidos empezaron a dar vueltas a la Plaza de Mayo con pañuelos blancos, preguntando por sus hijos. Lo hicieron cuando casi nadie se animaba a hablar."
+  },
+  {
+    tipo: "veredicto",
+    titulo: "El secreto",
+    img: "/fichas/puerta.jpg",
+    afirmacion: "La dictadura reconocía públicamente dónde estaban los detenidos.",
+    esCierto: false,
+    dato: "Los centros eran clandestinos: el Estado negaba tener a los secuestrados.",
+    voz: "Falso. Los centros de detención eran clandestinos: el Estado negaba saber dónde estaban los secuestrados. Por eso a las víctimas se las llama desaparecidos: no había registro, ni juicio, ni respuesta para las familias."
+  },
+  {
+    tipo: "veredicto",
+    titulo: "La ficha",
+    img: "/fichas/pupitres.jpg",
+    afirmacion: "La ficha escolar de Claudia Falcone se conserva hasta hoy.",
+    esCierto: true,
+    dato: "En observaciones dice «Deserción»: el registro escolar no podía nombrar lo que había pasado.",
+    voz: "Es cierto. En el archivo del Bachillerato de Bellas Artes se conserva su ficha, con su foto de alumna. En observaciones dice deserción: el registro escolar no podía nombrar lo que en verdad había pasado."
+  },
+  {
+    tipo: "veredicto",
+    titulo: "La libertad",
+    img: "/fichas/mano.jpg",
+    afirmacion: "Los sobrevivientes fueron liberados a los pocos días.",
+    esCierto: false,
+    dato: "Pasaron años detenidos; Pablo Díaz recuperó la libertad recién en 1980.",
+    voz: "Falso. Los sobrevivientes pasaron por centros clandestinos y después años presos a disposición del gobierno militar. Pablo Díaz recién recuperó la libertad en 1980."
+  },
+  {
+    tipo: "veredicto",
+    titulo: "La escuela de Claudio",
+    img: "/fichas/pupitres.jpg",
+    afirmacion: "Claudio de Acha estudiaba en el Colegio Nacional de La Plata.",
+    esCierto: true,
+    dato: "Su colegio hoy lo recuerda con actos cada 16 de septiembre.",
+    voz: "Es cierto. Claudio de Acha estudiaba en el Colegio Nacional de La Plata. Hoy su colegio, como tantas escuelas, lo recuerda cada dieciséis de septiembre."
+  },
+  {
+    tipo: "veredicto",
+    titulo: "La censura",
+    img: "/fichas/cine.jpg",
+    afirmacion: "Durante la dictadura se podía hablar libremente de los desaparecidos.",
+    esCierto: false,
+    dato: "Había censura: diarios, libros y canciones estaban vigilados.",
+    voz: "Falso. Había censura: los diarios no podían informar, había libros prohibidos y hasta canciones que no se podían pasar por radio. Hablar de un desaparecido era un riesgo. Por eso la historia recién se conoció entera en democracia."
+  },
+  {
+    tipo: "orden",
+    titulo: "La vida de Claudia",
+    img: "/fichas/lapices.jpg",
+    eventos: [
+      { txt: "Nace María Claudia Falcone en La Plata", anio: "1960" },
+      { txt: "Entra al Bachillerato de Bellas Artes", anio: "1973" },
+      { txt: "Marcha con sus compañeros y consiguen el boleto", anio: "1975" },
+      { txt: "La secuestran: tenía 16 años", anio: "sep 1976" }
+    ],
+    dato: "Los datos salen de su propia ficha escolar, que se conserva hasta hoy.",
+    voz: "María Claudia Falcone nació en La Plata en 1960. En 1973 entró al Bachillerato de Bellas Artes. En 1975 marchó con sus compañeros por el boleto, y lo consiguieron. En septiembre de 1976 fue secuestrada. Tenía dieciséis años."
+  },
+  {
+    tipo: "orden",
+    titulo: "La verdad y la justicia",
+    img: "/fichas/juicio.jpg",
+    eventos: [
+      { txt: "Golpe de Estado cívico-militar", anio: "1976" },
+      { txt: "La CONADEP reúne la verdad en el Nunca Más", anio: "1984" },
+      { txt: "Juicio a las Juntas: los responsables son condenados", anio: "1985" },
+      { txt: "El libro y la película cuentan la historia al país", anio: "1986" }
+    ],
+    dato: "Primero la verdad, después la justicia, después la memoria.",
+    voz: "Después del golpe de 1976 vinieron años de silencio. Con la democracia, en 1984, la CONADEP reunió la verdad en el informe Nunca Más. En 1985 llegó la justicia con el Juicio a las Juntas. Y en 1986, el libro y la película hicieron que todo el país conociera esta historia."
+  },
+  {
+    tipo: "orden",
+    titulo: "El boleto, ida y vuelta",
+    img: "/fichas/colectivo.jpg",
+    eventos: [
+      { txt: "Los estudiantes lo consiguen en la calle", anio: "1975" },
+      { txt: "La dictadura lo suspende", anio: "1976" },
+      { txt: "Vuelve la democracia", anio: "1983" },
+      { txt: "El boleto gratuito se convierte en ley", anio: "2015" }
+    ],
+    dato: "El derecho por el que marcharon hoy es ley.",
+    voz: "El boleto estudiantil se consiguió en 1975 con los pibes en la calle. La dictadura lo suspendió en 1976. Con la democracia volvió a discutirse, y en 2015 se convirtió en ley gratuita en la provincia de Buenos Aires. Un derecho puede tardar cuarenta años en volver."
+  },
+  {
+    tipo: "unir",
+    titulo: "Tres escuelas",
+    img: "/fichas/pupitres.jpg",
+    pares: [
+      ["Claudia Falcone", "Bachillerato de Bellas Artes"],
+      ["Horacio Ungaro", "Escuela Normal N.º 3"],
+      ["Claudio de Acha", "Colegio Nacional de La Plata"]
+    ],
+    dato: "Tres escuelas públicas de La Plata que hoy los recuerdan.",
+    voz: "Claudia Falcone estudiaba en el Bachillerato de Bellas Artes. Horacio Ungaro, en la Escuela Normal número tres. Claudio de Acha, en el Colegio Nacional de La Plata. Tres escuelas públicas que hoy los recuerdan con placas, murales y actos."
+  },
+  {
+    tipo: "unir",
+    titulo: "Las cuatro voces",
+    img: "/fichas/mano.jpg",
+    pares: [
+      ["Pablo Díaz", "Declaró en el Juicio a las Juntas"],
+      ["Emilce Moler", "Hoy cuenta la historia en las escuelas"],
+      ["Patricia Miranda", "Sobrevivió; su palabra llegó a los juicios"]
+    ],
+    dato: "Cuatro sobrevivieron: Pablo, Emilce, Gustavo y Patricia.",
+    voz: "Pablo Díaz declaró en el Juicio a las Juntas. Emilce Moler recorre las escuelas contando la historia. Gustavo Calotti y Patricia Miranda también sobrevivieron, y su palabra fue prueba en los juicios. Cuatro voces que mantienen viva la memoria."
+  },
+  {
+    tipo: "unir",
+    titulo: "La justicia",
+    img: "/fichas/juicio.jpg",
+    pares: [
+      ["CONADEP", "Reunió la verdad en el informe Nunca Más"],
+      ["Julio César Strassera", "Fiscal del Juicio a las Juntas"],
+      ["Ernesto Sabato", "Escritor que presidió la CONADEP"]
+    ],
+    dato: "La verdad y la justicia también se construyeron con nombres propios.",
+    voz: "La CONADEP reunió la verdad en el informe Nunca Más, presidida por el escritor Ernesto Sabato. Y en el Juicio a las Juntas, el fiscal Julio César Strassera cerró su alegato con dos palabras: nunca más."
+  },
+  {
+    tipo: "unir",
+    titulo: "Los lugares",
+    img: "/fichas/puerta.jpg",
+    pares: [
+      ["Arana", "Centro clandestino de la zona de La Plata"],
+      ["Pozo de Quilmes", "Otro centro por el que pasaron los estudiantes"],
+      ["Pozo de Banfield", "Hoy es un sitio de memoria que se puede visitar"]
+    ],
+    dato: "Los tres existieron; hoy se pueden conocer como sitios de memoria.",
+    voz: "Arana, el Pozo de Quilmes y el Pozo de Banfield: por esos centros clandestinos pasaron los estudiantes. Hoy varios funcionan como sitios de memoria: se pueden recorrer, conocer y no olvidar."
   }
 ];
 const slugMision = (titulo) => titulo.toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
