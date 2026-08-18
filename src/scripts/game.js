@@ -173,13 +173,19 @@ function cargarMision(i) {
   const cuerpo = $("mis-cuerpo");
   cuerpo.innerHTML = "";
   CONSTRUCTORES[m.tipo](m, cuerpo);
-  [...cuerpo.querySelectorAll(".chip, .sello-vf, .orden-item, .unir-item")].slice(0, 9).forEach((b, n) => {
+  const numerar = (botones) => botones.slice(0, 9).forEach((b, n) => {
     b.dataset.tecla = n + 1;
     const t = document.createElement("span");
     t.className = "tecla";
     t.textContent = n + 1;
     b.append(t);
   });
+  if (m.tipo === "unir") {
+    numerar([...cuerpo.querySelectorAll(".unir-nombre")]);
+    numerar([...cuerpo.querySelectorAll(".unir-dato")]);
+  } else {
+    numerar([...cuerpo.querySelectorAll(".chip, .sello-vf, .orden-item")]);
+  }
   const sello = $("sello-feedback");
   sello.className = "sello-feedback";
   sello.textContent = "";
@@ -199,7 +205,14 @@ function cargarMision(i) {
 document.addEventListener("keydown", (e) => {
   if (!pantallas.juego.classList.contains("activa") || estado.resuelta) return;
   if (!/^[1-9]$/.test(e.key)) return;
-  const b = $("mis-cuerpo").querySelector(`[data-tecla="${e.key}"]`);
+  const cuerpo = $("mis-cuerpo");
+  const candidatos = [...cuerpo.querySelectorAll(`[data-tecla="${e.key}"]`)];
+  if (!candidatos.length) return;
+  let b = candidatos[0];
+  if (candidatos.length > 1) {
+    const haySeleccion = cuerpo.querySelector(".unir-nombre.sel");
+    b = candidatos.find((x) => x.classList.contains(haySeleccion ? "unir-dato" : "unir-nombre")) || b;
+  }
   if (b && !b.disabled) b.click();
 });
 function arrancarTimer(segundos) {
