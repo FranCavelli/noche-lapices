@@ -92,10 +92,15 @@ function elegirMisiones() {
   return barajar(elegidas);
 }
 function barajarDesalineado(items, posOriginalDe) {
+  const n = items.length;
   let mezcla;
+  let intentos = 0;
   do {
     mezcla = barajar(items);
-  } while (mezcla.some((it, pos) => posOriginalDe(it) === pos));
+    const fijos = mezcla.filter((it, pos) => posOriginalDe(it) === pos).length;
+    const invertida = mezcla.every((it, pos) => posOriginalDe(it) === n - 1 - pos);
+    if (fijos <= 1 && !invertida) return mezcla;
+  } while (++intentos < 50);
   return mezcla;
 }
 function sacudir(el) {
@@ -424,6 +429,25 @@ function construirUnir(m, cuerpo) {
   colIzq.className = "unir-col";
   colDer.className = "unir-col";
   grilla.append(colIzq, colDer);
+  const lienzo = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+  lienzo.setAttribute("class", "unir-lineas");
+  grilla.append(lienzo);
+  const dibujarLinea = (izq, der, fallada) => {
+    const g = grilla.getBoundingClientRect();
+    const a = izq.getBoundingClientRect();
+    const d = der.getBoundingClientRect();
+    const x1 = a.right - g.left;
+    const y1 = a.top + a.height / 2 - g.top;
+    const x2 = d.left - g.left;
+    const y2 = d.top + d.height / 2 - g.top;
+    const trazo = document.createElementNS("http://www.w3.org/2000/svg", "path");
+    trazo.setAttribute("d", `M ${x1} ${y1} C ${x1 + 22} ${y1}, ${x2 - 22} ${y2}, ${x2} ${y2}`);
+    trazo.setAttribute("class", fallada ? "linea-union fallada" : "linea-union");
+    lienzo.append(trazo);
+    const largo = trazo.getTotalLength();
+    trazo.style.strokeDasharray = largo;
+    gsap.fromTo(trazo, { strokeDashoffset: largo }, { strokeDashoffset: 0, duration: 0.45, ease: "power2.out" });
+  };
   const izquierdos = [];
   const derechos = [];
   m.pares.forEach(([nombre], idx) => {
@@ -458,6 +482,7 @@ function construirUnir(m, cuerpo) {
       const idxSel = Number(seleccion.dataset.idx);
       if (idxSel === idx) {
         vinculados++;
+        dibujarLinea(seleccion, b, false);
         [seleccion, b].forEach((el) => {
           el.classList.remove("sel");
           el.classList.add("hecho");
@@ -481,6 +506,7 @@ function construirUnir(m, cuerpo) {
       const der = derechos.find((b) => Number(b.dataset.idx) === idx);
       if (izq.classList.contains("hecho")) return;
       vinculados++;
+      dibujarLinea(izq, der, true);
       [izq, der].forEach((el) => {
         el.classList.remove("sel");
         el.classList.add("hecho", "fallado");
@@ -493,8 +519,8 @@ function construirEscena(m, cuerpo) {
   const marco = document.createElement("div");
   marco.className = "escena-video";
   const iframe = document.createElement("iframe");
-  iframe.src = `https://www.youtube-nocookie.com/embed/${m.video}`;
-  iframe.allow = "accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture";
+  iframe.src = `https://www.youtube-nocookie.com/embed/${m.video}?autoplay=1&rel=0`;
+  iframe.allow = "autoplay; accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture";
   iframe.allowFullscreen = true;
   iframe.title = m.titulo;
   marco.append(iframe);
