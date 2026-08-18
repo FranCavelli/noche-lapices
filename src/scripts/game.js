@@ -173,6 +173,13 @@ function cargarMision(i) {
   const cuerpo = $("mis-cuerpo");
   cuerpo.innerHTML = "";
   CONSTRUCTORES[m.tipo](m, cuerpo);
+  [...cuerpo.querySelectorAll(".chip, .sello-vf, .orden-item, .unir-item")].slice(0, 9).forEach((b, n) => {
+    b.dataset.tecla = n + 1;
+    const t = document.createElement("span");
+    t.className = "tecla";
+    t.textContent = n + 1;
+    b.append(t);
+  });
   const sello = $("sello-feedback");
   sello.className = "sello-feedback";
   sello.textContent = "";
@@ -189,6 +196,12 @@ function cargarMision(i) {
   );
   arrancarTimer(TIEMPOS[m.tipo]);
 }
+document.addEventListener("keydown", (e) => {
+  if (!pantallas.juego.classList.contains("activa") || estado.resuelta) return;
+  if (!/^[1-9]$/.test(e.key)) return;
+  const b = $("mis-cuerpo").querySelector(`[data-tecla="${e.key}"]`);
+  if (b && !b.disabled) b.click();
+});
 function arrancarTimer(segundos) {
   estado.t0 = Date.now();
   estado.timer = gsap.to($("timer-barra"), { scaleX: 0, duration: segundos, ease: "none" });
@@ -303,27 +316,50 @@ function construirOrden(m, cuerpo) {
   const valor = Math.round(BASE_MISION / m.eventos.length);
   let siguiente = 0;
   let errorSlot = false;
-  const lista = document.createElement("div");
-  lista.className = "orden-lista";
+  const linea = document.createElement("div");
+  linea.className = "lt-linea";
+  const slots = m.eventos.map((ev, pos) => {
+    const slot = document.createElement("div");
+    slot.className = "lt-slot";
+    const nodo = document.createElement("span");
+    nodo.className = "lt-nodo";
+    nodo.textContent = pos + 1;
+    const anio = document.createElement("span");
+    anio.className = "lt-anio lapiz";
+    const txt = document.createElement("span");
+    txt.className = "lt-txt";
+    txt.textContent = "· · · · ·";
+    slot.append(nodo, anio, txt);
+    linea.append(slot);
+    return { slot, anio, txt };
+  });
+  cuerpo.append(linea);
+  const llenarSlot = (pos, ev, fallado) => {
+    const { slot, anio, txt } = slots[pos];
+    slot.classList.add("lleno");
+    if (fallado) slot.classList.add("fallado");
+    anio.textContent = ev.anio;
+    txt.textContent = ev.txt;
+    gsap.fromTo(slot, { y: 10, opacity: 0.3 }, { y: 0, opacity: 1, duration: 0.35, ease: "power2.out" });
+  };
+  const pendientes = document.createElement("div");
+  pendientes.className = "lt-pendientes";
   const items = [];
   barajarDesalineado(m.eventos.map((ev, pos) => ({ ...ev, pos })), (it) => it.pos).forEach((ev) => {
     const b = document.createElement("button");
     b.type = "button";
     b.className = "orden-item";
-    const num = document.createElement("b");
-    num.className = "orden-num";
     const txt = document.createElement("span");
     txt.className = "orden-txt";
     txt.textContent = ev.txt;
-    const anio = document.createElement("span");
-    anio.className = "orden-anio lapiz";
-    b.append(num, txt, anio);
+    b.append(txt);
     b.addEventListener("click", () => {
       if (estado.resuelta || b.classList.contains("hecho")) return;
       if (ev.pos === siguiente) {
         b.classList.add("hecho");
-        num.textContent = `${ev.pos + 1}º`;
-        anio.textContent = ev.anio;
+        b.disabled = true;
+        gsap.to(b, { opacity: 0.3, scale: 0.97, duration: 0.3 });
+        llenarSlot(ev.pos, ev, false);
         anotarSub(errorSlot ? Math.round(valor / 2) : valor);
         errorSlot = false;
         siguiente++;
@@ -333,16 +369,15 @@ function construirOrden(m, cuerpo) {
         sacudir(b);
       }
     });
-    items.push({ b, ev, num, anio });
-    lista.append(b);
+    items.push({ b, ev });
+    pendientes.append(b);
   });
-  cuerpo.append(lista);
+  cuerpo.append(pendientes);
   estado.revelar = () => {
-    items.forEach(({ b, ev, num, anio }) => {
+    items.forEach(({ b, ev }) => {
       if (b.classList.contains("hecho")) return;
       b.classList.add("hecho", "fallado");
-      num.textContent = `${ev.pos + 1}º`;
-      anio.textContent = ev.anio;
+      llenarSlot(ev.pos, ev, true);
     });
   };
 }

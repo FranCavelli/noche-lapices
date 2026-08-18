@@ -341,7 +341,67 @@ html, body {
 .sello-vf.acertado { opacity: 1; border-width: 4px; transform: rotate(-3deg) scale(1.05); }
 .sello-vf.errado { opacity: 0.55; text-decoration: line-through; }
 
-.orden-lista { display: grid; gap: 0.55rem; }
+.lt-linea { position: relative; display: grid; gap: 0.35rem; margin-bottom: 1rem; }
+.lt-linea::before {
+  content: "";
+  position: absolute;
+  left: 12px;
+  top: 8px;
+  bottom: 8px;
+  border-left: 2px dashed var(--grafito-claro);
+}
+.lt-slot {
+  position: relative;
+  display: flex;
+  align-items: baseline;
+  gap: 0.55rem;
+  padding-left: 36px;
+  min-height: 1.7em;
+  color: var(--grafito-claro);
+}
+.lt-nodo {
+  position: absolute;
+  left: 1px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 2px solid var(--grafito-claro);
+  background: var(--papel);
+  font-family: var(--f-maquina);
+  font-size: 0.7rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.lt-anio { min-width: 3.6em; font-size: 1.1rem; }
+.lt-txt { font-size: 0.9rem; line-height: 1.3; }
+.lt-slot.lleno { color: var(--tinta-azul); }
+.lt-slot.lleno .lt-nodo { border-color: var(--tinta-azul); color: var(--tinta-azul); }
+.lt-slot.fallado { color: var(--sello); }
+.lt-slot.fallado .lt-nodo { border-color: var(--sello); color: var(--sello); }
+
+.tecla {
+  position: absolute;
+  top: -8px;
+  left: -8px;
+  width: 17px;
+  height: 17px;
+  border-radius: 50%;
+  border: 1.5px solid var(--grafito-claro);
+  background: var(--papel);
+  color: var(--grafito);
+  font-family: var(--f-maquina);
+  font-size: 0.6rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+.chip, .sello-vf, .orden-item { position: relative; }
+
+.lt-pendientes { display: grid; gap: 0.5rem; }
 .orden-item {
   display: flex;
   gap: 0.7rem;
@@ -359,13 +419,9 @@ html, body {
   transition: background 0.12s, border-color 0.12s;
 }
 .orden-item:hover:not(:disabled):not(.hecho), .orden-item:focus-visible { background: rgba(61, 56, 48, 0.08); border-color: var(--grafito); outline: none; }
-.orden-num { font-family: var(--f-maquina); color: var(--sello); min-width: 1.6em; }
 .orden-txt { flex: 1; }
-.orden-anio { color: var(--tinta-azul); font-size: 1.15rem; }
 .orden-item.hecho { cursor: default; border-color: var(--tinta-azul); color: var(--tinta-azul); }
-.orden-item.hecho .orden-num { color: var(--tinta-azul); }
 .orden-item.hecho.fallado { border-color: var(--sello); color: var(--sello); }
-.orden-item.hecho.fallado .orden-num, .orden-item.hecho.fallado .orden-anio { color: var(--sello); }
 .orden-item:disabled:not(.hecho) { cursor: default; opacity: 0.5; }
 
 .unir-grilla { display: grid; grid-template-columns: 2fr 3fr; gap: 0.8rem; align-items: start; }
