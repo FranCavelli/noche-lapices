@@ -592,7 +592,8 @@ function resolverMision(porTiempo) {
       };
       voz.addEventListener("ended", unaVez, { once: true });
       voz.addEventListener("error", unaVez, { once: true });
-      setTimeout(unaVez, 2e4);
+      const restante = isFinite(voz.duration) && voz.duration > 0 ? voz.duration - voz.currentTime : 0;
+      setTimeout(unaVez, restante > 0 ? restante * 1e3 + 2e3 : 3e4);
     } else {
       seguir();
     }
