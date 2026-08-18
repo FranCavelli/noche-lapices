@@ -20,7 +20,7 @@ const FRAMES_APERTURA = [1, 2, 3, 4, 5, 7, 8];
 const RANKING_KEY = "nlp_ranking_v1";
 const CONSIGNAS = {
   tachado: "Tocá la palabra que restaura cada tachadura.",
-  veredicto: "Sellá el documento: ¿cierto o falso?",
+  veredicto: "Sellá el documento: ¿verdadero o falso?",
   orden: "Tocá los hechos en orden, del primero al último.",
   unir: "Uní cada nombre con su dato: tocá uno de cada columna."
 };
@@ -268,7 +268,7 @@ function construirVeredicto(m, cuerpo) {
   fila.className = "sellos-vf";
   const botones = [];
   [
-    ["CIERTO", true],
+    ["VERDADERO", true],
     ["FALSO", false]
   ].forEach(([txt, val]) => {
     const b = document.createElement("button");
