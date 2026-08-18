@@ -5,7 +5,15 @@ const ruta = (p) => BASE + p;
 // cada visita sortea 7 misiones del pool, con mezcla de tipos garantizada
 const MISIONES_POR_PARTIDA = 7;
 const CUPOS = { tachado: 2, veredicto: 2, orden: 1, unir: 1 };
-const TIEMPOS = { tachado: 30, veredicto: 15, orden: 35, unir: 35 };
+const TIEMPOS = { tachado: 30, veredicto: 15, orden: 40, unir: 35 };
+const CARAS = [
+  ["claudia-falcone.jpg", "Claudia Falcone"],
+  ["maria-clara-ciocchini.jpg", "María Clara Ciocchini"],
+  ["horacio-ungaro.jpg", "Horacio Ungaro"],
+  ["daniel-racero.jpg", "Daniel Racero"],
+  ["francisco-lopez-muntaner.jpg", "Francisco López Muntaner"],
+  ["claudio-de-acha.jpg", "Claudio de Acha"]
+];
 const BASE_MISION = 120;
 const BONUS_MISION = 60;
 const FRAMES_APERTURA = [1, 2, 3, 4, 5, 7, 8];
@@ -478,6 +486,54 @@ function mostrarGaleria(slug) {
     estado.galeriaTimer = setInterval(poner, 3400);
   }, 1e3);
 }
+function mostrarCaras() {
+  const galeria = $("galeria");
+  const cargas = CARAS.map(([archivo, nombre]) => new Promise((res) => {
+    const img = new Image();
+    img.src = ruta(`/media/caras/${archivo}`);
+    img.onload = () => res({ img, nombre });
+    img.onerror = () => res(null);
+  }));
+  Promise.all(cargas).then((resultados) => {
+    if (!estado.resuelta) return;
+    const caras = resultados.filter(Boolean);
+    if (!caras.length) return;
+    const porFila = matchMedia("(max-width: 640px)").matches ? 2 : 3;
+    const filas = Math.ceil(caras.length / porFila);
+    let i = 0;
+    const poner = () => {
+      if (i >= caras.length) {
+        clearInterval(estado.galeriaTimer);
+        estado.galeriaTimer = null;
+        return;
+      }
+      const { img, nombre } = caras[i];
+      const fila = Math.floor(i / porFila);
+      const paso = i % porFila - (porFila - 1) / 2;
+      const marco = document.createElement("figure");
+      marco.className = "foto-caida cara";
+      marco.style.zIndex = String(20 - i);
+      const vista = document.createElement("div");
+      vista.className = "foto-vista";
+      vista.append(img);
+      const cartel = document.createElement("figcaption");
+      cartel.className = "cara-nombre";
+      cartel.textContent = nombre;
+      marco.append(vista, cartel);
+      galeria.append(marco);
+      const alto = marco.offsetHeight + 16;
+      const yFinal = fila * alto - (filas - 1) * alto / 2;
+      gsap.fromTo(
+        marco,
+        { xPercent: -50, yPercent: -50, x: 0, y: yFinal + 30, opacity: 0, scale: 0.9, rotate: 0 },
+        { xPercent: -50, yPercent: -50, x: `${paso * 112}%`, y: yFinal, opacity: 1, scale: 1, rotate: paso * 3, duration: 0.6, ease: "power2.out" }
+      );
+      i++;
+    };
+    poner();
+    estado.galeriaTimer = setInterval(poner, 1e3);
+  });
+}
 function resolverMision(porTiempo) {
   if (estado.resuelta) return;
   estado.resuelta = true;
@@ -512,7 +568,8 @@ function resolverMision(porTiempo) {
   $("anota-puntos").textContent = ganados > 0 ? `+${ganados} pts ✎` : "quedó asentado en el expediente";
   $("mis-dato").textContent = m.dato;
   estado.audioDato = reproducirVoz(slugMision(m.titulo));
-  if (ganados > 0) mostrarGaleria(slugMision(m.titulo));
+  if (m.caras) mostrarCaras();
+  else if (ganados > 0) mostrarGaleria(slugMision(m.titulo));
   gsap.fromTo(sello, { opacity: 0, scale: 2.2 }, { opacity: 0.9, scale: 1, duration: 0.28, ease: "power4.in" });
   gsap.to($("anota-puntos"), { opacity: 1, duration: 0.4, delay: 0.35 });
   gsap.to($("mis-dato"), { opacity: 1, duration: 0.5, delay: 0.6 });

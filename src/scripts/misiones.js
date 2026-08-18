@@ -26,6 +26,7 @@ const MISIONES = [
     texto: "Esa noche y en los días cercanos secuestraron a [[0]] estudiantes de entre 16 y 18 años. [[1]] de ellos siguen desaparecidos.",
     blancos: ["diez", "Seis"],
     senuelos: ["veinte", "Dos"],
+    caras: true,
     dato: "Claudia, María Clara, Horacio, Daniel, Francisco y Claudio siguen desaparecidos.",
     voz: "Esa noche y en los días cercanos secuestraron a diez estudiantes de entre dieciséis y dieciocho años. Cuatro sobrevivieron. Claudia, María Clara, Horacio, Daniel, Francisco y Claudio siguen desaparecidos. Tenían la edad de cualquier estudiante de secundaria de hoy."
   },
@@ -83,6 +84,7 @@ const MISIONES = [
     img: "/fichas/lapices.jpg",
     afirmacion: "Todos los estudiantes secuestrados aparecieron con vida.",
     esCierto: false,
+    caras: true,
     dato: "Sobrevivieron cuatro; seis siguen desaparecidos.",
     voz: "Falso. De los estudiantes secuestrados sobrevivieron cuatro, que años después pudieron contar lo que pasó. Los otros seis siguen desaparecidos hasta el día de hoy."
   },
@@ -129,11 +131,12 @@ const MISIONES = [
     eventos: [
       { txt: "Los estudiantes consiguen el boleto estudiantil", anio: "1975" },
       { txt: "Golpe de Estado cívico-militar", anio: "mar 1976" },
+      { txt: "La dictadura suspende el boleto que habían ganado", anio: "ago 1976" },
       { txt: "La Noche de los Lápices", anio: "sep 1976" },
       { txt: "Vuelve la democracia", anio: "1983" }
     ],
-    dato: "Entre el reclamo del boleto y el regreso de la democracia pasaron ocho años.",
-    voz: "Primero, en 1975, los estudiantes marcharon y consiguieron el boleto. En marzo de 1976 llegó el golpe de Estado, y en septiembre, la Noche de los Lápices. Recién en 1983 volvió la democracia. Entre el reclamo del boleto y el regreso de la democracia pasaron ocho años muy oscuros."
+    dato: "La dictadura les quitó el boleto que habían ganado en la calle; muchos de los secuestrados eran los pibes que volvieron a reclamarlo.",
+    voz: "Primero, en 1975, los estudiantes marcharon y consiguieron el boleto estudiantil. En marzo de 1976 llegó el golpe de Estado, y la dictadura suspendió ese derecho que los pibes habían ganado en la calle. Por eso volvieron a reclamarlo. En septiembre llegó la Noche de los Lápices: se llevaron a muchos de los que habían marchado. Recién en 1983 volvió la democracia."
   },
   {
     tipo: "orden",
