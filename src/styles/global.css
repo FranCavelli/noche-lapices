@@ -214,6 +214,7 @@ html, body {
   width: min(680px, 94vw);
   max-height: calc(100vh - 5rem);
   overflow-y: auto;
+  overflow-x: hidden;
   background:
     linear-gradient(160deg, rgba(255, 255, 255, 0.25), transparent 35%),
     var(--papel);
