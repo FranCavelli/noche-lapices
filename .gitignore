@@ -1,0 +1,10 @@
+node_modules/
+dist/
+.astro/
+.vscode/
+.impeccable/
+assets-src/
+scripts/
+CLAUDE.md
+AGENTS.md
+*.log

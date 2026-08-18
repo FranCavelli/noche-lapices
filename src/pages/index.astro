@@ -1,0 +1,119 @@
+---
+import "../styles/global.css";
+
+const ruta = (p) => import.meta.env.BASE_URL.replace(/\/$/, "") + p;
+---
+
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>La Noche de los Lápices — Expediente</title>
+    <link rel="icon" href={ruta("/favicon.svg")} type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Special+Elite&family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=Caveat:wght@500;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <section id="portada" class="pantalla activa">
+      <img class="fondo-full" src={ruta("/expediente/frame-01.jpg")} alt="" />
+      <div class="vineta"></div>
+
+      <header class="portada-titulo">
+        <p class="eyebrow">República Argentina · La Plata · 16.09.1976</p>
+        <h1>La Noche<br />de los Lápices</h1>
+        <p class="portada-sub">Restaurá lo que quisieron borrar</p>
+        <p class="portada-anios">1976 — 2026 · a cincuenta años</p>
+      </header>
+
+      <form id="ficha-ingreso" class="tarjeta-ingreso" autocomplete="off">
+        <p class="tarjeta-label">Registro de visita N.º <span id="nro-visita">—</span></p>
+        <label for="nombre">Nombre del visitante:</label>
+        <input id="nombre" name="nombre" type="text" maxlength="24" required placeholder="escribí tu nombre" />
+        <label for="telefono">Teléfono de contacto:</label>
+        <input
+          id="telefono"
+          name="telefono"
+          type="tel"
+          inputmode="tel"
+          minlength="6"
+          maxlength="20"
+          required
+          placeholder="por si ganás, te avisamos"
+        />
+        <button type="submit" class="boton-sello">Abrir expediente</button>
+        <p class="tarjeta-pie">7 misiones al azar · cada expediente sale distinto · tu puntaje queda en el registro</p>
+      </form>
+
+      <aside id="podio" class="podio oculta">
+        <p class="podio-titulo">Mejores registros</p>
+        <ol id="podio-lista" class="podio-lista"></ol>
+      </aside>
+    </section>
+
+    <section id="apertura" class="pantalla">
+      <img id="apertura-img" class="fondo-full" src={ruta("/expediente/frame-01.jpg")} alt="Una mano abre el expediente" />
+    </section>
+
+    <section id="juego" class="pantalla">
+      <img class="fondo-full fondo-abierta" src={ruta("/expediente/frame-08.jpg")} alt="" />
+      <div class="vineta"></div>
+
+      <header class="barra-juego">
+        <span class="barra-exp">EXPEDIENTE 16.09.1976</span>
+        <span class="barra-jugador"><span id="hud-nombre"></span> · <b id="hud-puntos" class="lapiz">0 pts</b></span>
+      </header>
+
+      <div class="hoja-wrap">
+        <article id="hoja" class="hoja">
+          <div class="hoja-clip"></div>
+
+          <div id="vista-mision" class="vista">
+            <p class="ficha-num">Misión <span id="mis-num">1</span> de <span id="mis-total">7</span> — <span id="mis-titulo"></span></p>
+            <p id="mis-consigna" class="consigna"></p>
+            <div id="mis-cuerpo"></div>
+            <div class="timer"><div id="timer-barra" class="timer-barra"></div></div>
+            <div id="sello-feedback" class="sello-feedback" aria-live="polite"></div>
+            <p id="mis-dato" class="mision-dato" aria-live="polite"></p>
+            <p id="anota-puntos" class="anota-puntos lapiz"></p>
+          </div>
+        </article>
+
+        <div id="galeria" class="galeria-fotos" aria-hidden="true"></div>
+      </div>
+    </section>
+
+    <section id="final" class="pantalla">
+      <img class="fondo-full fondo-abierta" src={ruta("/expediente/frame-08.jpg")} alt="" />
+      <div class="vineta"></div>
+
+      <div class="hoja-wrap">
+        <article class="hoja hoja-final">
+          <div class="hoja-clip"></div>
+          <p class="ficha-num">Informe final — a 50 años · 1976-2026</p>
+          <p class="final-frase">
+            Claudia Falcone · María Clara Ciocchini · Horacio Ungaro ·
+            Daniel Racero · Francisco López Muntaner · Claudio de Acha
+          </p>
+          <p class="final-leyenda">A cincuenta años, los lápices siguen escribiendo.</p>
+
+          <p class="final-puntaje lapiz"><span id="final-nombre"></span>: <b id="final-puntos"></b></p>
+          <p id="final-detalle" class="final-detalle"></p>
+
+          <h3 class="ranking-titulo">Registro de visitantes</h3>
+          <ol id="ranking" class="ranking"></ol>
+
+          <button id="btn-reiniciar" class="boton-sello">Cerrar expediente</button>
+          <button id="btn-exportar" class="boton-fantasma" type="button">exportar registros</button>
+        </article>
+      </div>
+    </section>
+
+    <script>
+      import "../scripts/game.js";
+    </script>
+  </body>
+</html>

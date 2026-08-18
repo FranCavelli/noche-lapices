@@ -1,0 +1,87 @@
+{
+  "la-noche": [
+    "/media/documentos/01.jpg",
+    "/media/documentos/02.jpg",
+    "/media/documentos/03.jpg",
+    "/media/documentos/04.jpg"
+  ],
+  "el-boleto": [
+    "/fichas/colectivo.jpg"
+  ],
+  "los-estudiantes": [
+    "/media/documentos/01.jpg",
+    "/media/documentos/02.jpg",
+    "/media/documentos/03.jpg",
+    "/media/documentos/04.jpg"
+  ],
+  "los-centros-clandestinos": [
+    "/media/photos/candado-celda.jpg",
+    "/media/photos/celda-nunca-mas.jpg",
+    "/media/photos/mirilla-nunca.jpg",
+    "/media/photos/pasillo-celdas.jpg",
+    "/media/photos/retratos-mujeres.jpg",
+    "/media/photos/teresa-laborde.jpg"
+  ],
+  "la-memoria": [
+    "/fichas/marcha.jpg"
+  ],
+  "la-frase": [
+    "/fichas/mano.jpg"
+  ],
+  "la-edad": [
+    "/media/documentos/01.jpg",
+    "/media/documentos/02.jpg",
+    "/media/documentos/03.jpg",
+    "/media/documentos/04.jpg"
+  ],
+  "el-gobierno": [
+    "/media/junta/01.jpg",
+    "/media/junta/02.png",
+    "/media/junta/03.png"
+  ],
+  "el-regreso": [
+    "/media/documentos/01.jpg",
+    "/media/documentos/02.jpg",
+    "/media/documentos/03.jpg",
+    "/media/documentos/04.jpg"
+  ],
+  "el-testigo": [
+    "/media/juicio/01.jpg"
+  ],
+  "la-pelicula": [
+    "/fichas/cine.jpg"
+  ],
+  "el-boleto-hoy": [
+    "/fichas/colectivo.jpg"
+  ],
+  "la-testigo": [
+    "/media/photos/candado-celda.jpg",
+    "/media/photos/celda-nunca-mas.jpg",
+    "/media/photos/mirilla-nunca.jpg",
+    "/media/photos/pasillo-celdas.jpg",
+    "/media/photos/retratos-mujeres.jpg",
+    "/media/photos/teresa-laborde.jpg"
+  ],
+  "los-hechos": [
+    "/media/junta/01.jpg",
+    "/media/junta/02.png",
+    "/media/junta/03.png"
+  ],
+  "la-memoria-se-construye": [
+    "/media/juicio/01.jpg"
+  ],
+  "los-nombres-i": [
+    "/media/sobrevivientes/01.jpg"
+  ],
+  "los-nombres-ii": [
+    "/media/sobrevivientes/01.jpg"
+  ],
+  "los-nombres-iii": [
+    "/media/photos/candado-celda.jpg",
+    "/media/photos/celda-nunca-mas.jpg",
+    "/media/photos/mirilla-nunca.jpg",
+    "/media/photos/pasillo-celdas.jpg",
+    "/media/photos/retratos-mujeres.jpg",
+    "/media/photos/teresa-laborde.jpg"
+  ]
+}
