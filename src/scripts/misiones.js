@@ -405,6 +405,27 @@ const MISIONES = [
     ],
     dato: "Los tres existieron; hoy se pueden conocer como sitios de memoria.",
     voz: "Arana, el Pozo de Quilmes y el Pozo de Banfield: por esos centros clandestinos pasaron los estudiantes. Hoy varios funcionan como sitios de memoria: se pueden recorrer, conocer y no olvidar."
+  },
+  {
+    tipo: "unir",
+    titulo: "Las canciones",
+    img: "/fichas/marcha.jpg",
+    pares: [
+      ["Los dinosaurios", "De Charly García: sobre el miedo a que los amigos desaparezcan"],
+      ["La memoria", "De León Gieco: sobre lo que no se puede olvidar"],
+      ["Marcha de la bronca", "De Pedro y Pablo: protesta que la censura prohibió"]
+    ],
+    dato: "Cuando no se podía hablar, la música guardó la memoria.",
+    voz: "Cuando no se podía hablar, la música guardó la memoria. Charly García cantó el miedo a que los amigos desaparecieran en Los dinosaurios. León Gieco le puso voz al recuerdo en La memoria. Y la Marcha de la bronca, de Pedro y Pablo, estuvo prohibida por la censura."
+  },
+  {
+    tipo: "veredicto",
+    titulo: "La música prohibida",
+    img: "/fichas/cine.jpg",
+    afirmacion: "Durante la dictadura, las radios tenían listas de canciones que no podían pasar.",
+    esCierto: true,
+    dato: "Hubo listas negras de temas y de artistas; muchos músicos se fueron al exilio.",
+    voz: "Es cierto. Existían listas de canciones prohibidas que las radios no podían pasar, y listas negras de artistas. Muchos músicos tuvieron que irse del país. Cantar también era una forma de resistir y de recordar."
   }
 ];
 const slugMision = (titulo) => titulo.toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");

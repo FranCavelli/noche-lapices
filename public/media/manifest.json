@@ -176,5 +176,11 @@
     "/media/photos/pasillo-celdas.jpg",
     "/media/photos/retratos-mujeres.jpg",
     "/media/photos/teresa-laborde.jpg"
+  ],
+  "las-canciones": [
+    "/fichas/marcha.jpg"
+  ],
+  "la-musica-prohibida": [
+    "/fichas/cine.jpg"
   ]
 }

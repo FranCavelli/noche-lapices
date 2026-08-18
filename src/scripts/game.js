@@ -752,21 +752,39 @@ function terminarJuego() {
 function escapeHtml(s) {
   return s.replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]);
 }
+async function animarCierre() {
+  const img = $("apertura-img");
+  gsap.set(img, { clearProps: "all" });
+  mostrar("apertura");
+  const alReves = [...FRAMES_APERTURA].reverse();
+  for (let i = 0; i < alReves.length; i++) {
+    img.src = rutaFrame(alReves[i]);
+    try {
+      await Promise.race([img.decode(), new Promise((r) => setTimeout(r, 450))]);
+    } catch {
+    }
+    await new Promise((r) => setTimeout(r, 320));
+  }
+  mostrar("portada");
+  $("nombre").focus();
+}
 $("btn-reiniciar").addEventListener("click", () => {
+  if (pantallas.apertura.classList.contains("activa")) return;
   estado.audioDato?.pause();
   estado.audioDato = null;
   $("nombre").value = "";
   $("telefono").value = "";
   $("nro-visita").textContent = String(leerRanking().length + 1).padStart(3, "0");
   pintarPodio();
-  mostrar("portada");
-  $("nombre").focus();
+  animarCierre();
 });
-$("btn-exportar").addEventListener("click", () => {
+function exportarRegistros() {
   const blob = new Blob([JSON.stringify(leerRanking(), null, 2)], { type: "application/json" });
   const a = document.createElement("a");
   a.href = URL.createObjectURL(blob);
   a.download = "registro-noche-de-los-lapices.json";
   a.click();
   URL.revokeObjectURL(a.href);
-});
+}
+$("btn-exportar").addEventListener("click", exportarRegistros);
+$("btn-exportar-portada").addEventListener("click", exportarRegistros);
