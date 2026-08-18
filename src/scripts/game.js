@@ -4,7 +4,7 @@ const BASE = import.meta.env.BASE_URL.replace(/\/+$/, "");
 const ruta = (p) => BASE + p;
 // cada visita sortea 7 misiones del pool, con mezcla de tipos garantizada
 const MISIONES_POR_PARTIDA = 7;
-const CUPOS = { tachado: 2, veredicto: 2, orden: 1, unir: 1 };
+const CUPOS = { tachado: 2, veredicto: 2, orden: 1, unir: 1, escena: 1 };
 const TIEMPOS = { tachado: 30, veredicto: 15, orden: 40, unir: 35 };
 const CARAS = [
   ["claudia-falcone.jpg", "Claudia Falcone"],
@@ -21,6 +21,7 @@ const RANKING_KEY = "nlp_ranking_v1";
 const CONSIGNAS = {
   tachado: "Tocá la palabra que restaura cada tachadura.",
   veredicto: "Sellá el documento: ¿verdadero o falso?",
+  escena: "Mirá la escena y respondé.",
   orden: "Tocá los hechos en orden, del primero al último.",
   unir: "Uní cada nombre con su dato: tocá uno de cada columna."
 };
@@ -41,10 +42,26 @@ const estado = {
   medios: null,
   galeriaTimer: null,
   galeriaGen: 0,
-  carasTimeouts: []
+  carasTimeouts: [],
+  audioClip: null
 };
 fetch(ruta("/media/manifest.json")).then((r) => r.ok ? r.json() : null).then((j) => estado.medios = j).catch(() => {
 });
+function pararClip() {
+  if (!estado.audioClip) return;
+  estado.audioClip.pause();
+  estado.audioClip.botonRef?.classList.remove("sonando");
+  estado.audioClip = null;
+}
+function reproducirClip(src, boton) {
+  pararClip();
+  const a = new Audio(ruta(src));
+  a.botonRef = boton;
+  boton.classList.add("sonando");
+  a.addEventListener("ended", () => boton.classList.remove("sonando"));
+  a.play().catch(() => {});
+  estado.audioClip = a;
+}
 function reproducirVoz(slug) {
   const a = new Audio(ruta(`/audio/datos/${slug}.mp3`));
   a.play().catch(() => {
@@ -69,7 +86,7 @@ function elegirMisiones() {
   const porTipo = {};
   MISIONES.forEach((m) => (porTipo[m.tipo] ||= []).push(m));
   const elegidas = [];
-  for (const [tipo, n] of Object.entries(CUPOS)) elegidas.push(...barajar(porTipo[tipo]).slice(0, n));
+  for (const [tipo, n] of Object.entries(CUPOS)) elegidas.push(...barajar(porTipo[tipo] || []).slice(0, n));
   const resto = MISIONES.filter((m) => !elegidas.includes(m));
   elegidas.push(...barajar(resto).slice(0, MISIONES_POR_PARTIDA - elegidas.length));
   return barajar(elegidas);
@@ -152,13 +169,14 @@ function empezarJuego() {
   });
   cargarMision(0);
 }
-const subTotalDe = (m) => ({ tachado: () => m.blancos.length, orden: () => m.eventos.length, unir: () => m.pares.length, veredicto: () => 1 })[m.tipo]();
+const subTotalDe = (m) => ({ tachado: () => m.blancos.length, orden: () => m.eventos.length, unir: () => m.pares.length, veredicto: () => 1, escena: () => 1 })[m.tipo]();
 function cargarMision(i) {
   estado.idx = i;
   estado.resuelta = false;
   estado.revelar = null;
   estado.audioDato?.pause();
   estado.audioDato = null;
+  pararClip();
   clearInterval(estado.galeriaTimer);
   estado.galeriaTimer = null;
   estado.galeriaGen++;
@@ -169,7 +187,7 @@ function cargarMision(i) {
   estado.sub = { total: subTotalDe(m), hechos: 0, puntos: 0, errores: 0 };
   $("mis-num").textContent = i + 1;
   $("mis-titulo").textContent = m.titulo;
-  $("mis-consigna").textContent = CONSIGNAS[m.tipo];
+  $("mis-consigna").textContent = m.consigna || CONSIGNAS[m.tipo];
   const cuerpo = $("mis-cuerpo");
   cuerpo.innerHTML = "";
   CONSTRUCTORES[m.tipo](m, cuerpo);
@@ -200,7 +218,7 @@ function cargarMision(i) {
     { y: 60, opacity: 0, rotate: i % 2 ? -2.4 : 2.8 },
     { y: 0, opacity: 1, rotate: i % 2 ? -0.4 : 0.4, duration: 0.55, ease: "power3.out" }
   );
-  arrancarTimer(TIEMPOS[m.tipo]);
+  arrancarTimer(m.tiempo || TIEMPOS[m.tipo]);
 }
 document.addEventListener("keydown", (e) => {
   if (!pantallas.juego.classList.contains("activa") || estado.resuelta) return;
@@ -412,13 +430,15 @@ function construirUnir(m, cuerpo) {
     const b = document.createElement("button");
     b.type = "button";
     b.className = "unir-item unir-nombre";
-    b.textContent = nombre;
+    b.textContent = m.sonidos ? `♪ ${nombre}` : nombre;
+    if (m.sonidos) b.classList.add("unir-sonido");
     b.dataset.idx = idx;
     b.addEventListener("click", () => {
       if (estado.resuelta || b.classList.contains("hecho")) return;
       izquierdos.forEach((o) => o.classList.remove("sel"));
       b.classList.add("sel");
       seleccion = b;
+      if (m.sonidos) reproducirClip(m.sonidos[idx], b);
     });
     izquierdos.push(b);
     colIzq.append(b);
@@ -469,7 +489,52 @@ function construirUnir(m, cuerpo) {
     });
   };
 }
-const CONSTRUCTORES = { tachado: construirTachado, veredicto: construirVeredicto, orden: construirOrden, unir: construirUnir };
+function construirEscena(m, cuerpo) {
+  const marco = document.createElement("div");
+  marco.className = "escena-video";
+  const iframe = document.createElement("iframe");
+  iframe.src = `https://www.youtube-nocookie.com/embed/${m.video}`;
+  iframe.allow = "accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture";
+  iframe.allowFullscreen = true;
+  iframe.title = m.titulo;
+  marco.append(iframe);
+  cuerpo.append(marco);
+  const p = document.createElement("p");
+  p.className = "afirmacion escena-pregunta";
+  p.textContent = m.pregunta;
+  cuerpo.append(p);
+  const lista = document.createElement("div");
+  lista.className = "lt-pendientes";
+  const botones = [];
+  barajar(m.opciones.map((txt, idx) => ({ txt, idx }))).forEach(({ txt, idx }) => {
+    const b = document.createElement("button");
+    b.type = "button";
+    b.className = "orden-item";
+    if (idx === m.correcta) b.dataset.correcta = "1";
+    const s = document.createElement("span");
+    s.className = "orden-txt";
+    s.textContent = txt;
+    b.append(s);
+    b.addEventListener("click", () => {
+      if (estado.resuelta) return;
+      botones.forEach((o) => (o.disabled = true));
+      if (idx === m.correcta) {
+        b.classList.add("hecho");
+        anotarSub(BASE_MISION);
+      } else {
+        b.classList.add("hecho", "fallado");
+        botones.find((o) => o.dataset.correcta === "1")?.classList.add("hecho");
+        estado.sub.errores++;
+        resolverMision(false);
+      }
+    });
+    botones.push(b);
+    lista.append(b);
+  });
+  cuerpo.append(lista);
+  estado.revelar = () => botones.find((o) => o.dataset.correcta === "1")?.classList.add("hecho");
+}
+const CONSTRUCTORES = { tachado: construirTachado, veredicto: construirVeredicto, orden: construirOrden, unir: construirUnir, escena: construirEscena };
 function mostrarGaleria(slug) {
   const lista = estado.medios?.[slug];
   if (!lista?.length) return;
@@ -616,7 +681,10 @@ function resolverMision(porTiempo) {
   if (estado.resuelta) return;
   estado.resuelta = true;
   const m = estado.misiones[estado.idx];
-  const restante = Math.max(0, TIEMPOS[m.tipo] - (Date.now() - estado.t0) / 1e3);
+  const total = m.tiempo || TIEMPOS[m.tipo];
+  const restante = Math.max(0, total - (Date.now() - estado.t0) / 1e3);
+  pararClip();
+  $("mis-cuerpo").querySelector("iframe")?.remove();
   estado.timer?.kill();
   estado.timer = null;
   clearTimeout(estado.timeoutId);
@@ -624,7 +692,7 @@ function resolverMision(porTiempo) {
   $("mis-cuerpo").querySelectorAll("button").forEach((b) => b.disabled = true);
   const completo = estado.sub.hechos === estado.sub.total;
   const impecable = completo && estado.sub.errores === 0 && !porTiempo;
-  const bonus = impecable ? Math.round(restante / TIEMPOS[m.tipo] * BONUS_MISION) : 0;
+  const bonus = impecable ? Math.round(restante / total * BONUS_MISION) : 0;
   const ganados = estado.sub.puntos + bonus;
   estado.puntos += ganados;
   if (impecable) estado.perfectas++;

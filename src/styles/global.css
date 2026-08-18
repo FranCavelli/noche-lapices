@@ -403,6 +403,16 @@ html, body {
 .chip, .sello-vf, .orden-item { position: relative; }
 
 .lt-pendientes { display: grid; gap: 0.5rem; }
+
+.escena-video {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: #000;
+  margin-bottom: 0.9rem;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+}
+.escena-video iframe { width: 100%; height: 100%; border: 0; display: block; }
+.escena-pregunta { margin-bottom: 0.8rem; }
 .orden-item {
   display: flex;
   gap: 0.7rem;
@@ -444,6 +454,9 @@ html, body {
 .unir-nombre { font-family: var(--f-maquina); font-size: 0.85rem; }
 .unir-item:hover:not(:disabled):not(.hecho), .unir-item:focus-visible { background: rgba(61, 56, 48, 0.08); border-color: var(--grafito); outline: none; }
 .unir-item.sel { border: 2.5px solid var(--tinta-azul); color: var(--tinta-azul); }
+.unir-sonido { font-size: 1rem; }
+@keyframes latido { 50% { box-shadow: 0 0 0 5px rgba(43, 74, 122, 0.18); } }
+.unir-item.sonando { border-color: var(--tinta-azul); color: var(--tinta-azul); animation: latido 1.1s infinite; }
 .unir-item.hecho { cursor: default; border-color: var(--tinta-azul); color: var(--tinta-azul); opacity: 0.9; }
 .unir-item.hecho::after {
   content: "✎ " attr(data-vinculo);

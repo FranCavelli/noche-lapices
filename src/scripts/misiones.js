@@ -419,6 +419,33 @@ const MISIONES = [
     voz: "Cuando no se podía hablar, la música guardó la memoria. Charly García cantó el miedo a que los amigos desaparecieran en Los dinosaurios. León Gieco le puso voz al recuerdo en La memoria. Y la Marcha de la bronca, de Pedro y Pablo, estuvo prohibida por la censura."
   },
   {
+    tipo: "escena",
+    titulo: "La escena",
+    img: "/fichas/cine.jpg",
+    tiempo: 150,
+    video: "jdjg4q6gUrk",
+    pregunta: "En esta escena de la película, ¿cómo se dan fuerza los chicos en las celdas?",
+    opciones: ["Cantando juntos una canción", "Golpeando las puertas", "Rezando en silencio", "Gritando sus nombres"],
+    correcta: 0,
+    dato: "Cantan «Rasguña las piedras», de Sui Generis: cantar juntos era resistir.",
+    voz: "En una de las escenas más fuertes de la película, los chicos, cada uno en su celda, se dan fuerza cantando juntos Rasguña las piedras, de Sui Generis. En la oscuridad, cantar era seguir estando vivos, y seguir estando juntos."
+  },
+  {
+    tipo: "unir",
+    titulo: "Los sonidos",
+    img: "/fichas/marcha.jpg",
+    tiempo: 75,
+    consigna: "Tocá cada sonido para escucharlo y unilo con el momento de la historia que suena así.",
+    sonidos: ["/media/musica/boleto.mp3", "/media/musica/dictadura.mp3", "/media/musica/democracia.mp3"],
+    pares: [
+      ["Sonido 1", "La alegría del boleto ganado (1975)"],
+      ["Sonido 2", "Los años oscuros de la dictadura"],
+      ["Sonido 3", "La vuelta de la democracia (1983)"]
+    ],
+    dato: "Escuchá cada sonido y decidí qué momento de la historia suena así.",
+    voz: "La música también cuenta la historia. Un mismo país sonó distinto: la alegría de los pibes que ganaron su boleto, el miedo de los años oscuros, y la esperanza del regreso de la democracia."
+  },
+  {
     tipo: "veredicto",
     titulo: "La música prohibida",
     img: "/fichas/cine.jpg",
