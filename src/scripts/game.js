@@ -710,7 +710,7 @@ function terminarJuego() {
   estado.audioDato?.pause();
   estado.audioDato = reproducirVoz("final");
   const vozFinal = estado.audioDato;
-  const FR_FINAL = [0.01, 0.104, 0.245, 0.344, 0.436, 0.595];
+  const FR_FINAL = [0.01, 0.088, 0.206, 0.289, 0.366, 0.5];
   const revelarCara = (marco) => {
     if (!marco.isConnected) return;
     marco.style.display = "";

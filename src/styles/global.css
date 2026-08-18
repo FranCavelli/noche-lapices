@@ -635,6 +635,14 @@ html, body {
   letter-spacing: 0.06em;
   color: var(--grafito);
 }
+.final-desaparecidos {
+  font-family: var(--f-maquina);
+  font-size: 0.78rem;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--sello);
+  margin-top: 0.5rem;
+}
 .final-leyenda {
   font-family: var(--f-lapiz);
   font-size: 1.9rem;
