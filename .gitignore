@@ -3,8 +3,8 @@ dist/
 .astro/
 .vscode/
 .impeccable/
-assets-src/
-scripts/
+/assets-src/
+/scripts/
 CLAUDE.md
 AGENTS.md
 *.log

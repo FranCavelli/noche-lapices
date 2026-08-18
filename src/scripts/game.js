@@ -1,0 +1,583 @@
+import gsap from "gsap";
+import { MISIONES, slugMision } from "./misiones.js";
+const BASE = import.meta.env.BASE_URL.replace(/\/+$/, "");
+const ruta = (p) => BASE + p;
+// cada visita sortea 7 misiones del pool, con mezcla de tipos garantizada
+const MISIONES_POR_PARTIDA = 7;
+const CUPOS = { tachado: 2, veredicto: 2, orden: 1, unir: 1 };
+const TIEMPOS = { tachado: 30, veredicto: 15, orden: 35, unir: 35 };
+const BASE_MISION = 120;
+const BONUS_MISION = 60;
+const FRAMES_APERTURA = [1, 2, 3, 4, 5, 7, 8];
+const RANKING_KEY = "nlp_ranking_v1";
+const CONSIGNAS = {
+  tachado: "Tocá la palabra que restaura cada tachadura.",
+  veredicto: "Sellá el documento: ¿cierto o falso?",
+  orden: "Tocá los hechos en orden, del primero al último.",
+  unir: "Uní cada nombre con su dato: tocá uno de cada columna."
+};
+const estado = {
+  nombre: "",
+  telefono: "",
+  puntos: 0,
+  perfectas: 0,
+  misiones: [],
+  idx: 0,
+  sub: { total: 0, hechos: 0, puntos: 0, errores: 0 },
+  resuelta: false,
+  timer: null,
+  t0: 0,
+  timeoutId: null,
+  revelar: null,
+  audioDato: null,
+  medios: null,
+  galeriaTimer: null
+};
+fetch(ruta("/media/manifest.json")).then((r) => r.ok ? r.json() : null).then((j) => estado.medios = j).catch(() => {
+});
+function reproducirVoz(slug) {
+  const a = new Audio(ruta(`/audio/datos/${slug}.mp3`));
+  a.play().catch(() => {
+  });
+  return a;
+}
+const $ = (id) => document.getElementById(id);
+const pantallas = { portada: $("portada"), apertura: $("apertura"), juego: $("juego"), final: $("final") };
+function mostrar(nombre) {
+  Object.values(pantallas).forEach((p) => p.classList.remove("activa"));
+  pantallas[nombre].classList.add("activa");
+}
+function barajar(arr) {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+function elegirMisiones() {
+  const porTipo = {};
+  MISIONES.forEach((m) => (porTipo[m.tipo] ||= []).push(m));
+  const elegidas = [];
+  for (const [tipo, n] of Object.entries(CUPOS)) elegidas.push(...barajar(porTipo[tipo]).slice(0, n));
+  const resto = MISIONES.filter((m) => !elegidas.includes(m));
+  elegidas.push(...barajar(resto).slice(0, MISIONES_POR_PARTIDA - elegidas.length));
+  return barajar(elegidas);
+}
+function barajarDesalineado(items, posOriginalDe) {
+  let mezcla;
+  do {
+    mezcla = barajar(items);
+  } while (mezcla.some((it, pos) => posOriginalDe(it) === pos));
+  return mezcla;
+}
+function sacudir(el) {
+  el.classList.add("mal-intento");
+  setTimeout(() => el.classList.remove("mal-intento"), 380);
+}
+const leerRanking = () => {
+  try {
+    return JSON.parse(localStorage.getItem(RANKING_KEY)) || [];
+  } catch {
+    return [];
+  }
+};
+const guardarRanking = (lista) => localStorage.setItem(RANKING_KEY, JSON.stringify(lista));
+$("nro-visita").textContent = String(leerRanking().length + 1).padStart(3, "0");
+function pintarPodio() {
+  const top = [...leerRanking()].sort((a, b) => b.puntos - a.puntos).slice(0, 5);
+  $("podio").classList.toggle("oculta", top.length === 0);
+  const ol = $("podio-lista");
+  ol.innerHTML = "";
+  const medallas = ["oro", "plata", "bronce"];
+  top.forEach((r, i) => {
+    const li = document.createElement("li");
+    if (medallas[i]) li.classList.add(medallas[i]);
+    li.innerHTML = `<span class="pos">${i + 1}.</span><span class="nom">${escapeHtml(r.nombre)}</span><span class="pts">${r.puntos} pts</span>`;
+    ol.appendChild(li);
+  });
+}
+pintarPodio();
+const rutaFrame = (n) => ruta(`/expediente/frame-${String(n).padStart(2, "0")}.jpg`);
+const frames = FRAMES_APERTURA.map((n) => {
+  const img = new Image();
+  img.src = rutaFrame(n);
+  return img;
+});
+$("ficha-ingreso").addEventListener("submit", (e) => {
+  e.preventDefault();
+  if (pantallas.apertura.classList.contains("activa")) return;
+  const nombre = $("nombre").value.trim();
+  if (!nombre) return;
+  estado.nombre = nombre;
+  estado.telefono = $("telefono").value.trim();
+  estado.puntos = 0;
+  estado.perfectas = 0;
+  estado.misiones = elegirMisiones();
+  $("hud-nombre").textContent = nombre;
+  $("hud-puntos").textContent = "0 pts";
+  animarApertura();
+});
+async function animarApertura() {
+  const img = $("apertura-img");
+  mostrar("apertura");
+  for (let i = 0; i < FRAMES_APERTURA.length; i++) {
+    img.src = rutaFrame(FRAMES_APERTURA[i]);
+    try {
+      await Promise.race([img.decode(), new Promise((r) => setTimeout(r, 450))]);
+    } catch {
+    }
+    await new Promise((r) => setTimeout(r, i === 0 ? 250 : 400));
+  }
+  gsap.to(img, { scale: 1.18, duration: 1, ease: "power2.inOut" });
+  setTimeout(empezarJuego, 1100);
+}
+function empezarJuego() {
+  mostrar("juego");
+  gsap.set($("apertura-img"), { clearProps: "all" });
+  $("mis-total").textContent = estado.misiones.length;
+  estado.misiones.forEach((m) => {
+    const a = new Audio(ruta(`/audio/datos/${slugMision(m.titulo)}.mp3`));
+    a.preload = "auto";
+  });
+  cargarMision(0);
+}
+const subTotalDe = (m) => ({ tachado: () => m.blancos.length, orden: () => m.eventos.length, unir: () => m.pares.length, veredicto: () => 1 })[m.tipo]();
+function cargarMision(i) {
+  estado.idx = i;
+  estado.resuelta = false;
+  estado.revelar = null;
+  estado.audioDato?.pause();
+  estado.audioDato = null;
+  clearInterval(estado.galeriaTimer);
+  estado.galeriaTimer = null;
+  $("galeria").innerHTML = "";
+  const m = estado.misiones[i];
+  estado.sub = { total: subTotalDe(m), hechos: 0, puntos: 0, errores: 0 };
+  $("mis-num").textContent = i + 1;
+  $("mis-titulo").textContent = m.titulo;
+  $("mis-consigna").textContent = CONSIGNAS[m.tipo];
+  const cuerpo = $("mis-cuerpo");
+  cuerpo.innerHTML = "";
+  CONSTRUCTORES[m.tipo](m, cuerpo);
+  const sello = $("sello-feedback");
+  sello.className = "sello-feedback";
+  sello.textContent = "";
+  gsap.set(sello, { opacity: 0 });
+  $("mis-dato").textContent = "";
+  gsap.set($("mis-dato"), { opacity: 0 });
+  $("anota-puntos").textContent = "";
+  gsap.set($("anota-puntos"), { opacity: 0 });
+  gsap.set($("timer-barra"), { scaleX: 1 });
+  gsap.fromTo(
+    $("hoja"),
+    { y: 60, opacity: 0, rotate: i % 2 ? -2.4 : 2.8 },
+    { y: 0, opacity: 1, rotate: i % 2 ? -0.4 : 0.4, duration: 0.55, ease: "power3.out" }
+  );
+  arrancarTimer(TIEMPOS[m.tipo]);
+}
+function arrancarTimer(segundos) {
+  estado.t0 = Date.now();
+  estado.timer = gsap.to($("timer-barra"), { scaleX: 0, duration: segundos, ease: "none" });
+  estado.timeoutId = setTimeout(() => resolverMision(true), segundos * 1e3);
+}
+function anotarSub(valor) {
+  estado.sub.hechos++;
+  estado.sub.puntos += valor;
+  if (estado.sub.hechos === estado.sub.total) resolverMision(false);
+}
+function construirTachado(m, cuerpo) {
+  const valor = Math.round(BASE_MISION / m.blancos.length);
+  let actual = 0;
+  let errorActual = false;
+  if (m.img) {
+    const fig = document.createElement("figure");
+    fig.className = "ficha-figura chica";
+    const img = document.createElement("img");
+    img.src = ruta(m.img);
+    img.alt = m.titulo;
+    fig.append(img);
+    cuerpo.append(fig);
+  }
+  const doc = document.createElement("p");
+  doc.className = "doc-texto";
+  const tachones = [];
+  m.texto.split(/\[\[(\d+)\]\]/).forEach((parte, i) => {
+    if (i % 2 === 0) {
+      doc.append(parte);
+      return;
+    }
+    const idx = Number(parte);
+    const s = document.createElement("span");
+    s.className = "tachon";
+    s.textContent = m.blancos[idx];
+    tachones[idx] = s;
+    doc.append(s);
+  });
+  cuerpo.append(doc);
+  tachones[0].classList.add("actual");
+  const chips = document.createElement("div");
+  chips.className = "chips";
+  barajar([...m.blancos, ...m.senuelos]).forEach((palabra) => {
+    const b = document.createElement("button");
+    b.type = "button";
+    b.className = "chip";
+    b.textContent = palabra;
+    b.addEventListener("click", () => {
+      if (estado.resuelta || b.disabled) return;
+      if (palabra === m.blancos[actual]) {
+        const t = tachones[actual];
+        t.classList.remove("actual");
+        t.classList.add("revelado");
+        b.disabled = true;
+        b.classList.add("usado");
+        anotarSub(errorActual ? Math.round(valor / 2) : valor);
+        errorActual = false;
+        actual++;
+        if (actual < m.blancos.length && !estado.resuelta) tachones[actual].classList.add("actual");
+      } else {
+        errorActual = true;
+        estado.sub.errores++;
+        sacudir(b);
+      }
+    });
+    chips.append(b);
+  });
+  cuerpo.append(chips);
+  estado.revelar = () => {
+    for (let i = actual; i < m.blancos.length; i++) {
+      tachones[i].classList.remove("actual");
+      tachones[i].classList.add("revelado", "fallado");
+    }
+  };
+}
+function construirVeredicto(m, cuerpo) {
+  const p = document.createElement("p");
+  p.className = "afirmacion";
+  p.textContent = `«${m.afirmacion}»`;
+  cuerpo.append(p);
+  const fila = document.createElement("div");
+  fila.className = "sellos-vf";
+  const botones = [];
+  [
+    ["CIERTO", true],
+    ["FALSO", false]
+  ].forEach(([txt, val]) => {
+    const b = document.createElement("button");
+    b.type = "button";
+    b.className = `boton-sello sello-vf ${val ? "vf-cierto" : "vf-falso"}`;
+    b.textContent = txt;
+    b.addEventListener("click", () => {
+      if (estado.resuelta) return;
+      botones.forEach((o) => o.disabled = true);
+      if (val === m.esCierto) {
+        b.classList.add("acertado");
+        anotarSub(BASE_MISION);
+      } else {
+        b.classList.add("errado");
+        botones[m.esCierto ? 0 : 1].classList.add("acertado");
+        estado.sub.errores++;
+        resolverMision(false);
+      }
+    });
+    botones.push(b);
+    fila.append(b);
+  });
+  cuerpo.append(fila);
+  estado.revelar = () => botones[m.esCierto ? 0 : 1].classList.add("acertado");
+}
+function construirOrden(m, cuerpo) {
+  const valor = Math.round(BASE_MISION / m.eventos.length);
+  let siguiente = 0;
+  let errorSlot = false;
+  const lista = document.createElement("div");
+  lista.className = "orden-lista";
+  const items = [];
+  barajarDesalineado(m.eventos.map((ev, pos) => ({ ...ev, pos })), (it) => it.pos).forEach((ev) => {
+    const b = document.createElement("button");
+    b.type = "button";
+    b.className = "orden-item";
+    const num = document.createElement("b");
+    num.className = "orden-num";
+    const txt = document.createElement("span");
+    txt.className = "orden-txt";
+    txt.textContent = ev.txt;
+    const anio = document.createElement("span");
+    anio.className = "orden-anio lapiz";
+    b.append(num, txt, anio);
+    b.addEventListener("click", () => {
+      if (estado.resuelta || b.classList.contains("hecho")) return;
+      if (ev.pos === siguiente) {
+        b.classList.add("hecho");
+        num.textContent = `${ev.pos + 1}º`;
+        anio.textContent = ev.anio;
+        anotarSub(errorSlot ? Math.round(valor / 2) : valor);
+        errorSlot = false;
+        siguiente++;
+      } else {
+        errorSlot = true;
+        estado.sub.errores++;
+        sacudir(b);
+      }
+    });
+    items.push({ b, ev, num, anio });
+    lista.append(b);
+  });
+  cuerpo.append(lista);
+  estado.revelar = () => {
+    items.forEach(({ b, ev, num, anio }) => {
+      if (b.classList.contains("hecho")) return;
+      b.classList.add("hecho", "fallado");
+      num.textContent = `${ev.pos + 1}º`;
+      anio.textContent = ev.anio;
+    });
+  };
+}
+function construirUnir(m, cuerpo) {
+  const valor = Math.round(BASE_MISION / m.pares.length);
+  let seleccion = null;
+  const conError = new Set();
+  let vinculados = 0;
+  const grilla = document.createElement("div");
+  grilla.className = "unir-grilla";
+  const colIzq = document.createElement("div");
+  const colDer = document.createElement("div");
+  colIzq.className = "unir-col";
+  colDer.className = "unir-col";
+  grilla.append(colIzq, colDer);
+  const izquierdos = [];
+  const derechos = [];
+  m.pares.forEach(([nombre], idx) => {
+    const b = document.createElement("button");
+    b.type = "button";
+    b.className = "unir-item unir-nombre";
+    b.textContent = nombre;
+    b.dataset.idx = idx;
+    b.addEventListener("click", () => {
+      if (estado.resuelta || b.classList.contains("hecho")) return;
+      izquierdos.forEach((o) => o.classList.remove("sel"));
+      b.classList.add("sel");
+      seleccion = b;
+    });
+    izquierdos.push(b);
+    colIzq.append(b);
+  });
+  barajarDesalineado(m.pares.map(([, datoTxt], idx) => ({ datoTxt, idx })), (it) => it.idx).forEach(({ datoTxt, idx }) => {
+    const b = document.createElement("button");
+    b.type = "button";
+    b.className = "unir-item unir-dato";
+    b.textContent = datoTxt;
+    b.dataset.idx = idx;
+    b.addEventListener("click", () => {
+      if (estado.resuelta || b.classList.contains("hecho")) return;
+      if (!seleccion) {
+        sacudir(b);
+        return;
+      }
+      const idxSel = Number(seleccion.dataset.idx);
+      if (idxSel === idx) {
+        vinculados++;
+        [seleccion, b].forEach((el) => {
+          el.classList.remove("sel");
+          el.classList.add("hecho");
+          el.dataset.vinculo = vinculados;
+        });
+        anotarSub(conError.has(idx) ? Math.round(valor / 2) : valor);
+        seleccion = null;
+      } else {
+        conError.add(idxSel);
+        estado.sub.errores++;
+        sacudir(b);
+      }
+    });
+    derechos.push(b);
+    colDer.append(b);
+  });
+  cuerpo.append(grilla);
+  estado.revelar = () => {
+    m.pares.forEach((_, idx) => {
+      const izq = izquierdos.find((b) => Number(b.dataset.idx) === idx);
+      const der = derechos.find((b) => Number(b.dataset.idx) === idx);
+      if (izq.classList.contains("hecho")) return;
+      vinculados++;
+      [izq, der].forEach((el) => {
+        el.classList.remove("sel");
+        el.classList.add("hecho", "fallado");
+        el.dataset.vinculo = vinculados;
+      });
+    });
+  };
+}
+const CONSTRUCTORES = { tachado: construirTachado, veredicto: construirVeredicto, orden: construirOrden, unir: construirUnir };
+function mostrarGaleria(slug) {
+  const lista = estado.medios?.[slug];
+  if (!lista?.length) return;
+  const galeria = $("galeria");
+  const maxFotos = matchMedia("(max-width: 640px)").matches ? 2 : 4;
+  const seleccion = barajar(lista).slice(0, maxFotos);
+  const n = seleccion.length;
+  let i = 0;
+  const poner = () => {
+    if (i >= n) {
+      clearInterval(estado.galeriaTimer);
+      estado.galeriaTimer = null;
+      return;
+    }
+    const src = seleccion[i];
+    const paso = i - (n - 1) / 2;
+    const marco = document.createElement("figure");
+    marco.className = "foto-caida";
+    marco.style.zIndex = String(20 - i);
+    const vista = document.createElement("div");
+    vista.className = "foto-vista";
+    const esVideo = /\.(mp4|webm)$/i.test(src);
+    const el = esVideo ? document.createElement("video") : document.createElement("img");
+    el.src = ruta(src);
+    if (esVideo) {
+      el.muted = true;
+      el.autoplay = true;
+      el.loop = true;
+      el.playsInline = true;
+    }
+    vista.append(el);
+    marco.append(vista);
+    galeria.append(marco);
+    const panear = () => {
+      const sobra = el.getBoundingClientRect().width - vista.getBoundingClientRect().width;
+      if (sobra > 12) gsap.fromTo(el, { x: 0 }, { x: -sobra, duration: 5.5, ease: "none" });
+    };
+    if (esVideo) el.addEventListener("loadeddata", panear, { once: true });
+    else if (el.complete) panear();
+    else el.addEventListener("load", panear, { once: true });
+    gsap.fromTo(
+      marco,
+      { xPercent: -50, yPercent: -50, x: 0, y: 30, opacity: 0, scale: 0.9, rotate: 0 },
+      {
+        xPercent: -50,
+        yPercent: -50,
+        x: `${paso * 110}%`,
+        y: Math.abs(paso) * 14,
+        opacity: 1,
+        scale: 1,
+        rotate: paso * 5,
+        duration: 0.7,
+        ease: "power2.out"
+      }
+    );
+    i++;
+  };
+  setTimeout(() => {
+    if (!estado.resuelta) return;
+    poner();
+    estado.galeriaTimer = setInterval(poner, 3400);
+  }, 1e3);
+}
+function resolverMision(porTiempo) {
+  if (estado.resuelta) return;
+  estado.resuelta = true;
+  const m = estado.misiones[estado.idx];
+  const restante = Math.max(0, TIEMPOS[m.tipo] - (Date.now() - estado.t0) / 1e3);
+  estado.timer?.kill();
+  estado.timer = null;
+  clearTimeout(estado.timeoutId);
+  if (porTiempo) estado.revelar?.();
+  $("mis-cuerpo").querySelectorAll("button").forEach((b) => b.disabled = true);
+  const completo = estado.sub.hechos === estado.sub.total;
+  const impecable = completo && estado.sub.errores === 0 && !porTiempo;
+  const bonus = impecable ? Math.round(restante / TIEMPOS[m.tipo] * BONUS_MISION) : 0;
+  const ganados = estado.sub.puntos + bonus;
+  estado.puntos += ganados;
+  if (impecable) estado.perfectas++;
+  $("hud-puntos").textContent = `${estado.puntos} pts`;
+  const sello = $("sello-feedback");
+  if (porTiempo) {
+    sello.textContent = "Sin tiempo";
+    sello.classList.add("mal");
+  } else if (impecable) {
+    sello.textContent = "Correcto";
+    sello.classList.add("ok");
+  } else if (ganados > 0) {
+    sello.textContent = "Parcial";
+    sello.classList.add("parcial");
+  } else {
+    sello.textContent = "Incorrecto";
+    sello.classList.add("mal");
+  }
+  $("anota-puntos").textContent = ganados > 0 ? `+${ganados} pts ✎` : "quedó asentado en el expediente";
+  $("mis-dato").textContent = m.dato;
+  estado.audioDato = reproducirVoz(slugMision(m.titulo));
+  if (ganados > 0) mostrarGaleria(slugMision(m.titulo));
+  gsap.fromTo(sello, { opacity: 0, scale: 2.2 }, { opacity: 0.9, scale: 1, duration: 0.28, ease: "power4.in" });
+  gsap.to($("anota-puntos"), { opacity: 1, duration: 0.4, delay: 0.35 });
+  gsap.to($("mis-dato"), { opacity: 1, duration: 0.5, delay: 0.6 });
+  setTimeout(() => {
+    const seguir = () => {
+      gsap.to($("hoja"), { y: -70, opacity: 0, rotate: 4, duration: 0.4, ease: "power2.in" });
+      setTimeout(() => {
+        if (estado.idx + 1 < estado.misiones.length) cargarMision(estado.idx + 1);
+        else terminarJuego();
+      }, 430);
+    };
+    const voz = estado.audioDato;
+    if (voz && !voz.paused && !voz.ended) {
+      let fue = false;
+      const unaVez = () => {
+        if (!fue) {
+          fue = true;
+          seguir();
+        }
+      };
+      voz.addEventListener("ended", unaVez, { once: true });
+      voz.addEventListener("error", unaVez, { once: true });
+      setTimeout(unaVez, 2e4);
+    } else {
+      seguir();
+    }
+  }, 4200);
+}
+function terminarJuego() {
+  clearInterval(estado.galeriaTimer);
+  estado.galeriaTimer = null;
+  $("galeria").innerHTML = "";
+  const lista = leerRanking();
+  lista.push({ nombre: estado.nombre, telefono: estado.telefono, puntos: estado.puntos, correctas: estado.perfectas, fecha: (new Date()).toISOString() });
+  guardarRanking(lista);
+  $("final-nombre").textContent = estado.nombre;
+  $("final-puntos").textContent = `${estado.puntos} pts`;
+  $("final-detalle").textContent = `${estado.perfectas} de ${estado.misiones.length} misiones impecables`;
+  const orden = [...lista].sort((a, b) => b.puntos - a.puntos).slice(0, 10);
+  const ol = $("ranking");
+  ol.innerHTML = "";
+  const miRegistro = lista[lista.length - 1];
+  orden.forEach((r, i) => {
+    const li = document.createElement("li");
+    if (r === miRegistro) li.classList.add("actual");
+    li.innerHTML = `<span class="pos">${i + 1}.</span><span class="nom">${escapeHtml(r.nombre)}</span><span class="pts">${r.puntos} pts</span>`;
+    ol.appendChild(li);
+  });
+  mostrar("final");
+  estado.audioDato?.pause();
+  estado.audioDato = reproducirVoz("final");
+  gsap.fromTo(".hoja-final", { y: 60, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6, ease: "power3.out" });
+}
+function escapeHtml(s) {
+  return s.replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]);
+}
+$("btn-reiniciar").addEventListener("click", () => {
+  estado.audioDato?.pause();
+  estado.audioDato = null;
+  $("nombre").value = "";
+  $("telefono").value = "";
+  $("nro-visita").textContent = String(leerRanking().length + 1).padStart(3, "0");
+  pintarPodio();
+  mostrar("portada");
+  $("nombre").focus();
+});
+$("btn-exportar").addEventListener("click", () => {
+  const blob = new Blob([JSON.stringify(leerRanking(), null, 2)], { type: "application/json" });
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = "registro-noche-de-los-lapices.json";
+  a.click();
+  URL.revokeObjectURL(a.href);
+});
