@@ -441,6 +441,12 @@ function mostrarGaleria(slug) {
     }
     vista.append(el);
     marco.append(vista);
+    if (/\/media\/photos\//.test(src) && !/teresa-laborde/.test(src)) {
+      const credito = document.createElement("figcaption");
+      credito.className = "foto-credito";
+      credito.textContent = "PH: Gabriela Villalba";
+      marco.append(credito);
+    }
     galeria.append(marco);
     const panear = () => {
       const sobra = el.getBoundingClientRect().width - vista.getBoundingClientRect().width;
