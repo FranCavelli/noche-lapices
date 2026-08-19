@@ -116,15 +116,6 @@ const MISIONES = [
     voz: "Es cierto. Desde el año 2015, el boleto estudiantil gratuito es ley en la provincia de Buenos Aires. La lucha de aquellos estudiantes siguió escribiéndose, y hoy es un derecho."
   },
   {
-    tipo: "veredicto",
-    titulo: "La testigo",
-    img: "/fichas/juicio.jpg",
-    afirmacion: "Una mujer que dio a luz en el Pozo de Banfield sobrevivió, y su testimonio fue clave en el Juicio a las Juntas.",
-    esCierto: true,
-    dato: "Fue Adriana Calvo. En centros clandestinos como el Pozo de Banfield funcionaron maternidades clandestinas.",
-    voz: "Es cierto. En el Pozo de Banfield funcionó una maternidad clandestina: allí hubo mujeres que dieron a luz en cautiverio. Adriana Calvo sobrevivió, y su testimonio en el Juicio a las Juntas, en 1985, fue una de las pruebas más importantes."
-  },
-  {
     tipo: "orden",
     titulo: "Los hechos",
     img: "/fichas/marcha.jpg",
@@ -175,18 +166,7 @@ const MISIONES = [
     dato: "El libro lo escribieron María Seoane y Héctor Ruiz Núñez en 1986.",
     voz: "Emilce Moler sobrevivió, y hoy recorre las escuelas contando la historia. María Seoane escribió, junto a Héctor Ruiz Núñez, el libro que reveló el caso en 1986. Y el Pozo de Banfield fue uno de los centros clandestinos donde estuvieron detenidos los estudiantes."
   },
-  {
-    tipo: "unir",
-    titulo: "Los nombres III",
-    img: "/fichas/mano.jpg",
-    pares: [
-      ["Adriana Calvo", "Parió en cautiverio; su testimonio fue clave en el Juicio a las Juntas"],
-      ["Teresa Laborde", "Nació en cautiverio y permaneció con su madre: un caso único"],
-      ["Pozo de Banfield", "Allí funcionó una maternidad clandestina"]
-    ],
-    dato: "Teresa Laborde es hoy docente en Lomas de Zamora.",
-    voz: "Adriana Calvo dio a luz en cautiverio y sobrevivió para contarlo: su testimonio fue clave en el Juicio a las Juntas. Su hija, Teresa Laborde, nació allí y permaneció con su madre todo el tiempo: un caso único. Hoy Teresa es docente en Lomas de Zamora."
-  },
+
   {
     tipo: "tachado",
     titulo: "La agrupación",
@@ -217,16 +197,7 @@ const MISIONES = [
     dato: "El Nunca Más documentó los centros clandestinos y fue la base del Juicio a las Juntas.",
     voz: "En 1984, ya en democracia, la comisión CONADEP recorrió el país reuniendo testimonios de sobrevivientes y familiares. Su informe se llamó Nunca Más, y fue la base del Juicio a las Juntas del año siguiente."
   },
-  {
-    tipo: "tachado",
-    titulo: "La física",
-    img: "/fichas/juicio.jpg",
-    texto: "Adriana Calvo era profesora de [[0]] y estaba [[1]] cuando la secuestraron.",
-    blancos: ["física", "embarazada"],
-    senuelos: ["historia", "jubilada"],
-    dato: "Dio a luz en cautiverio; su hija Teresa nació camino al Pozo de Banfield.",
-    voz: "Adriana Calvo era profesora de física en la Universidad de La Plata y estaba embarazada cuando la secuestraron. Dio a luz en cautiverio, y años después su testimonio ayudó a condenar a los responsables."
-  },
+
   {
     tipo: "tachado",
     titulo: "El fiscal",

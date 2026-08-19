@@ -19,8 +19,7 @@
     "/media/photos/celda-nunca-mas.jpg",
     "/media/photos/mirilla-nunca.jpg",
     "/media/photos/pasillo-celdas.jpg",
-    "/media/photos/retratos-mujeres.jpg",
-    "/media/photos/teresa-laborde.jpg"
+    "/media/photos/retratos-mujeres.jpg"
   ],
   "la-memoria": [
     "/fichas/marcha.jpg"
@@ -54,14 +53,6 @@
   "el-boleto-hoy": [
     "/fichas/colectivo.jpg"
   ],
-  "la-testigo": [
-    "/media/photos/candado-celda.jpg",
-    "/media/photos/celda-nunca-mas.jpg",
-    "/media/photos/mirilla-nunca.jpg",
-    "/media/photos/pasillo-celdas.jpg",
-    "/media/photos/retratos-mujeres.jpg",
-    "/media/photos/teresa-laborde.jpg"
-  ],
   "los-hechos": [
     "/media/junta/01.jpg",
     "/media/junta/02.png",
@@ -76,14 +67,6 @@
   "los-nombres-ii": [
     "/media/sobrevivientes/01.jpg"
   ],
-  "los-nombres-iii": [
-    "/media/photos/candado-celda.jpg",
-    "/media/photos/celda-nunca-mas.jpg",
-    "/media/photos/mirilla-nunca.jpg",
-    "/media/photos/pasillo-celdas.jpg",
-    "/media/photos/retratos-mujeres.jpg",
-    "/media/photos/teresa-laborde.jpg"
-  ],
   "la-agrupacion": [
     "/fichas/colectivo.jpg"
   ],
@@ -95,14 +78,6 @@
   ],
   "el-informe": [
     "/media/juicio/01.jpg"
-  ],
-  "la-fisica": [
-    "/media/photos/candado-celda.jpg",
-    "/media/photos/celda-nunca-mas.jpg",
-    "/media/photos/mirilla-nunca.jpg",
-    "/media/photos/pasillo-celdas.jpg",
-    "/media/photos/retratos-mujeres.jpg",
-    "/media/photos/teresa-laborde.jpg"
   ],
   "el-fiscal": [
     "/media/juicio/01.jpg"
@@ -127,8 +102,7 @@
     "/media/photos/celda-nunca-mas.jpg",
     "/media/photos/mirilla-nunca.jpg",
     "/media/photos/pasillo-celdas.jpg",
-    "/media/photos/retratos-mujeres.jpg",
-    "/media/photos/teresa-laborde.jpg"
+    "/media/photos/retratos-mujeres.jpg"
   ],
   "la-ficha": [
     "/media/documentos/01.jpg",
@@ -174,8 +148,7 @@
     "/media/photos/celda-nunca-mas.jpg",
     "/media/photos/mirilla-nunca.jpg",
     "/media/photos/pasillo-celdas.jpg",
-    "/media/photos/retratos-mujeres.jpg",
-    "/media/photos/teresa-laborde.jpg"
+    "/media/photos/retratos-mujeres.jpg"
   ],
   "las-canciones": [
     "/fichas/marcha.jpg"
