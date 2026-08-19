@@ -531,10 +531,26 @@ function construirEscena(m, cuerpo) {
   const video = document.createElement("video");
   video.src = ruta("/media/video/suigenerisnochelapices.mp4");
   video.autoplay = true;
-  video.controls = true;
+  video.controls = false;
   video.playsInline = true;
   video.preload = "auto";
+  video.disablePictureInPicture = true;
+  video.setAttribute("controlslist", "nodownload noplaybackrate noremoteplayback");
   video.setAttribute("aria-label", m.titulo);
+  const desde = m.desde || 0;
+  const hasta = m.hasta || Infinity;
+  const arrancar = () => {
+    if (desde > 0 && Math.abs(video.currentTime - desde) > 0.3) video.currentTime = desde;
+    video.play().then(() => marco.classList.remove("trabado")).catch(() => marco.classList.add("trabado"));
+  };
+  marco.addEventListener("click", () => {
+    if (!estado.resuelta && video.paused && video.currentTime < hasta) arrancar();
+  });
+  if (video.readyState >= 1) arrancar();
+  else video.addEventListener("loadedmetadata", arrancar, { once: true });
+  video.addEventListener("timeupdate", () => {
+    if (video.currentTime >= hasta) video.pause();
+  });
   marco.append(video);
   cuerpo.append(marco);
   const p = document.createElement("p");
@@ -722,7 +738,8 @@ function resolverMision(porTiempo) {
   const total = m.tiempo || TIEMPOS[m.tipo];
   const restante = Math.max(0, total - (Date.now() - estado.t0) / 1e3);
   pararClip();
-  $("mis-cuerpo").querySelectorAll("iframe, video, .escena-video").forEach((el) => el.remove());
+  $("mis-cuerpo").querySelectorAll("iframe").forEach((el) => el.remove());
+  $("mis-cuerpo").querySelectorAll("video").forEach((v) => v.pause());
   $("hoja").scrollTop = 0;
   estado.timer?.kill();
   estado.timer = null;
