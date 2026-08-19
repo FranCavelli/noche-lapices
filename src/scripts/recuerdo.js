@@ -193,6 +193,8 @@ async function subirTarjeta() {
   const cuerpo = new FormData();
   cuerpo.append("file", blob);
   cuerpo.append("upload_preset", CLOUDINARY.preset);
+  cuerpo.append("folder", "noche-lapices");
+  cuerpo.append("tags", "noche-lapices");
   const r = await fetch(`https://api.cloudinary.com/v1_1/${CLOUDINARY.nube}/image/upload`, { method: "POST", body: cuerpo });
   if (!r.ok) throw new Error("no se pudo subir");
   const json = await r.json();
