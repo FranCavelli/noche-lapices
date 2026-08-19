@@ -722,7 +722,7 @@ function resolverMision(porTiempo) {
   const total = m.tiempo || TIEMPOS[m.tipo];
   const restante = Math.max(0, total - (Date.now() - estado.t0) / 1e3);
   pararClip();
-  $("mis-cuerpo").querySelector("iframe, video")?.remove();
+  $("mis-cuerpo").querySelectorAll("iframe, video, .escena-video").forEach((el) => el.remove());
   $("hoja").scrollTop = 0;
   estado.timer?.kill();
   estado.timer = null;
