@@ -428,7 +428,7 @@ const MISIONES = [
     img: "/fichas/cine.jpg",
     tiempo: 150,
     desde: 0,
-    hasta: 20,
+    hasta: 13,
     datoDesde: 20,
     datoHasta: 66,
     pregunta: "En esta escena de la película, ¿cómo se dan fuerza los chicos en las celdas?",
