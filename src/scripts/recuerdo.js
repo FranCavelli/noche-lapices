@@ -2,8 +2,8 @@
 // arma una tarjeta de recuerdo y ofrece mandarla por mail, bajarla o imprimirla.
 // Todo queda guardado en el archivo local para poder verlo despues.
 import gsap from "gsap";
-import { EMAILJS, emailjsListo } from "./config.js";
-import { guardarVisita, bajarArchivo } from "./archivo.js";
+import { EMAILJS, CLOUDINARY, emailjsListo, cloudinaryListo } from "./config.js";
+import { guardarVisita, actualizarVisita, bajarArchivo } from "./archivo.js";
 
 const $ = (id) => document.getElementById(id);
 const FOTOS = 3;
@@ -18,6 +18,7 @@ let tarjeta = "";
 let datos = { nombre: "", telefono: "", email: "", puntos: 0, correctas: 0, fecha: "" };
 let alCerrar = null;
 let guardada = false;
+let fotoUrl = "";
 
 function avisar(texto, malo = false) {
   const p = $("recuerdo-aviso");
@@ -102,6 +103,7 @@ async function sesionDeFotos() {
   tomas = [];
   tarjeta = "";
   guardada = false;
+  fotoUrl = "";
   $("recuerdo-tira").innerHTML = "";
   mostrarBotones([]);
   for (let i = 0; i < FOTOS; i++) {
@@ -182,22 +184,20 @@ async function armarTarjeta() {
   ctx.fillText("Los lápices siguen escribiendo · 1976 — 2026", A / 2, 850);
   return lienzo.toDataURL("image/jpeg", 0.9);
 }
-// Reduce la tarjeta hasta entrar en el tope de peso que acepta EmailJS.
-async function tarjetaLiviana(limiteKb) {
-  const im = await new Promise((res) => {
-    const i = new Image();
-    i.onload = () => res(i);
-    i.src = tarjeta;
-  });
-  for (const [ancho, calidad] of [[900, 0.7], [760, 0.62], [640, 0.55], [520, 0.45], [420, 0.38]]) {
-    const c = document.createElement("canvas");
-    c.width = ancho;
-    c.height = Math.round(im.height * ancho / im.width);
-    c.getContext("2d").drawImage(im, 0, 0, c.width, c.height);
-    const url = c.toDataURL("image/jpeg", calidad);
-    if (url.length * 0.75 / 1024 <= limiteKb) return url;
-  }
-  return null;
+// Sube la tarjeta a Cloudinary y devuelve el link, para que el mail lleve
+// solo la URL en vez de la imagen entera.
+async function subirTarjeta() {
+  if (fotoUrl) return fotoUrl;
+  if (!cloudinaryListo()) return "";
+  const blob = await (await fetch(tarjeta)).blob();
+  const cuerpo = new FormData();
+  cuerpo.append("file", blob);
+  cuerpo.append("upload_preset", CLOUDINARY.preset);
+  const r = await fetch(`https://api.cloudinary.com/v1_1/${CLOUDINARY.nube}/image/upload`, { method: "POST", body: cuerpo });
+  if (!r.ok) throw new Error("no se pudo subir");
+  const json = await r.json();
+  fotoUrl = json.secure_url || "";
+  return fotoUrl;
 }
 async function cargarEmailJS() {
   if (window.emailjs) return window.emailjs;
@@ -216,8 +216,7 @@ async function enviarPorMail() {
   boton.disabled = true;
   avisar("Enviando el recuerdo a tu mail…");
   try {
-    const chica = await tarjetaLiviana(EMAILJS.limiteKb);
-    if (!chica) throw new Error("no entra");
+    const url = await subirTarjeta().catch(() => "");
     const emailjs = await cargarEmailJS();
     await emailjs.send(EMAILJS.servicio, EMAILJS.plantilla, {
       nombre: datos.nombre,
@@ -225,10 +224,12 @@ async function enviarPorMail() {
       puntos: String(datos.puntos),
       correctas: String(datos.correctas),
       fecha: new Date(datos.fecha).toLocaleDateString("es-AR"),
-      foto: chica,
-      foto_base64: chica.split(",")[1]
+      foto_url: url
     });
-    avisar(`Listo, te lo mandamos a ${datos.email}.`);
+    if (url) await guardarEnArchivo(true);
+    avisar(url
+      ? `Listo, te lo mandamos a ${datos.email}.`
+      : `Te mandamos el mail a ${datos.email}, pero sin la foto: bajala con "descargar".`, !url);
     boton.classList.add("oculta");
   } catch {
     boton.disabled = false;
@@ -251,10 +252,10 @@ function imprimir() {
   if (img.complete) lanzar();
   else img.addEventListener("load", lanzar, { once: true });
 }
-async function guardarEnArchivo() {
-  if (guardada) return;
-  guardada = true;
-  await guardarVisita({ ...datos, tarjeta, fotos: tomas });
+async function guardarEnArchivo(rehacer = false) {
+  if (guardada && !rehacer) return;
+  if (guardada && rehacer) return void await actualizarVisita(guardada, { fotoUrl });
+  guardada = await guardarVisita({ ...datos, tarjeta, fotos: tomas, fotoUrl });
 }
 export async function abrirRecuerdo(ficha, cerrar) {
   if (ficha) datos = ficha;
@@ -262,6 +263,7 @@ export async function abrirRecuerdo(ficha, cerrar) {
   tomas = [];
   tarjeta = "";
   guardada = false;
+  fotoUrl = "";
   $("recuerdo-tira").innerHTML = "";
   $("recuerdo-camara").classList.remove("apagada", "sin-camara");
   $("recuerdo-nombre").textContent = datos.nombre;

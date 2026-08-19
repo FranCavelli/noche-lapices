@@ -28,6 +28,8 @@ jobs:
           PUBLIC_EMAILJS_SERVICE: ${{ secrets.EMAILJS_SERVICE }}
           PUBLIC_EMAILJS_TEMPLATE: ${{ secrets.EMAILJS_TEMPLATE }}
           PUBLIC_EMAILJS_KEY: ${{ secrets.EMAILJS_KEY }}
+          PUBLIC_CLOUDINARY_CLOUD: ${{ secrets.CLOUDINARY_CLOUD }}
+          PUBLIC_CLOUDINARY_PRESET: ${{ secrets.CLOUDINARY_PRESET }}
       - uses: actions/upload-pages-artifact@v3
         with:
           path: dist

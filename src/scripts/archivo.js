@@ -26,6 +26,11 @@ function correr(modo, fn) {
   }));
 }
 export const guardarVisita = (visita) => correr("readwrite", (t) => t.add(visita)).catch(() => null);
+export const actualizarVisita = (id, cambios) => correr("readwrite", (t) => {
+  const p = t.get(id);
+  p.onsuccess = () => p.result && t.put({ ...p.result, ...cambios });
+  return p;
+}).catch(() => null);
 export const listarVisitas = () => correr("readonly", (t) => t.getAll()).catch(() => []);
 export const borrarVisita = (id) => correr("readwrite", (t) => t.delete(id)).catch(() => null);
 export const vaciarArchivo = () => correr("readwrite", (t) => t.clear()).catch(() => null);
