@@ -222,7 +222,11 @@ async function enviarPorMail() {
     const emailjs = await cargarEmailJS();
     await emailjs.send(EMAILJS.servicio, EMAILJS.plantilla, {
       nombre: datos.nombre,
+      // el mismo destinatario con los dos nombres habituales, para que ande
+      // sea que el template use {{email}} o el {{to_email}} que trae por defecto
       email: datos.email,
+      to_email: datos.email,
+      to_name: datos.nombre,
       puntos: String(datos.puntos),
       correctas: String(datos.correctas),
       fecha: new Date(datos.fecha).toLocaleDateString("es-AR"),
