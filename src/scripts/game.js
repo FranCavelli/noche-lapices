@@ -1,6 +1,7 @@
 import gsap from "gsap";
 import { MISIONES, slugMision } from "./misiones.js";
 import { abrirRecuerdo } from "./recuerdo.js";
+import { arrancarMusica, pararMusica, acompanar, taparMusica, destaparMusica } from "./musica.js";
 const BASE = import.meta.env.BASE_URL.replace(/\/+$/, "");
 const ruta = (p) => BASE + p;
 // cada visita sortea 7 misiones del pool, con mezcla de tipos garantizada
@@ -65,7 +66,7 @@ function reproducirClip(src, boton) {
   boton.classList.add("sonando");
   a.addEventListener("ended", () => boton.classList.remove("sonando"));
   a.play().catch(() => {});
-  estado.audioClip = a;
+  estado.audioClip = acompanar(a);
 }
 function reproducirVoz(slug) {
   const a = new Audio(ruta(`/audio/datos/${slug}.mp3`));
@@ -75,7 +76,7 @@ function reproducirVoz(slug) {
   a.addEventListener("playing", () => (a.sono = true), { once: true });
   a.play().catch(() => {
   });
-  return a;
+  return acompanar(a);
 }
 const $ = (id) => document.getElementById(id);
 const pantallas = { portada: $("portada"), apertura: $("apertura"), juego: $("juego"), final: $("final"), recuerdo: $("recuerdo") };
@@ -166,6 +167,7 @@ $("ficha-ingreso").addEventListener("submit", (e) => {
   estado.puntos = 0;
   estado.perfectas = 0;
   estado.misiones = elegirMisiones();
+  arrancarMusica();
   $("hud-nombre").textContent = nombre;
   $("hud-puntos").textContent = "0 pts";
   animarApertura();
@@ -233,6 +235,9 @@ function cargarMision(i) {
   $("mis-titulo").textContent = m.titulo;
   $("mis-consigna").textContent = m.consigna || CONSIGNAS[m.tipo];
   const cuerpo = $("mis-cuerpo");
+  // pausar antes de vaciar: si un video se va del DOM sonando, no dispara
+  // "pause" y la música quedaría agachada para siempre
+  cuerpo.querySelectorAll("video").forEach((v) => v.pause());
   cuerpo.innerHTML = "";
   CONSTRUCTORES[m.tipo](m, cuerpo);
   const numerar = (botones) => botones.slice(0, 9).forEach((b, n) => {
@@ -583,6 +588,8 @@ function construirEscena(m, cuerpo) {
     if (!video.paused || video.currentTime >= Number(video.dataset.hasta)) return;
     video.play().then(() => marco.classList.remove("trabado")).catch(() => marco.classList.add("trabado"));
   });
+  video.addEventListener("play", taparMusica);
+  video.addEventListener("pause", destaparMusica);
   if (video.readyState >= 1) arrancar();
   else video.addEventListener("loadedmetadata", arrancar, { once: true });
   // el tope vive en el dataset porque cambia al revelar, cuando suena la canción
@@ -869,6 +876,8 @@ function marcoDeVideo(src) {
     if (!video.paused || video.currentTime >= Number(video.dataset.hasta)) return;
     video.play().then(() => marco.classList.remove("trabado")).catch(() => marco.classList.add("trabado"));
   });
+  video.addEventListener("play", taparMusica);
+  video.addEventListener("pause", destaparMusica);
   return { marco, video };
 }
 // Reproduce el tramo de video que reemplaza a la voz, con opción de saltear.
@@ -1031,6 +1040,8 @@ async function animarCierre() {
 function volverAPortada() {
   estado.audioDato?.pause();
   estado.audioDato = null;
+  // entre visitante y visitante el kiosco queda en silencio
+  pararMusica();
   $("nombre").value = "";
   $("telefono").value = "";
   $("email").value = "";

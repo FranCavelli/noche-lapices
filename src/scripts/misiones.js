@@ -431,8 +431,8 @@ const MISIONES = [
     hasta: 13,
     datoDesde: 20,
     datoHasta: 66,
-    pregunta: "En esta escena de la película, ¿cómo se dan fuerza los chicos en las celdas?",
-    opciones: ["Cantando juntos una canción", "Golpeando las puertas", "Rezando en silencio", "Gritando sus nombres"],
+    pregunta: "En esta escena de la película, ¿qué canción cantan los chicos en las celdas?",
+    opciones: ["«Rasguña las piedras», de Sui Generis", "«La balsa», de Los Gatos", "«Muchacha ojos de papel», de Almendra", "«Cambalache», de Enrique Santos Discépolo"],
     correcta: 0,
     dato: "Cantan «Rasguña las piedras», de Sui Generis: cantar juntos era resistir.",
     voz: "En una de las escenas más fuertes de la película, los chicos, cada uno en su celda, se dan fuerza cantando juntos Rasguña las piedras, de Sui Generis. En la oscuridad, cantar era seguir estando vivos, y seguir estando juntos."
