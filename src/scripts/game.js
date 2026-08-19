@@ -729,6 +729,68 @@ function mostrarGaleria(slug) {
     estado.galeriaTimer = setInterval(poner, 3400);
   }, 1e3);
 }
+// Deja caer una foto por hito histórico, sincronizada con el momento en que
+// la voz nombra ese año. Si no hay voz, caen con una cadencia fija.
+function mostrarFotosEventos(m) {
+  const galeria = $("galeria");
+  const gen = estado.galeriaGen;
+  const eventos = m.fotosEventos;
+  const n = eventos.length;
+  const cargas = eventos.map((ev) => new Promise((res) => {
+    const img = new Image();
+    img.src = ruta(ev.img);
+    img.onload = () => res({ img, hito: ev.hito });
+    img.onerror = () => res(null);
+  }));
+  Promise.all(cargas).then((fotos) => {
+    if (!estado.resuelta || gen !== estado.galeriaGen) return;
+    const poner = (foto, i) => {
+      if (!foto || gen !== estado.galeriaGen) return;
+      const paso = i - (n - 1) / 2;
+      const marco = document.createElement("figure");
+      marco.className = "foto-caida cara";
+      marco.style.zIndex = String(20 - i);
+      const vista = document.createElement("div");
+      vista.className = "foto-vista";
+      vista.append(foto.img);
+      const cartel = document.createElement("figcaption");
+      cartel.className = "cara-nombre";
+      cartel.textContent = foto.hito;
+      marco.append(vista, cartel);
+      galeria.append(marco);
+      gsap.fromTo(
+        marco,
+        { xPercent: -50, yPercent: -50, x: 0, y: 30, opacity: 0, scale: 0.9, rotate: 0 },
+        { xPercent: -50, yPercent: -50, x: `${paso * 108}%`, y: Math.abs(paso) * 14, opacity: 1, scale: 1, rotate: paso * 4, duration: 0.6, ease: "power2.out" }
+      );
+    };
+    const voz = estado.audioDato;
+    const cadencia = () => fotos.forEach((f, i) => estado.carasTimeouts.push(setTimeout(() => poner(f, i), 600 + i * 1400)));
+    // la fracción de cada hito sale de dónde aparece su año en el texto leído
+    const fracciones = eventos.map((ev) => {
+      const i = (m.voz || "").indexOf(ev.hito);
+      return i < 0 ? null : i / m.voz.length;
+    });
+    const conVoz = () => {
+      if (!(isFinite(voz.duration) && voz.duration > 0) || fracciones.some((f) => f === null)) return cadencia();
+      fotos.forEach((f, i) => {
+        const t = Math.max(0.3, fracciones[i] * voz.duration - voz.currentTime) * 1e3;
+        estado.carasTimeouts.push(setTimeout(() => poner(f, i), t));
+      });
+    };
+    if (!voz) return cadencia();
+    if (isFinite(voz.duration) && voz.duration > 0) return conVoz();
+    let fue = false;
+    const unaVez = () => {
+      if (!fue) {
+        fue = true;
+        conVoz();
+      }
+    };
+    voz.addEventListener("loadedmetadata", unaVez, { once: true });
+    estado.carasTimeouts.push(setTimeout(unaVez, 1500));
+  });
+}
 function tiemposDeNombres(texto) {
   if (!texto) return null;
   const cortos = ["Claudia", "María Clara", "Horacio", "Daniel", "Francisco", "Claudio"];
@@ -849,6 +911,7 @@ function resolverMision(porTiempo) {
   const hayTramo = Boolean(m.datoHasta && (videoFicha || m.datoVideo));
   estado.audioDato = hayTramo ? null : reproducirVoz(slugMision(m.titulo));
   if (m.caras) mostrarCaras(tiemposDeNombres(m.voz));
+  else if (m.fotosEventos) mostrarFotosEventos(m);
   else if (ganados > 0 && !hayTramo) mostrarGaleria(slugMision(m.titulo));
   gsap.fromTo(sello, { opacity: 0, scale: 2.2 }, { opacity: 0.9, scale: 1, duration: 0.28, ease: "power4.in" });
   gsap.to($("anota-puntos"), { opacity: 1, duration: 0.4, delay: 0.35 });

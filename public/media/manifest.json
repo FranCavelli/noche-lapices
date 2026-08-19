@@ -62,7 +62,8 @@
     "/media/juicio/01.jpg"
   ],
   "los-nombres-i": [
-    "/media/sobrevivientes/01.jpg"
+    "/media/caras/claudia-falcone.jpg",
+    "/media/documentos/02.jpg"
   ],
   "los-nombres-ii": [
     "/media/sobrevivientes/01.jpg"
@@ -86,10 +87,8 @@
     "/media/sobrevivientes/01.jpg"
   ],
   "la-mas-chica": [
-    "/media/documentos/01.jpg",
     "/media/documentos/02.jpg",
-    "/media/documentos/03.jpg",
-    "/media/documentos/04.jpg"
+    "/media/caras/claudia-falcone.jpg"
   ],
   "el-lugar": [
     "/fichas/puerta.jpg"

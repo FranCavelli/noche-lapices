@@ -142,6 +142,13 @@ const MISIONES = [
       { txt: "Se estrena la película «La noche de los lápices»", anio: "1986" },
       { txt: "El boleto estudiantil gratuito se vuelve ley", anio: "2015" }
     ],
+    // cada hito cae con su foto cuando la voz lo nombra
+    fotosEventos: [
+      { hito: "1983", img: "/fichas/marcha.jpg" },
+      { hito: "1985", img: "/media/juicio/01.jpg" },
+      { hito: "1986", img: "/fichas/cine.jpg" },
+      { hito: "2015", img: "/fichas/colectivo.jpg" }
+    ],
     dato: "La memoria no fue automática: la construyeron testigos, libros, películas y nuevas leyes.",
     voz: "La memoria no fue automática: hubo que construirla. En 1983 volvió la democracia. En 1985, Pablo Díaz declaró en el Juicio a las Juntas. En 1986 llegaron el libro y la película. Y en 2015, el boleto gratuito se hizo ley. Testigos, libros, películas y leyes: así se construye la memoria."
   },
@@ -176,7 +183,7 @@ const MISIONES = [
     img: "/fichas/colectivo.jpg",
     texto: "Muchos de los estudiantes militaban en la [[0]], la agrupación que había impulsado el reclamo del [[1]].",
     blancos: ["UES", "boleto"],
-    senuelos: ["CGT", "comedor"],
+    senuelos: ["Franja Morada", "comedor"],
     dato: "UES: Unión de Estudiantes Secundarios.",
     voz: "Muchos de los estudiantes secuestrados militaban en la UES, la Unión de Estudiantes Secundarios, la agrupación que había impulsado el reclamo del boleto. Organizarse para pedir un derecho los convirtió en blanco de la dictadura."
   },
