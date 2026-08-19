@@ -8,7 +8,8 @@ import { guardarVisita, actualizarVisita, bajarArchivo } from "./archivo.js";
 const $ = (id) => document.getElementById(id);
 const FOTOS = 3;
 const LADO = 720;
-const PIES = ["16.09.1976", "", "50 años"];
+// el pie de la primera polaroid lleva el 16 de septiembre del año en curso
+const PIES = [`16.09.${new Date().getFullYear()}`, "", "50 años"];
 const esperar = (ms) => new Promise((r) => setTimeout(r, ms));
 
 let flujo = null;
