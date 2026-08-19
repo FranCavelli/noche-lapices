@@ -46,7 +46,9 @@ const estado = {
   galeriaTimer: null,
   galeriaGen: 0,
   carasTimeouts: [],
-  audioClip: null
+  audioClip: null,
+  saltear: null,
+  cancionId: null
 };
 fetch(ruta("/media/manifest.json")).then((r) => r.ok ? r.json() : null).then((j) => estado.medios = j).catch(() => {
 });
@@ -209,6 +211,8 @@ function reservarAlto(el, texto) {
 function cargarMision(i) {
   estado.idx = i;
   estado.resuelta = false;
+  clearTimeout(estado.cancionId);
+  ocultarSaltear();
   estado.revelar = null;
   estado.audioDato?.pause();
   estado.audioDato = null;
@@ -572,12 +576,16 @@ function construirEscena(m, cuerpo) {
     video.play().then(() => marco.classList.remove("trabado")).catch(() => marco.classList.add("trabado"));
   };
   marco.addEventListener("click", () => {
-    if (!estado.resuelta && video.paused && video.currentTime < hasta) arrancar();
+    if (!video.paused || video.currentTime >= Number(video.dataset.hasta)) return;
+    video.play().then(() => marco.classList.remove("trabado")).catch(() => marco.classList.add("trabado"));
   });
   if (video.readyState >= 1) arrancar();
   else video.addEventListener("loadedmetadata", arrancar, { once: true });
+  // el tope vive en el dataset porque cambia al revelar, cuando suena la canción
+  video.dataset.hasta = String(hasta);
   video.addEventListener("timeupdate", () => {
-    if (video.currentTime >= hasta) video.pause();
+    const tope = Number(video.dataset.hasta);
+    if (tope && video.currentTime >= tope) video.pause();
   });
   marco.append(video);
   cuerpo.append(marco);
@@ -801,20 +809,28 @@ function resolverMision(porTiempo) {
   }
   $("anota-puntos").textContent = ganados > 0 ? `+${ganados} pts ✎` : "quedó asentado en el expediente";
   $("mis-dato").textContent = m.dato;
-  estado.audioDato = reproducirVoz(slugMision(m.titulo));
+  // si la misión revela con un tramo de video, ese tramo reemplaza a la voz del relator
+  const videoFicha = $("mis-cuerpo").querySelector("video");
+  const hayTramo = Boolean(m.datoHasta && (videoFicha || m.datoVideo));
+  estado.audioDato = hayTramo ? null : reproducirVoz(slugMision(m.titulo));
   if (m.caras) mostrarCaras(tiemposDeNombres(m.voz));
-  else if (ganados > 0) mostrarGaleria(slugMision(m.titulo));
+  else if (ganados > 0 && !hayTramo) mostrarGaleria(slugMision(m.titulo));
   gsap.fromTo(sello, { opacity: 0, scale: 2.2 }, { opacity: 0.9, scale: 1, duration: 0.28, ease: "power4.in" });
   gsap.to($("anota-puntos"), { opacity: 1, duration: 0.4, delay: 0.35 });
   gsap.to($("mis-dato"), { opacity: 1, duration: 0.5, delay: 0.6 });
+  const seguir = () => {
+    ocultarSaltear();
+    gsap.to($("hoja"), { y: -70, opacity: 0, rotate: 4, duration: 0.4, ease: "power2.in" });
+    setTimeout(() => {
+      if (estado.idx + 1 < estado.misiones.length) cargarMision(estado.idx + 1);
+      else terminarJuego();
+    }, 430);
+  };
+  if (hayTramo) {
+    setTimeout(() => reproducirTramo(videoFicha, m, seguir), 2600);
+    return;
+  }
   setTimeout(() => {
-    const seguir = () => {
-      gsap.to($("hoja"), { y: -70, opacity: 0, rotate: 4, duration: 0.4, ease: "power2.in" });
-      setTimeout(() => {
-        if (estado.idx + 1 < estado.misiones.length) cargarMision(estado.idx + 1);
-        else terminarJuego();
-      }, 430);
-    };
     const voz = estado.audioDato;
     if (voz && !voz.paused && !voz.ended) {
       let fue = false;
@@ -833,6 +849,80 @@ function resolverMision(porTiempo) {
     }
   }, 4200);
 }
+// Arma el cuadro de video para las misiones que revelan con un testimonio.
+function marcoDeVideo(src) {
+  const marco = document.createElement("div");
+  marco.className = "escena-video";
+  const video = document.createElement("video");
+  video.src = ruta(src);
+  video.controls = false;
+  video.playsInline = true;
+  video.preload = "auto";
+  video.disablePictureInPicture = true;
+  video.setAttribute("controlslist", "nodownload noplaybackrate noremoteplayback");
+  marco.append(video);
+  marco.addEventListener("click", () => {
+    if (!video.paused || video.currentTime >= Number(video.dataset.hasta)) return;
+    video.play().then(() => marco.classList.remove("trabado")).catch(() => marco.classList.add("trabado"));
+  });
+  return { marco, video };
+}
+// Reproduce el tramo de video que reemplaza a la voz, con opción de saltear.
+// El sello ya se vio, así que se desvanece para no tapar la imagen.
+function reproducirTramo(video, m, alTerminar) {
+  const desde = m.datoDesde || 0;
+  const hasta = m.datoHasta;
+  gsap.to($("sello-feedback"), { opacity: 0, duration: 0.5 });
+  if (!video) {
+    const nuevo = marcoDeVideo(m.datoVideo);
+    video = nuevo.video;
+    $("mis-cuerpo").append(nuevo.marco);
+    ajustarHoja();
+    gsap.fromTo(nuevo.marco, { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" });
+  }
+  video.closest(".escena-video")?.classList.remove("congelado");
+  video.dataset.hasta = String(hasta);
+  // el video recién creado puede no tener metadatos todavía: el salto espera
+  const posicionar = () => {
+    if (Math.abs(video.currentTime - desde) > 0.3) video.currentTime = desde;
+  };
+  if (video.readyState >= 1) posicionar();
+  else video.addEventListener("loadedmetadata", posicionar, { once: true });
+  let listo = false;
+  const terminar = () => {
+    if (listo) return;
+    listo = true;
+    clearTimeout(estado.cancionId);
+    video.pause();
+    alTerminar();
+  };
+  estado.saltear = terminar;
+  mostrarSaltear();
+  video.addEventListener("timeupdate", () => {
+    if (video.currentTime >= hasta) terminar();
+  });
+  video.addEventListener("ended", terminar, { once: true });
+  video.play().catch(() => video.closest(".escena-video")?.classList.add("trabado"));
+  // red de seguridad por si el video se traba y nunca llega al final
+  estado.cancionId = setTimeout(terminar, (hasta - desde) * 1e3 + 5e3);
+}
+function mostrarSaltear() {
+  const b = $("btn-saltear");
+  b.classList.remove("oculta");
+  gsap.fromTo(b, { opacity: 0 }, { opacity: 1, duration: 0.4, delay: 0.6 });
+}
+function ocultarSaltear() {
+  $("btn-saltear").classList.add("oculta");
+  estado.saltear = null;
+}
+$("btn-saltear").addEventListener("click", () => estado.saltear?.());
+document.addEventListener("keydown", (e) => {
+  if (!estado.saltear) return;
+  if (e.key === " " || e.key === "Enter" || e.key === "Escape") {
+    e.preventDefault();
+    estado.saltear();
+  }
+});
 function terminarJuego() {
   clearInterval(estado.galeriaTimer);
   estado.galeriaTimer = null;

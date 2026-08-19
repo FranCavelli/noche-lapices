@@ -95,6 +95,9 @@ const MISIONES = [
     afirmacion: "La historia se conoció en todo el país gracias al testimonio de un sobreviviente.",
     esCierto: true,
     dato: "Pablo Díaz la contó en el Juicio a las Juntas, en 1985.",
+    datoVideo: "/media/video/testimoniopablo.mp4",
+    datoDesde: 1,
+    datoHasta: 38,
     voz: "Es cierto. En 1985, ya en democracia, el sobreviviente Pablo Díaz declaró en el Juicio a las Juntas. Su testimonio hizo que todo el país conociera la historia de la Noche de los Lápices."
   },
   {
@@ -396,6 +399,8 @@ const MISIONES = [
     tiempo: 150,
     desde: 0,
     hasta: 20,
+    datoDesde: 20,
+    datoHasta: 66,
     pregunta: "En esta escena de la película, ¿cómo se dan fuerza los chicos en las celdas?",
     opciones: ["Cantando juntos una canción", "Golpeando las puertas", "Rezando en silencio", "Gritando sus nombres"],
     correcta: 0,

@@ -620,6 +620,29 @@ html, body {
   transform-origin: left center;
 }
 
+/* Botón para saltear el tramo cantado. Va absoluto para no empujar la ficha. */
+.btn-saltear {
+  position: absolute;
+  right: 1.4rem;
+  bottom: 0.9rem;
+  z-index: 6;
+  font-family: var(--f-maquina);
+  font-size: 0.78rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--grafito-claro);
+  background: rgba(237, 227, 203, 0.9);
+  border: 1px solid var(--papel-sombra);
+  border-radius: 3px;
+  padding: 0.35rem 0.7rem;
+  cursor: pointer;
+}
+.btn-saltear:hover, .btn-saltear:focus-visible {
+  color: var(--sello);
+  border-color: var(--sello);
+  outline: none;
+}
+
 .sello-feedback {
   position: absolute;
   z-index: 5;
