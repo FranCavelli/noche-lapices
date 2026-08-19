@@ -343,6 +343,13 @@ const MISIONES = [
       { txt: "Marcha con sus compañeros y consiguen el boleto", anio: "1975" },
       { txt: "La secuestran: tenía 16 años", anio: "sep 1976" }
     ],
+    // cada momento de su vida cae con su imagen cuando la voz lo nombra
+    fotosEventos: [
+      { hito: "1960", img: "/media/caras/claudia-falcone.jpg" },
+      { hito: "1973", img: "/media/documentos/02.jpg" },
+      { hito: "1975", img: "/fichas/colectivo.jpg" },
+      { hito: "1976", img: "/fichas/lapices.jpg" }
+    ],
     dato: "Los datos salen de su propia ficha escolar, que se conserva hasta hoy.",
     voz: "María Claudia Falcone nació en La Plata en 1960. En 1973 entró al Bachillerato de Bellas Artes. En 1975 marchó con sus compañeros por el boleto, y lo consiguieron. En septiembre de 1976 fue secuestrada. Tenía dieciséis años."
   },
