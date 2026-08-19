@@ -130,6 +130,15 @@ function pintarPodio() {
   });
 }
 pintarPodio();
+let vozInvitacion = null;
+function invitar() {
+  if (!pantallas.portada.classList.contains("activa")) return;
+  if (vozInvitacion && !vozInvitacion.paused) return;
+  vozInvitacion = new Audio(ruta("/audio/datos/invitacion.mp3"));
+  vozInvitacion.play().catch(() => {});
+}
+setTimeout(invitar, 1500);
+setInterval(invitar, 120000);
 const rutaFrame = (n) => ruta(`/expediente/frame-${String(n).padStart(2, "0")}.jpg`);
 const frames = FRAMES_APERTURA.map((n) => {
   const img = new Image();
@@ -141,6 +150,7 @@ $("ficha-ingreso").addEventListener("submit", (e) => {
   if (pantallas.apertura.classList.contains("activa")) return;
   const nombre = $("nombre").value.trim();
   if (!nombre) return;
+  vozInvitacion?.pause();
   estado.nombre = nombre;
   estado.telefono = $("telefono").value.trim();
   estado.puntos = 0;
@@ -861,6 +871,7 @@ async function animarCierre() {
   }
   mostrar("portada");
   $("nombre").focus();
+  invitar();
 }
 $("btn-reiniciar").addEventListener("click", () => {
   if (pantallas.apertura.classList.contains("activa")) return;
