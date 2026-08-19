@@ -78,8 +78,13 @@ async function cuentaRegresiva(n) {
   }
   cartel.textContent = "";
 }
+const RUTA_BASE = import.meta.env.BASE_URL.replace(/\/+$/, "");
+const sonidoPolaroid = new Audio(`${RUTA_BASE}/audio/polaroid.mp3`);
+sonidoPolaroid.preload = "auto";
 function destello() {
-  gsap.fromTo($("recuerdo-flash"), { opacity: 0.9 }, { opacity: 0, duration: 0.5, ease: "power2.out" });
+  sonidoPolaroid.currentTime = 0;
+  sonidoPolaroid.play().catch(() => {});
+  gsap.fromTo($("recuerdo-flash"), { opacity: 1 }, { opacity: 0, duration: 0.9, ease: "power3.out" });
 }
 function ponerPolaroid(dataUrl, i) {
   const marco = document.createElement("figure");

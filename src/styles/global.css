@@ -862,9 +862,12 @@ html, body {
   text-shadow: 0 4px 24px rgba(0, 0, 0, 0.9);
   pointer-events: none;
 }
+/* Cubre toda la pantalla: va fuera del marco de la cámara porque el marco
+   está rotado y un fixed adentro quedaría atrapado en él. */
 .recuerdo-flash {
-  position: absolute;
+  position: fixed;
   inset: 0;
+  z-index: 50;
   background: #fff;
   opacity: 0;
   pointer-events: none;
