@@ -9,3 +9,5 @@ CLAUDE.md
 AGENTS.md
 *.log
 /grilla.jpg
+.env
+.env.local

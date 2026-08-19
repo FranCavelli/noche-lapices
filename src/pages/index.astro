@@ -43,6 +43,8 @@ const ruta = (p) => import.meta.env.BASE_URL.replace(/\/$/, "") + p;
           required
           placeholder="escribí tu teléfono"
         />
+        <label for="email">Mail <span class="opcional">(opcional, para mandarte tu foto)</span></label>
+        <input id="email" name="email" type="email" maxlength="60" placeholder="escribí tu mail" />
         <button type="submit" class="boton-sello">Abrir expediente</button>
         <p class="tarjeta-pie">7 misiones al azar · cada expediente es distinto · tu puntaje queda en el registro</p>
         <p class="tarjeta-anios">1976 — 2026 · a cincuenta años</p>
@@ -115,8 +117,67 @@ const ruta = (p) => import.meta.env.BASE_URL.replace(/\/$/, "") + p;
       </div>
     </section>
 
+    <section id="recuerdo" class="pantalla">
+      <img class="fondo-full fondo-abierta" src={ruta("/expediente/frame-08.jpg")} alt="" />
+      <div class="vineta"></div>
+
+      <div class="recuerdo-wrap">
+        <header class="recuerdo-cabecera">
+          <p class="eyebrow">Antes de cerrar el expediente</p>
+          <h2 class="recuerdo-titulo">Gracias por ayudar a reconstruir la historia</h2>
+          <p class="recuerdo-sub">
+            <span id="recuerdo-nombre"></span>, tu foto queda en el archivo junto a las de los demás visitantes.
+          </p>
+        </header>
+
+        <div class="recuerdo-escena">
+          <div id="recuerdo-camara" class="recuerdo-camara">
+            <video id="recuerdo-video" playsinline muted></video>
+            <div id="recuerdo-cuenta" class="recuerdo-cuenta"></div>
+            <div id="recuerdo-flash" class="recuerdo-flash"></div>
+            <p class="recuerdo-sin-camara">No hay cámara disponible</p>
+          </div>
+          <div id="recuerdo-tira" class="recuerdo-tira"></div>
+        </div>
+
+        <p id="recuerdo-aviso" class="recuerdo-aviso"></p>
+
+        <div class="recuerdo-acciones">
+          <button id="btn-disparar" class="boton-sello" type="button">Sacar las fotos</button>
+          <button id="btn-repetir" class="boton-fantasma fantasma-clara oculta" type="button">repetir</button>
+          <button id="btn-mail" class="boton-fantasma fantasma-clara oculta" type="button">enviarme por mail</button>
+          <button id="btn-descargar" class="boton-fantasma fantasma-clara oculta" type="button">descargar</button>
+          <button id="btn-imprimir" class="boton-fantasma fantasma-clara oculta" type="button">imprimir</button>
+          <button id="btn-terminar" class="boton-fantasma fantasma-clara" type="button">cerrar expediente</button>
+        </div>
+
+        <p class="recuerdo-legal">
+          Las fotos quedan guardadas solo en esta computadora, para el archivo de la muestra.
+          Podés cerrar el expediente sin sacarte ninguna.
+        </p>
+      </div>
+    </section>
+
+    <div id="archivo" class="archivo oculta">
+      <div class="archivo-caja">
+        <header class="archivo-barra">
+          <h2>Archivo de visitas <span id="panel-total" class="archivo-total"></span></h2>
+          <div class="archivo-botones">
+            <button id="panel-orden" class="boton-fantasma fantasma-clara" type="button">ordenar por fecha</button>
+            <button id="panel-exportar" class="boton-fantasma fantasma-clara" type="button">exportar todo</button>
+            <button id="panel-vaciar" class="boton-fantasma fantasma-clara" type="button">vaciar archivo</button>
+            <button id="panel-cerrar" class="boton-fantasma fantasma-clara" type="button">cerrar</button>
+          </div>
+        </header>
+        <div id="panel-lista" class="archivo-lista"></div>
+      </div>
+    </div>
+
+    <div id="recuerdo-impresion" class="recuerdo-impresion"></div>
+
     <script>
       import "../scripts/game.js";
+      import "../scripts/panel.js";
     </script>
   </body>
 </html>

@@ -24,6 +24,10 @@ jobs:
           node-version: 22
       - run: npm ci
       - run: npm run build
+        env:
+          PUBLIC_EMAILJS_SERVICE: ${{ secrets.EMAILJS_SERVICE }}
+          PUBLIC_EMAILJS_TEMPLATE: ${{ secrets.EMAILJS_TEMPLATE }}
+          PUBLIC_EMAILJS_KEY: ${{ secrets.EMAILJS_KEY }}
       - uses: actions/upload-pages-artifact@v3
         with:
           path: dist

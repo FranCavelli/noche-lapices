@@ -1,5 +1,6 @@
 import gsap from "gsap";
 import { MISIONES, slugMision } from "./misiones.js";
+import { abrirRecuerdo } from "./recuerdo.js";
 const BASE = import.meta.env.BASE_URL.replace(/\/+$/, "");
 const ruta = (p) => BASE + p;
 // cada visita sortea 7 misiones del pool, con mezcla de tipos garantizada
@@ -28,6 +29,8 @@ const CONSIGNAS = {
 const estado = {
   nombre: "",
   telefono: "",
+  email: "",
+  ficha: null,
   puntos: 0,
   perfectas: 0,
   misiones: [],
@@ -69,7 +72,7 @@ function reproducirVoz(slug) {
   return a;
 }
 const $ = (id) => document.getElementById(id);
-const pantallas = { portada: $("portada"), apertura: $("apertura"), juego: $("juego"), final: $("final") };
+const pantallas = { portada: $("portada"), apertura: $("apertura"), juego: $("juego"), final: $("final"), recuerdo: $("recuerdo") };
 function mostrar(nombre) {
   Object.values(pantallas).forEach((p) => p.classList.remove("activa"));
   pantallas[nombre].classList.add("activa");
@@ -153,6 +156,7 @@ $("ficha-ingreso").addEventListener("submit", (e) => {
   vozInvitacion?.pause();
   estado.nombre = nombre;
   estado.telefono = $("telefono").value.trim();
+  estado.email = $("email").value.trim();
   estado.puntos = 0;
   estado.perfectas = 0;
   estado.misiones = elegirMisiones();
@@ -837,7 +841,16 @@ function terminarJuego() {
   estado.carasTimeouts = [];
   $("galeria").innerHTML = "";
   const lista = leerRanking();
-  lista.push({ nombre: estado.nombre, telefono: estado.telefono, puntos: estado.puntos, correctas: estado.perfectas, fecha: (new Date()).toISOString() });
+  const registro = {
+    nombre: estado.nombre,
+    telefono: estado.telefono,
+    email: estado.email,
+    puntos: estado.puntos,
+    correctas: estado.perfectas,
+    fecha: (new Date()).toISOString()
+  };
+  estado.ficha = registro;
+  lista.push(registro);
   guardarRanking(lista);
   const contCaras = $("final-caras");
   contCaras.innerHTML = "";
@@ -921,15 +934,23 @@ async function animarCierre() {
   $("nombre").focus();
   setTimeout(invitar, 9000);
 }
-$("btn-reiniciar").addEventListener("click", () => {
-  if (pantallas.apertura.classList.contains("activa")) return;
+function volverAPortada() {
   estado.audioDato?.pause();
   estado.audioDato = null;
   $("nombre").value = "";
   $("telefono").value = "";
+  $("email").value = "";
   $("nro-visita").textContent = String(leerRanking().length + 1).padStart(3, "0");
   pintarPodio();
   animarCierre();
+}
+// "Cerrar expediente" pasa antes por el fotomatón; de ahí se vuelve a la portada.
+$("btn-reiniciar").addEventListener("click", () => {
+  if (pantallas.apertura.classList.contains("activa")) return;
+  estado.audioDato?.pause();
+  estado.audioDato = null;
+  mostrar("recuerdo");
+  abrirRecuerdo(estado.ficha, volverAPortada);
 });
 function exportarRegistros() {
   const blob = new Blob([JSON.stringify(leerRanking(), null, 2)], { type: "application/json" });

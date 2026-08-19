@@ -178,6 +178,8 @@ html, body {
   text-decoration: underline dotted;
   cursor: pointer;
 }
+.boton-fantasma.fantasma-clara { color: var(--papel); opacity: 0.8; }
+.boton-fantasma.fantasma-clara:hover, .boton-fantasma.fantasma-clara:focus-visible { opacity: 1; }
 
 .barra-juego {
   position: absolute;
@@ -748,4 +750,220 @@ html, body {
   .unir-nombre { font-size: 0.75rem; }
   .sellos-vf { flex-direction: row; }
   .doc-texto { line-height: 2.1; }
+}
+
+/* ── Fotomatón del final ─────────────────────────────────────────── */
+
+.opcional {
+  text-transform: none;
+  letter-spacing: 0;
+  font-family: var(--f-cuerpo);
+  font-size: 0.68rem;
+  color: var(--grafito-claro);
+}
+
+.recuerdo-wrap {
+  position: relative;
+  z-index: 2;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.9rem;
+  padding: 1.4rem 1rem;
+  text-align: center;
+  color: var(--papel);
+}
+.recuerdo-cabecera { max-width: 46rem; }
+.recuerdo-titulo {
+  font-family: var(--f-maquina);
+  font-size: clamp(1.4rem, 3.4vw, 2.3rem);
+  line-height: 1.15;
+  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.85);
+  margin-bottom: 0.4rem;
+}
+.recuerdo-sub {
+  font-size: 0.92rem;
+  opacity: 0.85;
+  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.9);
+}
+#recuerdo-nombre { font-family: var(--f-lapiz); font-size: 1.4rem; color: var(--manila); }
+
+.recuerdo-escena {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.6rem;
+  flex-wrap: wrap;
+  min-height: 0;
+}
+.recuerdo-camara {
+  position: relative;
+  width: min(38vh, 340px);
+  aspect-ratio: 1;
+  background: #0d0b08;
+  border: 10px solid #fbf7ee;
+  border-bottom-width: 44px;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6);
+  transform: rotate(-1.5deg);
+  overflow: hidden;
+}
+.recuerdo-camara video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scaleX(-1);
+  display: block;
+}
+.recuerdo-camara.apagada { display: none; }
+.recuerdo-sin-camara {
+  display: none;
+  position: absolute;
+  inset: 0;
+  place-content: center;
+  font-family: var(--f-maquina);
+  font-size: 0.9rem;
+  color: var(--papel);
+  opacity: 0.7;
+}
+.recuerdo-camara.sin-camara .recuerdo-sin-camara { display: grid; }
+.recuerdo-cuenta {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  font-family: var(--f-maquina);
+  font-size: 6rem;
+  color: var(--papel);
+  text-shadow: 0 4px 24px rgba(0, 0, 0, 0.9);
+  pointer-events: none;
+}
+.recuerdo-flash {
+  position: absolute;
+  inset: 0;
+  background: #fff;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.recuerdo-tira {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.9rem;
+  flex-wrap: wrap;
+}
+.polaroid {
+  background: #fbf7ee;
+  padding: 0.6rem 0.6rem 0;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.55);
+  width: min(24vh, 200px);
+}
+.polaroid-vista { aspect-ratio: 1; overflow: hidden; background: #0d0b08; }
+.polaroid-vista img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.polaroid figcaption {
+  font-family: var(--f-lapiz);
+  font-size: 1.15rem;
+  color: var(--grafito);
+  padding: 0.35rem 0.2rem 0.5rem;
+  min-height: 2.1rem;
+}
+
+.recuerdo-aviso {
+  font-family: var(--f-maquina);
+  font-size: 0.85rem;
+  letter-spacing: 0.05em;
+  min-height: 1.4rem;
+  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.9);
+}
+.recuerdo-aviso.malo { color: #e8867f; }
+.recuerdo-acciones {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.2rem;
+  flex-wrap: wrap;
+}
+.recuerdo-acciones .boton-sello { color: var(--manila); border-color: var(--manila); margin-top: 0; }
+.recuerdo-acciones .boton-sello:hover, .recuerdo-acciones .boton-sello:focus-visible {
+  background: var(--manila);
+  color: var(--tinta);
+}
+.recuerdo-acciones .boton-fantasma { margin: 0; font-size: 0.78rem; }
+.recuerdo-acciones .boton-fantasma:disabled { opacity: 0.35; cursor: default; }
+.recuerdo-legal {
+  font-size: 0.66rem;
+  color: var(--papel);
+  opacity: 0.5;
+  max-width: 34rem;
+}
+
+/* ── Panel del archivo (Ctrl+Shift+A) ────────────────────────────── */
+
+.archivo {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  background: rgba(12, 9, 6, 0.94);
+  display: grid;
+  place-items: center;
+  padding: 1.5rem;
+}
+.archivo-caja {
+  width: min(1000px, 100%);
+  max-height: 100%;
+  display: flex;
+  flex-direction: column;
+  background: var(--madera);
+  border: 1px solid var(--grafito-claro);
+  border-radius: 4px;
+  overflow: hidden;
+}
+.archivo-barra {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+  padding: 1rem 1.2rem;
+  border-bottom: 1px solid var(--grafito);
+  color: var(--papel);
+}
+.archivo-barra h2 { font-family: var(--f-maquina); font-size: 1rem; letter-spacing: 0.08em; text-transform: uppercase; }
+.archivo-total { color: var(--manila); }
+.archivo-botones { display: flex; gap: 1rem; flex-wrap: wrap; }
+.archivo-botones .boton-fantasma { margin: 0; font-size: 0.72rem; }
+.archivo-lista { overflow-y: auto; padding: 1.2rem; display: grid; gap: 1rem; }
+.panel-vacio { color: var(--papel); opacity: 0.6; text-align: center; padding: 2rem; }
+.panel-ficha {
+  display: grid;
+  grid-template-columns: 1fr 260px;
+  gap: 1rem;
+  align-items: start;
+  background: var(--papel);
+  color: var(--grafito);
+  padding: 1rem;
+  border-radius: 3px;
+}
+.panel-datos h3 { font-family: var(--f-maquina); font-size: 1rem; margin-bottom: 0.3rem; }
+.panel-datos p { font-size: 0.82rem; margin: 0.12rem 0; }
+.panel-acciones { display: flex; gap: 1rem; margin-top: 0.6rem; }
+.panel-acciones .boton-fantasma { margin: 0; font-size: 0.72rem; }
+.panel-foto { width: 100%; border: 1px solid var(--papel-sombra); display: block; }
+
+/* ── Impresión: sale solo la tarjeta de recuerdo ─────────────────── */
+
+.recuerdo-impresion { display: none; }
+@media print {
+  body > *:not(.recuerdo-impresion) { display: none !important; }
+  .recuerdo-impresion { display: block !important; }
+  .recuerdo-impresion img { width: 100%; }
+  @page { margin: 10mm; }
+}
+
+@media (max-width: 720px) {
+  .recuerdo-escena { gap: 1rem; }
+  .polaroid { width: min(28vw, 130px); }
+  .panel-ficha { grid-template-columns: 1fr; }
 }
