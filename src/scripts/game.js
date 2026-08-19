@@ -69,6 +69,10 @@ function reproducirClip(src, boton) {
 }
 function reproducirVoz(slug) {
   const a = new Audio(ruta(`/audio/datos/${slug}.mp3`));
+  // marcamos si llegó a sonar: las misiones nuevas todavía no tienen audio
+  // grabado y ahí hay que darle tiempo a la gente a leer el dato en pantalla
+  a.sono = false;
+  a.addEventListener("playing", () => (a.sono = true), { once: true });
   a.play().catch(() => {
   });
   return a;
@@ -845,7 +849,7 @@ function resolverMision(porTiempo) {
       const restante = isFinite(voz.duration) && voz.duration > 0 ? voz.duration - voz.currentTime : 0;
       setTimeout(unaVez, restante > 0 ? restante * 1e3 + 2e3 : 3e4);
     } else {
-      seguir();
+      setTimeout(seguir, voz && !voz.sono ? 4500 : 0);
     }
   }, 4200);
 }

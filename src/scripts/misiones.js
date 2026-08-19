@@ -249,6 +249,36 @@ const MISIONES = [
     voz: "Es cierto. En plena dictadura, en 1977, las madres de los desaparecidos empezaron a dar vueltas a la Plaza de Mayo con pañuelos blancos, preguntando por sus hijos. Lo hicieron cuando casi nadie se animaba a hablar."
   },
   {
+    tipo: "tachado",
+    titulo: "El pañuelo",
+    img: "/media/madres-plaza-mayo/madres-panuelos.jpg",
+    texto: "Las Madres se reconocían entre ellas con un [[0]] blanco en la cabeza. Al principio no era una tela cualquiera: era un [[1]] de sus propios hijos.",
+    blancos: ["pañuelo", "pañal"],
+    senuelos: ["sombrero", "mantel"],
+    dato: "Se pusieron en la cabeza los pañales de tela de cuando sus hijos eran bebés.",
+    voz: "Las Madres se reconocían entre ellas con un pañuelo blanco en la cabeza. Al principio no era una tela cualquiera: era un pañal de tela de sus propios hijos, de cuando eran bebés. Llevaban puesto lo más íntimo que tenían de ellos, para que nadie pudiera decir que no habían existido."
+  },
+  {
+    tipo: "veredicto",
+    titulo: "La ronda",
+    img: "/media/madres-plaza-mayo/madres-policia.jpg",
+    afirmacion: "Las Madres empezaron a caminar en ronda porque estaba prohibido quedarse reunidas.",
+    esCierto: true,
+    dato: "La policía les gritaba «circulen». Ellas circularon: en ronda, alrededor de la Pirámide.",
+    voz: "Es cierto. Con el estado de sitio estaba prohibido que se juntaran tres personas o más. Cuando las Madres se paraban en la Plaza, la policía les gritaba: circulen. Y ellas circularon. Empezaron a caminar en ronda alrededor de la Pirámide de Mayo, y esa vuelta se convirtió en su forma de resistir."
+  },
+  {
+    tipo: "tachado",
+    titulo: "Que aparezcan",
+    img: "/media/madres-plaza-mayo/madres-aparezcan-con-vida.jpg",
+    consigna: "Mirá el cartel de la foto y tocá la palabra que restaura cada tachadura.",
+    texto: "El cartel más conocido de las Madres pedía: «Que aparezcan con [[0]] los detenidos [[1]]». La primera ronda fue en 1977, en plena dictadura.",
+    blancos: ["vida", "desaparecidos"],
+    senuelos: ["justicia", "encarcelados"],
+    dato: "No pedían tumbas ni listas: pedían que sus hijos volvieran vivos.",
+    voz: "Que aparezcan con vida los detenidos desaparecidos. Eso decía el cartel. No pedían tumbas ni listas: pedían que sus hijos volvieran vivos. La primera ronda fue el treinta de abril de mil novecientos setenta y siete, cuando catorce mujeres se animaron a preguntar en voz alta lo que nadie preguntaba."
+  },
+  {
     tipo: "veredicto",
     titulo: "El secreto",
     img: "/fichas/puerta.jpg",
