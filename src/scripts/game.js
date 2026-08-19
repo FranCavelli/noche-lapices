@@ -874,7 +874,7 @@ async function animarCierre() {
   }
   mostrar("portada");
   $("nombre").focus();
-  invitar();
+  setTimeout(invitar, 9000);
 }
 $("btn-reiniciar").addEventListener("click", () => {
   if (pantallas.apertura.classList.contains("activa")) return;
