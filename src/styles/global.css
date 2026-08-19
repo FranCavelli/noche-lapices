@@ -674,6 +674,30 @@ html, body {
 }
 
 .hoja-final { text-align: center; }
+
+/* El video de la escena sigue en el cierre, como una foto pegada al costado. */
+.final-video {
+  position: absolute;
+  right: clamp(0.8rem, 3vw, 2.6rem);
+  bottom: clamp(0.8rem, 4vh, 2.4rem);
+  z-index: 4;
+  width: min(30vw, 300px);
+  background: #fbf7ee;
+  padding: 0.5rem 0.5rem 0;
+  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.6);
+  opacity: 0;
+}
+.final-video video { width: 100%; display: block; background: #000; }
+.final-video figcaption {
+  font-family: var(--f-lapiz);
+  font-size: 1.1rem;
+  color: var(--grafito);
+  text-align: center;
+  padding: 0.3rem 0.2rem 0.45rem;
+}
+@media (max-width: 720px) {
+  .final-video { width: 38vw; right: 0.6rem; bottom: 0.6rem; }
+}
 .final-caras {
   display: flex;
   flex-wrap: wrap;

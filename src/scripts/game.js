@@ -177,6 +177,7 @@ $("ficha-ingreso").addEventListener("submit", (e) => {
   estado.perfectas = 0;
   estado.cancion?.pause();
   estado.cancion = null;
+  quitarVideoDelCierre();
   estado.misiones = elegirMisiones();
   $("hud-nombre").textContent = nombre;
   $("hud-puntos").textContent = "0 pts";
@@ -1044,6 +1045,32 @@ document.addEventListener("keydown", (e) => {
     estado.saltear();
   }
 });
+// Se lleva el video de la escena al informe final, chiquito y mudo en un
+// marco polaroid, para que la imagen acompañe a la canción que sigue sonando.
+function llevarVideoAlCierre() {
+  const video = $("mis-cuerpo").querySelector("video");
+  if (!video) return;
+  quitarVideoDelCierre();
+  const marco = document.createElement("figure");
+  marco.className = "final-video";
+  marco.append(video);
+  const cartel = document.createElement("figcaption");
+  cartel.textContent = "«Rasguña las piedras»";
+  marco.append(cartel);
+  pantallas.final.append(marco);
+  // el corte visible era el de la ficha: acá sigue hasta el final del tramo
+  const m = estado.misiones[estado.idx];
+  video.dataset.hasta = String(m.datoHasta || "");
+  video.muted = true;
+  video.play().catch(() => {});
+  gsap.fromTo(marco, { opacity: 0, y: 24, rotate: 0 }, { opacity: 1, y: 0, rotate: -2.5, duration: 0.6, delay: 0.5, ease: "power2.out" });
+}
+function quitarVideoDelCierre() {
+  pantallas.final.querySelectorAll(".final-video").forEach((f) => {
+    f.querySelector("video")?.pause();
+    f.remove();
+  });
+}
 function terminarJuego() {
   clearInterval(estado.galeriaTimer);
   estado.galeriaTimer = null;
@@ -1102,6 +1129,8 @@ function terminarJuego() {
   if (!cancion) {
     estado.audioDato?.pause();
     estado.audioDato = reproducirVoz("final");
+  } else {
+    llevarVideoAlCierre();
   }
   const vozFinal = cancion || estado.audioDato;
   const FR_FINAL = [0.01, 0.088, 0.206, 0.289, 0.366, 0.5];
@@ -1163,6 +1192,7 @@ function volverAPortada() {
   estado.audioDato = null;
   estado.cancion?.pause();
   estado.cancion = null;
+  quitarVideoDelCierre();
   $("nombre").value = "";
   $("telefono").value = "";
   $("email").value = "";
