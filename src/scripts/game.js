@@ -528,12 +528,14 @@ function construirUnir(m, cuerpo) {
 function construirEscena(m, cuerpo) {
   const marco = document.createElement("div");
   marco.className = "escena-video";
-  const iframe = document.createElement("iframe");
-  iframe.src = `https://www.youtube-nocookie.com/embed/${m.video}?autoplay=1&rel=0`;
-  iframe.allow = "autoplay; accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture";
-  iframe.allowFullscreen = true;
-  iframe.title = m.titulo;
-  marco.append(iframe);
+  const video = document.createElement("video");
+  video.src = ruta("/media/video/suigenerisnochelapices.mp4");
+  video.autoplay = true;
+  video.controls = true;
+  video.playsInline = true;
+  video.preload = "auto";
+  video.setAttribute("aria-label", m.titulo);
+  marco.append(video);
   cuerpo.append(marco);
   const p = document.createElement("p");
   p.className = "afirmacion escena-pregunta";
@@ -720,7 +722,7 @@ function resolverMision(porTiempo) {
   const total = m.tiempo || TIEMPOS[m.tipo];
   const restante = Math.max(0, total - (Date.now() - estado.t0) / 1e3);
   pararClip();
-  $("mis-cuerpo").querySelector("iframe")?.remove();
+  $("mis-cuerpo").querySelector("video")?.remove();
   estado.timer?.kill();
   estado.timer = null;
   clearTimeout(estado.timeoutId);
