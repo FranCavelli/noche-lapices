@@ -165,12 +165,18 @@ const ruta = (p) => import.meta.env.BASE_URL.replace(/\/$/, "") + p;
           <h2>Archivo de visitas <span id="panel-total" class="archivo-total"></span></h2>
           <div class="archivo-botones">
             <button id="panel-orden" class="boton-fantasma fantasma-clara" type="button">ordenar por fecha</button>
-            <button id="panel-exportar" class="boton-fantasma fantasma-clara" type="button">exportar todo</button>
+            <button id="panel-exportar" class="boton-fantasma fantasma-clara" type="button">descargar todo (zip)</button>
             <button id="panel-vaciar" class="boton-fantasma fantasma-clara" type="button">vaciar archivo</button>
             <button id="panel-cerrar" class="boton-fantasma fantasma-clara" type="button">cerrar</button>
           </div>
         </header>
+        <p id="panel-aviso" class="archivo-aviso"></p>
         <div id="panel-lista" class="archivo-lista"></div>
+        <footer class="archivo-pie">
+          <button id="panel-antes" class="boton-fantasma fantasma-clara oculta" type="button">‹ anteriores</button>
+          <span id="panel-paginas" class="archivo-paginas"></span>
+          <button id="panel-despues" class="boton-fantasma fantasma-clara oculta" type="button">siguientes ›</button>
+        </footer>
       </div>
     </div>
 

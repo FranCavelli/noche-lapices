@@ -3,7 +3,7 @@
 // Todo queda guardado en el archivo local para poder verlo despues.
 import gsap from "gsap";
 import { EMAILJS, CLOUDINARY, emailjsListo, cloudinaryListo } from "./config.js";
-import { guardarVisita, actualizarVisita, bajarArchivo } from "./archivo.js";
+import { guardarVisita, actualizarVisita, bajarArchivo, aBlob } from "./archivo.js";
 
 const $ = (id) => document.getElementById(id);
 const FOTOS = 3;
@@ -263,7 +263,10 @@ function imprimir() {
 async function guardarEnArchivo(rehacer = false) {
   if (guardada && !rehacer) return;
   if (guardada && rehacer) return void await actualizarVisita(guardada, { fotoUrl });
-  guardada = await guardarVisita({ ...datos, tarjeta, fotos: tomas, fotoUrl });
+  // se guardan como Blob y no como data URL: ocupa un tercio menos y con
+  // cientos de visitas esa diferencia es de decenas de megas
+  const [tarjetaBlob, ...fotosBlob] = await Promise.all([tarjeta, ...tomas].map(aBlob));
+  guardada = await guardarVisita({ ...datos, tarjeta: tarjetaBlob, fotos: fotosBlob, fotoUrl });
 }
 export async function abrirRecuerdo(ficha, cerrar) {
   if (ficha) datos = ficha;
