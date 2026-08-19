@@ -95,10 +95,25 @@ $("panel-vaciar").addEventListener("click", async (e) => {
   b.textContent = "vaciar archivo";
   pintar();
 });
+const alternar = () => $("archivo").classList.contains("oculta") ? abrir() : cerrar();
+// Ctrl+Alt+A: Ctrl+Shift+A no sirve, se lo queda Chrome para buscar pestañas.
 document.addEventListener("keydown", (e) => {
-  if (e.ctrlKey && e.shiftKey && e.key.toLowerCase() === "a") {
+  if (e.repeat) return;
+  if (e.ctrlKey && e.altKey && e.key.toLowerCase() === "a") {
     e.preventDefault();
-    $("archivo").classList.contains("oculta") ? abrir() : cerrar();
+    alternar();
   }
   if (e.key === "Escape" && !$("archivo").classList.contains("oculta")) cerrar();
+});
+// Gesto oculto para el kiosco táctil, donde puede no haber teclado:
+// cinco toques seguidos sobre la línea "1976 — 2026" de la portada.
+let toques = 0;
+let relojToques = null;
+document.querySelector(".tarjeta-anios")?.addEventListener("click", () => {
+  clearTimeout(relojToques);
+  if (++toques >= 5) {
+    toques = 0;
+    return alternar();
+  }
+  relojToques = setTimeout(() => (toques = 0), 2000);
 });
