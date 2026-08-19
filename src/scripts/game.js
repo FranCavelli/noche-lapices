@@ -740,6 +740,10 @@ function resolverMision(porTiempo) {
   pararClip();
   $("mis-cuerpo").querySelectorAll("iframe").forEach((el) => el.remove());
   $("mis-cuerpo").querySelectorAll("video").forEach((v) => v.pause());
+  $("mis-cuerpo").querySelectorAll(".escena-video").forEach((el) => {
+    el.classList.remove("trabado");
+    el.classList.add("congelado");
+  });
   $("hoja").scrollTop = 0;
   estado.timer?.kill();
   estado.timer = null;
