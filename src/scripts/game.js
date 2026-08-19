@@ -49,7 +49,8 @@ const estado = {
   carasTimeouts: [],
   audioClip: null,
   saltear: null,
-  cancionId: null
+  cancionId: null,
+  cancion: null
 };
 fetch(ruta("/media/manifest.json")).then((r) => r.ok ? r.json() : null).then((j) => estado.medios = j).catch(() => {
 });
@@ -99,7 +100,13 @@ function elegirMisiones() {
   for (const [tipo, n] of Object.entries(CUPOS)) elegidas.push(...barajar(porTipo[tipo] || []).slice(0, n));
   const resto = MISIONES.filter((m) => !elegidas.includes(m));
   elegidas.push(...barajar(resto).slice(0, MISIONES_POR_PARTIDA - elegidas.length));
-  return barajar(elegidas);
+  const mezcladas = barajar(elegidas);
+  // la escena de la canción cierra siempre: lo que cantan los chicos enlaza
+  // sin cortes con el informe final
+  return [
+    ...mezcladas.filter((m) => m.tipo !== "escena"),
+    ...mezcladas.filter((m) => m.tipo === "escena")
+  ];
 }
 function barajarDesalineado(items, posOriginalDe) {
   const n = items.length;
@@ -168,6 +175,8 @@ $("ficha-ingreso").addEventListener("submit", (e) => {
   estado.email = $("email").value.trim();
   estado.puntos = 0;
   estado.perfectas = 0;
+  estado.cancion?.pause();
+  estado.cancion = null;
   estado.misiones = elegirMisiones();
   $("hud-nombre").textContent = nombre;
   $("hud-puntos").textContent = "0 pts";
@@ -916,7 +925,17 @@ function reproducirTramo(video, m, alTerminar) {
     gsap.fromTo(nuevo.marco, { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" });
   }
   video.closest(".escena-video")?.classList.remove("congelado");
-  video.dataset.hasta = String(hasta);
+  // con audio aparte el video queda mudo: es solo la imagen, y el corte lo
+  // manda el reloj, no el video, para que el pase al cierre sea igual de
+  // puntual aunque el video se trabe
+  if (m.datoAudio) {
+    video.muted = true;
+    estado.cancion = new Audio(ruta(m.datoAudio));
+    estado.cancion.play().catch(() => {});
+    acompanar(estado.cancion);
+  }
+  const corte = m.datoVer ? desde + m.datoVer : hasta;
+  video.dataset.hasta = String(corte);
   // el video recién creado puede no tener metadatos todavía: el salto espera
   const posicionar = () => {
     if (Math.abs(video.currentTime - desde) > 0.3) video.currentTime = desde;
@@ -934,12 +953,12 @@ function reproducirTramo(video, m, alTerminar) {
   estado.saltear = terminar;
   mostrarSaltear();
   video.addEventListener("timeupdate", () => {
-    if (video.currentTime >= hasta) terminar();
+    if (video.currentTime >= corte) terminar();
   });
   video.addEventListener("ended", terminar, { once: true });
   video.play().catch(() => video.closest(".escena-video")?.classList.add("trabado"));
   // red de seguridad por si el video se traba y nunca llega al final
-  estado.cancionId = setTimeout(terminar, (hasta - desde) * 1e3 + 5e3);
+  estado.cancionId = setTimeout(terminar, (corte - desde) * 1e3 + (m.datoAudio ? 0 : 5e3));
 }
 function mostrarSaltear() {
   const b = $("btn-saltear");
@@ -1010,9 +1029,14 @@ function terminarJuego() {
     ol.appendChild(li);
   });
   mostrar("final");
-  estado.audioDato?.pause();
-  estado.audioDato = reproducirVoz("final");
-  const vozFinal = estado.audioDato;
+  // si la última misión dejó sonando la canción de los chicos, no la cortamos:
+  // el cierre entra encima de ella en vez de tener su propia voz
+  const cancion = estado.cancion && !estado.cancion.paused && !estado.cancion.ended ? estado.cancion : null;
+  if (!cancion) {
+    estado.audioDato?.pause();
+    estado.audioDato = reproducirVoz("final");
+  }
+  const vozFinal = cancion || estado.audioDato;
   const FR_FINAL = [0.01, 0.088, 0.206, 0.289, 0.366, 0.5];
   const revelarCara = (marco) => {
     if (!marco.isConnected) return;
@@ -1021,6 +1045,14 @@ function terminarJuego() {
     gsap.fromTo(marco, { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" });
   };
   const programarCarasFinal = () => {
+    // con la canción no hay nombres dichos a los que atarse: las caras se
+    // reparten parejo en lo que queda de música
+    if (cancion) {
+      const resta = Math.max(9, (isFinite(cancion.duration) ? cancion.duration : 46) - cancion.currentTime - 5);
+      const paso = resta * 1e3 / marcosFinal.length;
+      marcosFinal.forEach((marco, i) => setTimeout(() => revelarCara(marco), 700 + i * paso));
+      return;
+    }
     const dur = vozFinal && isFinite(vozFinal.duration) && vozFinal.duration > 0 ? vozFinal.duration : 0;
     marcosFinal.forEach((marco, i) => setTimeout(() => revelarCara(marco), dur ? Math.max(200, FR_FINAL[i] * dur * 1e3) : 300 + i * 800));
   };
@@ -1062,6 +1094,8 @@ async function animarCierre() {
 function volverAPortada() {
   estado.audioDato?.pause();
   estado.audioDato = null;
+  estado.cancion?.pause();
+  estado.cancion = null;
   $("nombre").value = "";
   $("telefono").value = "";
   $("email").value = "";

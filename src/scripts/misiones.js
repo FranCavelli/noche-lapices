@@ -198,9 +198,6 @@ const MISIONES = [
     blancos: ["CONADEP", "Nunca Más"],
     senuelos: ["UNESCO", "Nunca Olvidar"],
     dato: "El Nunca Más documentó los centros clandestinos y fue la base del Juicio a las Juntas.",
-    datoVideo: "/media/video/DiscursoStrasseraNuncaMas.mp4",
-    datoDesde: 0,
-    datoHasta: 22,
     voz: "En 1984, ya en democracia, la comisión CONADEP recorrió el país reuniendo testimonios de sobrevivientes y familiares. Su informe se llamó Nunca Más, y fue la base del Juicio a las Juntas del año siguiente."
   },
 
@@ -437,6 +434,10 @@ const MISIONES = [
     hasta: 13,
     datoDesde: 20,
     datoHasta: 66,
+    // el audio va por separado del video para que siga sonando cuando la
+    // ficha se va y aparece el informe final
+    datoAudio: "/media/musica/cancion-final.mp3",
+    datoVer: 16,
     pregunta: "En esta escena de la película, ¿qué canción cantan los chicos en las celdas?",
     opciones: ["«Rasguña las piedras», de Sui Generis", "«La balsa», de Los Gatos", "«Muchacha ojos de papel», de Almendra", "«Cambalache», de Enrique Santos Discépolo"],
     correcta: 0,
