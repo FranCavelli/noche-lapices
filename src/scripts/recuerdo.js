@@ -237,7 +237,8 @@ async function enviarPorMail() {
       ? `Listo, te lo mandamos a ${datos.email}.`
       : `Te mandamos el mail a ${datos.email}, pero sin la foto: bajala con "descargar".`, !url);
     boton.classList.add("oculta");
-  } catch {
+  } catch (e) {
+    console.error("[recuerdo] falló el envío:", e?.status, e?.text || e?.message || e);
     boton.disabled = false;
     avisar("No se pudo enviar el mail. Probá con descargar la foto.", true);
   }
