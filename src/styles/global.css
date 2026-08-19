@@ -594,6 +594,7 @@ html, body {
 
 .sello-feedback {
   position: absolute;
+  z-index: 5;
   top: 42%;
   left: 50%;
   transform: translate(-50%, -50%) rotate(-11deg);
