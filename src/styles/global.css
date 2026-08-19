@@ -215,6 +215,8 @@ html, body {
   max-height: calc(100vh - 5rem);
   overflow-y: auto;
   overflow-x: hidden;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
   background:
     linear-gradient(160deg, rgba(255, 255, 255, 0.25), transparent 35%),
     var(--papel);
@@ -223,6 +225,8 @@ html, body {
   padding: 2rem 2.4rem 2.2rem;
   transform: rotate(0.4deg);
 }
+.hoja::-webkit-scrollbar { width: 0; height: 0; display: none; }
+
 .hoja-clip {
   position: absolute;
   top: -12px;
@@ -408,6 +412,7 @@ html, body {
 .escena-video {
   width: 100%;
   aspect-ratio: 16 / 9;
+  max-height: 36vh;
   background: #000;
   margin-bottom: 0.9rem;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);

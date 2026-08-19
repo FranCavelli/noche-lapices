@@ -185,6 +185,23 @@ function empezarJuego() {
   cargarMision(0);
 }
 const subTotalDe = (m) => ({ tachado: () => m.blancos.length, orden: () => m.eventos.length, unir: () => m.pares.length, veredicto: () => 1, escena: () => 1 })[m.tipo]();
+function ajustarHoja() {
+  const hoja = $("hoja");
+  const vista = $("vista-mision");
+  vista.style.zoom = "";
+  const cs = getComputedStyle(hoja);
+  const disponible = hoja.clientHeight - parseFloat(cs.paddingTop) - parseFloat(cs.paddingBottom);
+  const necesario = vista.scrollHeight;
+  if (necesario > disponible + 1) vista.style.zoom = Math.max(0.55, disponible / necesario);
+  hoja.scrollTop = 0;
+}
+function reservarAlto(el, texto) {
+  el.style.minHeight = "";
+  el.textContent = texto;
+  const alto = el.getBoundingClientRect().height;
+  el.textContent = "";
+  el.style.minHeight = `${alto}px`;
+}
 function cargarMision(i) {
   estado.idx = i;
   estado.resuelta = false;
@@ -223,9 +240,9 @@ function cargarMision(i) {
   sello.className = "sello-feedback";
   sello.textContent = "";
   gsap.set(sello, { opacity: 0 });
-  $("mis-dato").textContent = "";
+  reservarAlto($("mis-dato"), m.dato);
   gsap.set($("mis-dato"), { opacity: 0 });
-  $("anota-puntos").textContent = "";
+  reservarAlto($("anota-puntos"), "quedó asentado en el expediente");
   gsap.set($("anota-puntos"), { opacity: 0 });
   gsap.set($("timer-barra"), { scaleX: 1 });
   gsap.fromTo(
@@ -233,8 +250,15 @@ function cargarMision(i) {
     { y: 60, opacity: 0, rotate: i % 2 ? -2.4 : 2.8 },
     { y: 0, opacity: 1, rotate: i % 2 ? -0.4 : 0.4, duration: 0.55, ease: "power3.out" }
   );
+  ajustarHoja();
+  cuerpo.querySelectorAll("img").forEach((img) => {
+    if (!img.complete) img.addEventListener("load", ajustarHoja, { once: true });
+  });
   arrancarTimer(m.tiempo || TIEMPOS[m.tipo]);
 }
+addEventListener("resize", () => {
+  if (pantallas.juego.classList.contains("activa")) ajustarHoja();
+});
 document.addEventListener("keydown", (e) => {
   if (!pantallas.juego.classList.contains("activa") || estado.resuelta) return;
   if (!/^[1-9]$/.test(e.key)) return;
