@@ -1,7 +1,7 @@
 import gsap from "gsap";
 import { MISIONES, slugMision } from "./misiones.js";
 import { abrirRecuerdo } from "./recuerdo.js";
-import { arrancarMusica, pararMusica, acompanar, taparMusica, destaparMusica } from "./musica.js";
+import { arrancarMusica, acompanar, taparMusica, destaparMusica } from "./musica.js";
 const BASE = import.meta.env.BASE_URL.replace(/\/+$/, "");
 const ruta = (p) => BASE + p;
 // cada visita sortea 7 misiones del pool, con mezcla de tipos garantizada
@@ -140,12 +140,14 @@ function pintarPodio() {
   });
 }
 pintarPodio();
+arrancarMusica();
 let vozInvitacion = null;
 function invitar() {
   if (!pantallas.portada.classList.contains("activa")) return;
   if (vozInvitacion && !vozInvitacion.paused) return;
   vozInvitacion = new Audio(ruta("/audio/datos/invitacion.mp3"));
   vozInvitacion.play().catch(() => {});
+  acompanar(vozInvitacion);
 }
 setTimeout(invitar, 1500);
 setInterval(invitar, 120000);
@@ -167,7 +169,6 @@ $("ficha-ingreso").addEventListener("submit", (e) => {
   estado.puntos = 0;
   estado.perfectas = 0;
   estado.misiones = elegirMisiones();
-  arrancarMusica();
   $("hud-nombre").textContent = nombre;
   $("hud-puntos").textContent = "0 pts";
   animarApertura();
@@ -197,14 +198,28 @@ function empezarJuego() {
   cargarMision(0);
 }
 const subTotalDe = (m) => ({ tachado: () => m.blancos.length, orden: () => m.eventos.length, unir: () => m.pares.length, veredicto: () => 1, escena: () => 1 })[m.tipo]();
+const TOPE_HOJA = 80; // el "calc(100vh - 5rem)" del max-height de la ficha
+const ZOOM_MINIMO = 0.42;
+// Achica la ficha hasta que entre entera, sin scroll. Va por pasadas porque al
+// reducir cambia cómo cortan los renglones: una sola cuenta se queda corta.
 function ajustarHoja() {
   const hoja = $("hoja");
   const vista = $("vista-mision");
-  vista.style.zoom = "";
   const cs = getComputedStyle(hoja);
-  const disponible = hoja.clientHeight - parseFloat(cs.paddingTop) - parseFloat(cs.paddingBottom);
-  const necesario = vista.scrollHeight;
-  if (necesario > disponible + 1) vista.style.zoom = Math.max(0.55, disponible / necesario);
+  // se mide contra el alto máximo posible, no contra el actual, que se achica
+  // junto con el contenido y sería un blanco móvil
+  const disponible = innerHeight - TOPE_HOJA - parseFloat(cs.paddingTop) - parseFloat(cs.paddingBottom);
+  let z = 1;
+  for (let pasada = 0; pasada < 4; pasada++) {
+    vista.style.zoom = z === 1 ? "" : String(z);
+    const alto = vista.scrollHeight * z;
+    if (alto <= disponible - 1) break;
+    z = Math.max(ZOOM_MINIMO, z * (disponible - 1) / alto);
+    if (z === ZOOM_MINIMO) {
+      vista.style.zoom = String(z);
+      break;
+    }
+  }
   hoja.scrollTop = 0;
 }
 function reservarAlto(el, texto) {
@@ -1040,8 +1055,6 @@ async function animarCierre() {
 function volverAPortada() {
   estado.audioDato?.pause();
   estado.audioDato = null;
-  // entre visitante y visitante el kiosco queda en silencio
-  pararMusica();
   $("nombre").value = "";
   $("telefono").value = "";
   $("email").value = "";

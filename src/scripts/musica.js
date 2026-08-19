@@ -5,8 +5,8 @@
 const BASE = import.meta.env.BASE_URL.replace(/\/+$/, "");
 // La pista ya viene normalizada bien abajo (-20 LUFS), así que estos valores
 // son el ajuste fino: subí VOLUMEN si en el kiosco se escucha muy tapada.
-const VOLUMEN = 0.5;
-const AGACHADA = 0.09;
+const VOLUMEN = 0.25;
+const AGACHADA = 0.05;
 const FUNDIDO = 700;
 
 let pista = null;
