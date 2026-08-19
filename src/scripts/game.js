@@ -965,11 +965,15 @@ function marcoDeVideo(src) {
   });
   video.addEventListener("play", taparMusica);
   video.addEventListener("pause", destaparMusica);
-  // el marco toma la forma real del video: sin esto, uno de 4:3 queda con
-  // franjas negras enormes a los costados dentro de un cuadro 16:9
+  // el marco toma la forma real del video y se angosta a lo que el tope de
+  // alto permite: sin esto un video 4:3 queda achatado dentro de un cuadro
+  // ancho, con franjas negras enormes a los costados
   video.addEventListener("loadedmetadata", () => {
     if (!video.videoWidth) return;
+    const razon = video.videoWidth / video.videoHeight;
     marco.style.aspectRatio = `${video.videoWidth} / ${video.videoHeight}`;
+    marco.style.width = `min(100%, calc(36vh * ${razon.toFixed(4)}))`;
+    marco.style.margin = "0.9rem auto";
     ajustarHoja();
   }, { once: true });
   return { marco, video };
