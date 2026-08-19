@@ -198,6 +198,9 @@ const MISIONES = [
     blancos: ["CONADEP", "Nunca Más"],
     senuelos: ["UNESCO", "Nunca Olvidar"],
     dato: "El Nunca Más documentó los centros clandestinos y fue la base del Juicio a las Juntas.",
+    datoVideo: "/media/video/DiscursoStrasseraNuncaMas.mp4",
+    datoDesde: 0,
+    datoHasta: 22,
     voz: "En 1984, ya en democracia, la comisión CONADEP recorrió el país reuniendo testimonios de sobrevivientes y familiares. Su informe se llamó Nunca Más, y fue la base del Juicio a las Juntas del año siguiente."
   },
 
@@ -209,6 +212,9 @@ const MISIONES = [
     blancos: ["Strassera", "Nunca más"],
     senuelos: ["Sabato", "Hasta siempre"],
     dato: "«Señores jueces: nunca más», dijo Julio César Strassera en 1985.",
+    datoVideo: "/media/video/DiscursoStrasseraNuncaMas.mp4",
+    datoDesde: 0,
+    datoHasta: 22,
     voz: "En 1985, el fiscal Julio César Strassera cerró su alegato en el Juicio a las Juntas con dos palabras que ya eran de todos: nunca más. La sala entera se puso de pie."
   },
   {

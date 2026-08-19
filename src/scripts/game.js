@@ -893,6 +893,13 @@ function marcoDeVideo(src) {
   });
   video.addEventListener("play", taparMusica);
   video.addEventListener("pause", destaparMusica);
+  // el marco toma la forma real del video: sin esto, uno de 4:3 queda con
+  // franjas negras enormes a los costados dentro de un cuadro 16:9
+  video.addEventListener("loadedmetadata", () => {
+    if (!video.videoWidth) return;
+    marco.style.aspectRatio = `${video.videoWidth} / ${video.videoHeight}`;
+    ajustarHoja();
+  }, { once: true });
   return { marco, video };
 }
 // Reproduce el tramo de video que reemplaza a la voz, con opción de saltear.
