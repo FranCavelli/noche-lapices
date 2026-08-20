@@ -1126,8 +1126,17 @@ function llevarVideoAlCierre() {
   video.muted = true;
   video.play().catch(() => {});
   gsap.fromTo(marco, { opacity: 0, y: 24, rotate: 0 }, { opacity: 1, y: 0, rotate: -2.5, duration: 0.6, delay: 0.5, ease: "power2.out" });
+  // cuando la canción termina, la foto se despide y el sello invita a cerrar
+  estado.cancion?.addEventListener("ended", () => despedirVideoDelCierre(marco), { once: true });
+}
+function despedirVideoDelCierre(marco) {
+  if (!marco.isConnected) return;
+  marco.querySelector("video")?.pause();
+  gsap.to(marco, { opacity: 0, y: 24, duration: 0.9, ease: "power2.in", onComplete: () => marco.remove() });
+  $("btn-reiniciar").classList.add("invita");
 }
 function quitarVideoDelCierre() {
+  $("btn-reiniciar").classList.remove("invita");
   pantallas.final.querySelectorAll(".final-video").forEach((f) => {
     f.querySelector("video")?.pause();
     f.remove();
