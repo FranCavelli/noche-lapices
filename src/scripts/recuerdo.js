@@ -266,6 +266,7 @@ function imprimir() {
   else img.addEventListener("load", lanzar, { once: true });
 }
 async function guardarEnArchivo(rehacer = false) {
+  if (datos.prueba) return;
   if (guardada && !rehacer) return;
   if (guardada && rehacer) return void await actualizarVisita(guardada, { fotoUrl });
   // se guardan como Blob y no como data URL: ocupa un tercio menos y con

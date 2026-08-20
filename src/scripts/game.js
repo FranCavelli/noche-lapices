@@ -50,7 +50,8 @@ const estado = {
   audioClip: null,
   saltear: null,
   cancionId: null,
-  cancion: null
+  cancion: null,
+  prueba: false
 };
 fetch(ruta("/media/manifest.json")).then((r) => r.ok ? r.json() : null).then((j) => estado.medios = j).catch(() => {
 });
@@ -170,6 +171,7 @@ $("ficha-ingreso").addEventListener("submit", (e) => {
   const nombre = $("nombre").value.trim();
   if (!nombre) return;
   vozInvitacion?.pause();
+  estado.prueba = false;
   estado.nombre = nombre;
   estado.telefono = $("telefono").value.trim();
   estado.email = $("email").value.trim();
@@ -301,6 +303,61 @@ function cargarMision(i) {
 addEventListener("resize", () => {
   if (pantallas.juego.classList.contains("activa")) ajustarHoja();
 });
+// Selector oculto para probar una misión suelta (Ctrl+Alt+M). Juega solo esa,
+// con nombre PRUEBA, y no deja rastro en el ranking ni en el archivo.
+function armarSelector() {
+  const lista = $("selector-lista");
+  if (lista.dataset.armado) return;
+  lista.dataset.armado = "1";
+  const porTipo = {};
+  MISIONES.forEach((m) => (porTipo[m.tipo] ||= []).push(m));
+  for (const [tipo, misiones] of Object.entries(porTipo)) {
+    const grupo = document.createElement("section");
+    grupo.className = "selector-tipo";
+    const h = document.createElement("h3");
+    h.textContent = `${tipo} · ${misiones.length}`;
+    grupo.append(h);
+    misiones.forEach((m) => {
+      const b = document.createElement("button");
+      b.type = "button";
+      b.className = "selector-mision";
+      b.textContent = m.titulo;
+      b.addEventListener("click", () => {
+        $("selector").classList.add("oculta");
+        probarMision(m);
+      });
+      grupo.append(b);
+    });
+    lista.append(grupo);
+  }
+}
+function probarMision(m) {
+  vozInvitacion?.pause();
+  estado.prueba = true;
+  estado.nombre = "PRUEBA";
+  estado.telefono = "";
+  estado.email = $("email").value.trim();
+  estado.puntos = 0;
+  estado.perfectas = 0;
+  estado.cancion?.pause();
+  estado.cancion = null;
+  quitarVideoDelCierre();
+  estado.misiones = [m];
+  $("hud-nombre").textContent = estado.nombre;
+  $("hud-puntos").textContent = "0 pts";
+  arrancarMusica();
+  empezarJuego();
+}
+document.addEventListener("keydown", (e) => {
+  if (e.repeat) return;
+  if (e.ctrlKey && e.altKey && e.key.toLowerCase() === "m") {
+    e.preventDefault();
+    armarSelector();
+    $("selector").classList.toggle("oculta");
+  }
+  if (e.key === "Escape") $("selector").classList.add("oculta");
+});
+$("selector-cerrar").addEventListener("click", () => $("selector").classList.add("oculta"));
 document.addEventListener("keydown", (e) => {
   if (!pantallas.juego.classList.contains("activa") || estado.resuelta) return;
   if (!/^[1-9]$/.test(e.key)) return;
@@ -1080,6 +1137,7 @@ function terminarJuego() {
   $("galeria").innerHTML = "";
   const lista = leerRanking();
   const registro = {
+    prueba: estado.prueba,
     nombre: estado.nombre,
     telefono: estado.telefono,
     email: estado.email,
@@ -1088,8 +1146,10 @@ function terminarJuego() {
     fecha: (new Date()).toISOString()
   };
   estado.ficha = registro;
-  lista.push(registro);
-  guardarRanking(lista);
+  if (!estado.prueba) {
+    lista.push(registro);
+    guardarRanking(lista);
+  }
   const contCaras = $("final-caras");
   contCaras.innerHTML = "";
   $("final-frase").classList.remove("oculta");
@@ -1115,7 +1175,7 @@ function terminarJuego() {
   const orden = [...lista].sort((a, b) => b.puntos - a.puntos).slice(0, 10);
   const ol = $("ranking");
   ol.innerHTML = "";
-  const miRegistro = lista[lista.length - 1];
+  const miRegistro = estado.prueba ? null : lista[lista.length - 1];
   orden.forEach((r, i) => {
     const li = document.createElement("li");
     if (r === miRegistro) li.classList.add("actual");

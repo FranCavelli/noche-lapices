@@ -1019,6 +1019,34 @@ html, body {
 .panel-acciones .boton-fantasma { margin: 0; font-size: 0.72rem; }
 .panel-foto { width: 100%; border: 1px solid var(--papel-sombra); display: block; }
 
+.selector-lista { display: block; column-width: 16rem; column-gap: 1.4rem; }
+.selector-tipo {
+  break-inside: avoid;
+  margin-bottom: 1.1rem;
+}
+.selector-tipo h3 {
+  font-family: var(--f-maquina);
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--manila);
+  margin-bottom: 0.4rem;
+}
+.selector-mision {
+  display: block;
+  width: 100%;
+  text-align: left;
+  background: none;
+  border: none;
+  border-bottom: 1px dotted var(--grafito);
+  color: var(--papel);
+  font-family: var(--f-cuerpo);
+  font-size: 0.85rem;
+  padding: 0.32rem 0.2rem;
+  cursor: pointer;
+}
+.selector-mision:hover, .selector-mision:focus-visible { color: var(--manila); outline: none; }
+
 /* ── Impresión: sale solo la tarjeta de recuerdo ─────────────────── */
 
 .recuerdo-impresion { display: none; }

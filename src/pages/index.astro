@@ -180,6 +180,18 @@ const ruta = (p) => import.meta.env.BASE_URL.replace(/\/$/, "") + p;
       </div>
     </div>
 
+    <div id="selector" class="archivo oculta">
+      <div class="archivo-caja">
+        <header class="archivo-barra">
+          <h2>Probar una misión <span class="archivo-total">solo para pruebas: no queda en el registro</span></h2>
+          <div class="archivo-botones">
+            <button id="selector-cerrar" class="boton-fantasma fantasma-clara" type="button">cerrar</button>
+          </div>
+        </header>
+        <div id="selector-lista" class="archivo-lista selector-lista"></div>
+      </div>
+    </div>
+
     <div id="recuerdo-impresion" class="recuerdo-impresion"></div>
 
     <script>
