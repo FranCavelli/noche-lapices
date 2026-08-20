@@ -305,6 +305,10 @@ addEventListener("resize", () => {
 });
 // Selector oculto para probar una misión suelta (Ctrl+Alt+M). Juega solo esa,
 // con nombre PRUEBA, y no deja rastro en el ranking ni en el archivo.
+export function abrirSelector() {
+  armarSelector();
+  $("selector").classList.remove("oculta");
+}
 function armarSelector() {
   const lista = $("selector-lista");
   if (lista.dataset.armado) return;
@@ -350,7 +354,8 @@ function probarMision(m) {
 }
 document.addEventListener("keydown", (e) => {
   if (e.repeat) return;
-  if (e.ctrlKey && e.altKey && e.key.toLowerCase() === "m") {
+  // e.code compara la tecla física: no depende del layout del teclado
+  if (e.ctrlKey && e.altKey && (e.code === "KeyM" || e.key.toLowerCase() === "m")) {
     e.preventDefault();
     armarSelector();
     $("selector").classList.toggle("oculta");

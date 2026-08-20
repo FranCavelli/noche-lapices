@@ -8,6 +8,7 @@ import {
   espacioUsado, pedirPersistencia, urlDe
 } from "./archivo.js";
 import { armarZip } from "./zip.js";
+import { abrirSelector } from "./game.js";
 
 const $ = (id) => document.getElementById(id);
 const POR_PAGINA = 12;
@@ -185,6 +186,10 @@ $("panel-antes").addEventListener("click", () => {
 $("panel-despues").addEventListener("click", () => {
   pagina++;
   pintar();
+});
+$("panel-probar").addEventListener("click", () => {
+  cerrar();
+  abrirSelector();
 });
 $("panel-exportar").addEventListener("click", exportarTodo);
 $("panel-vaciar").addEventListener("click", async (e) => {
