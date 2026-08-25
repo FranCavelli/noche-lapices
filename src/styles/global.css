@@ -1094,10 +1094,10 @@ html, body {
   left: -60%;
   width: 45%;
   height: 180%;
-  background: linear-gradient(100deg, transparent, rgba(255, 233, 186, 0.16) 45%, rgba(255, 240, 205, 0.26) 50%, rgba(255, 233, 186, 0.16) 55%, transparent);
+  background: linear-gradient(100deg, transparent, rgba(255, 233, 186, 0.24) 45%, rgba(255, 240, 205, 0.4) 50%, rgba(255, 233, 186, 0.24) 55%, transparent);
   filter: blur(6px);
   transform: rotate(9deg);
-  animation: barrido 13s ease-in-out infinite;
+  animation: barrido 10s ease-in-out infinite;
 }
 @keyframes barrido {
   0%, 62% { left: -60%; opacity: 0; }
@@ -1243,12 +1243,14 @@ html, body {
 .fondo-video {
   z-index: 0;
   opacity: 0;
-  filter: brightness(0.84) saturate(0.96);
+  filter: brightness(0.78) saturate(0.95);
   transition: opacity 1.4s ease;
 }
 .fondo-video.listo { opacity: 1; }
-/* con el video andando, la foto de abajo no necesita seguir moviéndose */
+/* con el video andando, la foto de abajo no necesita seguir moviéndose y el
+   polvo dibujado sobra: el propio clip ya trae el suyo */
 .con-video .fondo-vivo { animation: none; }
+.con-video .atractor-polvo { display: none; }
 
 /* El cartel del subtítulo va cambiando para que se entienda que es un juego */
 .portada-sub.cambia { animation: sub-estampa 0.5s ease-out; }
