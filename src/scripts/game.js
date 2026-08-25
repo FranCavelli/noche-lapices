@@ -98,6 +98,8 @@ const pantallas = { portada: $("portada"), apertura: $("apertura"), juego: $("ju
 function mostrar(nombre) {
   Object.values(pantallas).forEach((p) => p.classList.remove("activa"));
   pantallas[nombre].classList.add("activa");
+  // el video de fondo se pausa al ocultarse la portada: al volver, sigue
+  if (nombre === "portada") document.getElementById("fondo-portada")?.play().catch(() => {});
 }
 function barajar(arr) {
   const a = [...arr];
@@ -216,6 +218,32 @@ function pasarFicha() {
 }
 setTimeout(pasarFicha, 2600);
 setInterval(pasarFicha, 9600);
+// El escritorio se mueve en loop; si el video no arranca queda la foto abajo.
+const fondoPortada = $("fondo-portada");
+fondoPortada.addEventListener("playing", () => {
+  fondoPortada.classList.add("listo");
+  pantallas.portada.classList.add("con-video");
+}, { once: true });
+fondoPortada.play().catch(() => {});
+// El cartel rojo va cambiando: de lejos tiene que leerse que esto es un juego.
+const LLAMADOS = [
+  "7 misiones · ¿cuánto sabés?",
+  "Restaurá lo que quisieron borrar",
+  "El mejor puntaje queda en el podio",
+  "Restaurá lo que quisieron borrar",
+  "Escribí tu nombre y jugá",
+  "Restaurá lo que quisieron borrar"
+];
+let turnoLlamado = 0;
+function pasarLlamado() {
+  if (!pantallas.portada.classList.contains("activa")) return;
+  const cartel = $("portada-sub");
+  cartel.textContent = LLAMADOS[turnoLlamado++ % LLAMADOS.length];
+  cartel.classList.remove("cambia");
+  void cartel.offsetWidth;
+  cartel.classList.add("cambia");
+}
+setInterval(pasarLlamado, 6500);
 const rutaFrame = (n) => ruta(`/expediente/frame-${String(n).padStart(2, "0")}.jpg`);
 const frames = FRAMES_APERTURA.map((n) => {
   const img = new Image();

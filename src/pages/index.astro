@@ -20,6 +20,16 @@ const ruta = (p) => import.meta.env.BASE_URL.replace(/\/$/, "") + p;
   <body>
     <section id="portada" class="pantalla activa">
       <img class="fondo-full fondo-vivo" src={ruta("/expediente/frame-01.jpg")} alt="" />
+      <video
+        id="fondo-portada"
+        class="fondo-full fondo-video"
+        src={ruta("/media/video/portada-loop.mp4")}
+        poster={ruta("/expediente/frame-01.jpg")}
+        autoplay
+        muted
+        loop
+        playsinline
+        preload="auto"></video>
       <div class="vineta"></div>
 
       <div class="atractor" aria-hidden="true">
@@ -38,7 +48,7 @@ const ruta = (p) => import.meta.env.BASE_URL.replace(/\/$/, "") + p;
       <header class="portada-titulo">
         <p class="eyebrow">República Argentina · La Plata · 16.09.1976</p>
         <h1>La Noche<br />de los Lápices</h1>
-        <p class="portada-sub">Restaurá lo que quisieron borrar</p>
+        <p id="portada-sub" class="portada-sub">Restaurá lo que quisieron borrar</p>
       </header>
 
       <form id="ficha-ingreso" class="tarjeta-ingreso" autocomplete="off">

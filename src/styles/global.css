@@ -1237,3 +1237,24 @@ html, body {
 @media (max-width: 1000px), (max-height: 780px) {
   .atractor-flecha { display: none; }
 }
+
+/* El escritorio del expediente se mueve solo en la portada: la foto queda
+   debajo por si el video no puede reproducirse. */
+.fondo-video {
+  z-index: 0;
+  opacity: 0;
+  filter: brightness(0.84) saturate(0.96);
+  transition: opacity 1.4s ease;
+}
+.fondo-video.listo { opacity: 1; }
+/* con el video andando, la foto de abajo no necesita seguir moviéndose */
+.con-video .fondo-vivo { animation: none; }
+
+/* El cartel del subtítulo va cambiando para que se entienda que es un juego */
+.portada-sub.cambia { animation: sub-estampa 0.5s ease-out; }
+@keyframes sub-estampa {
+  0% { opacity: 0; transform: rotate(-7deg) scale(1.3); }
+  55% { opacity: 1; transform: rotate(-1.2deg) scale(1); }
+  70% { transform: rotate(-1.2deg) scale(1.05); }
+  100% { opacity: 1; transform: rotate(-1.2deg) scale(1); }
+}
