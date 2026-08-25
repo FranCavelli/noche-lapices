@@ -7,10 +7,13 @@ const BASE = import.meta.env.BASE_URL.replace(/\/+$/, "");
 // son el ajuste fino: subí VOLUMEN si en el kiosco se escucha muy tapada.
 const VOLUMEN = 0.25;
 const AGACHADA = 0.05;
+// la voz que invita en la portada no necesita tanto silencio: la música sigue
+export const AGACHADA_SUAVE = 0.15;
 const FUNDIDO = 700;
 
 let pista = null;
-let tapada = 0;
+// cada cosa que suena anota a qué volumen quiere la música; mandamos el más bajo
+let tapadas = [];
 let fundido = null;
 
 function llevarA(destino, ms = FUNDIDO) {
@@ -24,7 +27,7 @@ function llevarA(destino, ms = FUNDIDO) {
     if (paso === 1) clearInterval(fundido);
   }, 40);
 }
-const objetivo = () => tapada > 0 ? AGACHADA : VOLUMEN;
+const objetivo = () => (tapadas.length ? Math.min(...tapadas) : VOLUMEN);
 
 export function arrancarMusica() {
   if (pista) {
@@ -49,25 +52,26 @@ export function pararMusica() {
 }
 // Cada cosa que suena pide silencio al entrar y lo devuelve al salir. Se lleva
 // una cuenta porque puede haber dos a la vez (por ejemplo voz y galería).
-export function taparMusica() {
-  tapada++;
+export function taparMusica(nivel = AGACHADA) {
+  tapadas.push(typeof nivel === "number" ? nivel : AGACHADA);
   llevarA(objetivo(), 350);
 }
-export function destaparMusica() {
-  tapada = Math.max(0, tapada - 1);
+export function destaparMusica(nivel = AGACHADA) {
+  const i = tapadas.indexOf(typeof nivel === "number" ? nivel : AGACHADA);
+  if (i >= 0) tapadas.splice(i, 1);
   llevarA(objetivo());
 }
 // Envuelve un audio o video: agacha la música mientras dure y la devuelve al
 // terminar, pase lo que pase (fin, error, o que nunca haya llegado a sonar).
-export function acompanar(medio) {
+export function acompanar(medio, nivel = AGACHADA) {
   if (!medio) return medio;
   let soltado = false;
   const soltar = () => {
     if (soltado) return;
     soltado = true;
-    destaparMusica();
+    destaparMusica(nivel);
   };
-  taparMusica();
+  taparMusica(nivel);
   medio.addEventListener("ended", soltar, { once: true });
   medio.addEventListener("error", soltar, { once: true });
   medio.addEventListener("pause", soltar, { once: true });

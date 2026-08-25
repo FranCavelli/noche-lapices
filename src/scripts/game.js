@@ -1,7 +1,7 @@
 import gsap from "gsap";
 import { MISIONES, slugMision } from "./misiones.js";
 import { abrirRecuerdo } from "./recuerdo.js";
-import { arrancarMusica, acompanar, taparMusica, destaparMusica } from "./musica.js";
+import { arrancarMusica, acompanar, taparMusica, destaparMusica, AGACHADA_SUAVE } from "./musica.js";
 const BASE = import.meta.env.BASE_URL.replace(/\/+$/, "");
 const ruta = (p) => BASE + p;
 // cada visita sortea 7 misiones del pool, con mezcla de tipos garantizada
@@ -177,7 +177,7 @@ function invitar(forzar = false) {
   const slug = INVITACIONES[turnoVoz++ % INVITACIONES.length];
   vozInvitacion = new Audio(ruta(`/audio/datos/${slug}.mp3`));
   vozInvitacion.play().catch(() => {});
-  acompanar(vozInvitacion);
+  acompanar(vozInvitacion, AGACHADA_SUAVE);
   senalarFicha();
 }
 function senalarFicha() {
@@ -760,8 +760,8 @@ function construirEscena(m, cuerpo) {
     if (!video.paused || video.currentTime >= Number(video.dataset.hasta)) return;
     video.play().then(() => marco.classList.remove("trabado")).catch(() => marco.classList.add("trabado"));
   });
-  video.addEventListener("play", taparMusica);
-  video.addEventListener("pause", destaparMusica);
+  video.addEventListener("play", () => taparMusica());
+  video.addEventListener("pause", () => destaparMusica());
   if (video.readyState >= 1) arrancar();
   else video.addEventListener("loadedmetadata", arrancar, { once: true });
   // el tope vive en el dataset porque cambia al revelar, cuando suena la canción
@@ -1111,8 +1111,8 @@ function marcoDeVideo(src) {
     if (!video.paused || video.currentTime >= Number(video.dataset.hasta)) return;
     video.play().then(() => marco.classList.remove("trabado")).catch(() => marco.classList.add("trabado"));
   });
-  video.addEventListener("play", taparMusica);
-  video.addEventListener("pause", destaparMusica);
+  video.addEventListener("play", () => taparMusica());
+  video.addEventListener("pause", () => destaparMusica());
   // el marco toma la forma real del video y se angosta a lo que el tope de
   // alto permite: sin esto un video 4:3 queda achatado dentro de un cuadro
   // ancho, con franjas negras enormes a los costados
