@@ -16,6 +16,19 @@ const CARAS = [
   ["francisco-lopez-muntaner.jpg", "Francisco López Muntaner"],
   ["claudio-de-acha.jpg", "Claudio de Acha"]
 ];
+// fotos que caen en la portada cuando no hay nadie jugando
+const ATRACTOR = [
+  ["claudia-falcone.jpg", "Claudia Falcone", "Bachillerato de Bellas Artes", "sigue desaparecida"],
+  ["horacio-ungaro.jpg", "Horacio Ungaro", "Escuela Normal N.º 3", "sigue desaparecido"],
+  ["maria-clara-ciocchini.jpg", "María Clara Ciocchini", "Bachillerato de Bellas Artes", "sigue desaparecida"],
+  ["claudio-de-acha.jpg", "Claudio de Acha", "Colegio Nacional de La Plata", "sigue desaparecido"],
+  ["daniel-racero.jpg", "Daniel Racero", "Escuela Normal N.º 3", "sigue desaparecido"],
+  ["francisco-lopez-muntaner.jpg", "Francisco López Muntaner", "Bachillerato de Bellas Artes", "sigue desaparecido"]
+];
+// la voz de la portada rota entre estas frases para que no se repita siempre
+const INVITACIONES = ["invitacion", "invitacion-2", "invitacion-3", "invitacion-4", "invitacion-5"];
+const ESPERA_VOZ = 45000;
+const QUIETO = 15000;
 const BASE_MISION = 120;
 const BONUS_MISION = 60;
 const FRAMES_APERTURA = [1, 2, 3, 4, 5, 7, 8];
@@ -149,16 +162,60 @@ function pintarPodio() {
 }
 pintarPodio();
 arrancarMusica();
+// Mientras nadie juega, la portada llama sola: la voz invita cada tanto con
+// una frase distinta y las fotos de los seis van cayendo sobre el escritorio.
 let vozInvitacion = null;
-function invitar() {
+let turnoVoz = 0;
+let ultimoToque = -1e9;
+function invitar(forzar = false) {
   if (!pantallas.portada.classList.contains("activa")) return;
   if (vozInvitacion && !vozInvitacion.paused) return;
-  vozInvitacion = new Audio(ruta("/audio/datos/invitacion.mp3"));
+  // si alguien está completando la ficha, no le hablamos encima
+  if (!forzar && performance.now() - ultimoToque < QUIETO) return;
+  const slug = INVITACIONES[turnoVoz++ % INVITACIONES.length];
+  vozInvitacion = new Audio(ruta(`/audio/datos/${slug}.mp3`));
   vozInvitacion.play().catch(() => {});
   acompanar(vozInvitacion);
+  senalarFicha();
 }
-setTimeout(invitar, 1500);
-setInterval(invitar, 120000);
+function senalarFicha() {
+  $("atractor-flecha").classList.add("se-ve");
+  $("boton-abrir").classList.add("llama");
+  clearTimeout(senalarFicha.id);
+  senalarFicha.id = setTimeout(apagarSenal, 12000);
+}
+function apagarSenal() {
+  $("atractor-flecha").classList.remove("se-ve");
+  $("boton-abrir").classList.remove("llama");
+}
+["pointerdown", "keydown"].forEach((ev) =>
+  document.addEventListener(ev, () => {
+    ultimoToque = performance.now();
+    vozInvitacion?.pause();
+    apagarSenal();
+  })
+);
+setTimeout(() => invitar(true), 1500);
+setInterval(invitar, ESPERA_VOZ);
+let turnoFicha = 0;
+function pasarFicha() {
+  if (!pantallas.portada.classList.contains("activa")) return;
+  const [archivo, nombre, escuela, sello] = ATRACTOR[turnoFicha++ % ATRACTOR.length];
+  const caja = $("atractor-ficha");
+  const marca = $("atractor-sello");
+  $("atractor-img").src = ruta(`/media/caras/${archivo}`);
+  $("atractor-nombre").textContent = nombre;
+  $("atractor-escuela").textContent = escuela;
+  marca.textContent = sello;
+  caja.style.setProperty("--giro", `${(turnoFicha % 2 ? -1 : 1) * (2 + Math.random() * 2.5)}deg`);
+  caja.classList.remove("pasa");
+  marca.classList.remove("estampa");
+  void caja.offsetWidth;
+  caja.classList.add("pasa");
+  marca.classList.add("estampa");
+}
+setTimeout(pasarFicha, 2600);
+setInterval(pasarFicha, 9600);
 const rutaFrame = (n) => ruta(`/expediente/frame-${String(n).padStart(2, "0")}.jpg`);
 const frames = FRAMES_APERTURA.map((n) => {
   const img = new Image();
@@ -1259,7 +1316,7 @@ async function animarCierre() {
   }
   mostrar("portada");
   $("nombre").focus();
-  setTimeout(invitar, 9000);
+  setTimeout(() => invitar(true), 9000);
 }
 function volverAPortada() {
   estado.audioDato?.pause();

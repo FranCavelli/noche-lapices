@@ -1068,3 +1068,172 @@ html, body {
   .polaroid { width: min(28vw, 130px); }
   .panel-ficha { grid-template-columns: 1fr; }
 }
+
+/* Portada en reposo: mientras nadie juega, el expediente se mueve solo para
+   que desde lejos se note que hay algo para hacer. */
+.fondo-vivo {
+  transform-origin: 55% 45%;
+  animation: deriva 46s ease-in-out infinite alternate;
+}
+@keyframes deriva {
+  from { transform: scale(1.03) translate3d(0, 0, 0); }
+  to { transform: scale(1.13) translate3d(-1.6%, -1.2%, 0); }
+}
+
+.atractor {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  overflow: hidden;
+}
+/* linterna que barre el escritorio cada tanto */
+.atractor-haz {
+  position: absolute;
+  top: -40%;
+  left: -60%;
+  width: 45%;
+  height: 180%;
+  background: linear-gradient(100deg, transparent, rgba(255, 233, 186, 0.16) 45%, rgba(255, 240, 205, 0.26) 50%, rgba(255, 233, 186, 0.16) 55%, transparent);
+  filter: blur(6px);
+  transform: rotate(9deg);
+  animation: barrido 13s ease-in-out infinite;
+}
+@keyframes barrido {
+  0%, 62% { left: -60%; opacity: 0; }
+  66% { opacity: 1; }
+  96% { left: 115%; opacity: 0; }
+  100% { left: 115%; opacity: 0; }
+}
+/* polvo de archivo flotando en el haz */
+.atractor-polvo {
+  position: absolute;
+  inset: -10%;
+  background:
+    radial-gradient(1.6px 1.6px at 12% 30%, rgba(255, 244, 214, 0.55), transparent),
+    radial-gradient(1.4px 1.4px at 32% 70%, rgba(255, 244, 214, 0.4), transparent),
+    radial-gradient(2px 2px at 58% 22%, rgba(255, 244, 214, 0.5), transparent),
+    radial-gradient(1.5px 1.5px at 74% 62%, rgba(255, 244, 214, 0.42), transparent),
+    radial-gradient(1.8px 1.8px at 88% 40%, rgba(255, 244, 214, 0.38), transparent),
+    radial-gradient(1.3px 1.3px at 46% 88%, rgba(255, 244, 214, 0.45), transparent);
+  animation: flotar 26s linear infinite alternate;
+}
+@keyframes flotar {
+  from { transform: translate3d(0, 0, 0); }
+  to { transform: translate3d(2.5%, -4%, 0); }
+}
+
+/* la foto de cada pibe cae sobre el escritorio, se sella y se va */
+.atractor-ficha {
+  position: absolute;
+  left: 4.5vw;
+  top: 46%;
+  width: min(210px, 17vw);
+  padding: 0.5rem 0.5rem 0;
+  background: #fbf7ee;
+  box-shadow: 0 16px 34px rgba(0, 0, 0, 0.6);
+  opacity: 0;
+  --giro: -3deg;
+}
+.atractor-ficha.pasa { animation: ficha-cae 9.6s ease-out forwards; }
+@keyframes ficha-cae {
+  0% { opacity: 0; transform: translateY(-90px) rotate(calc(var(--giro) - 10deg)) scale(0.9); }
+  8% { opacity: 1; transform: translateY(8px) rotate(calc(var(--giro) + 1.5deg)) scale(1.03); }
+  13% { transform: translateY(0) rotate(var(--giro)) scale(1); }
+  88% { opacity: 1; transform: translateY(0) rotate(var(--giro)) scale(1); }
+  100% { opacity: 0; transform: translateY(45px) rotate(var(--giro)) scale(1); }
+}
+.atractor-vista {
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  background: #0d0b08;
+}
+.atractor-vista img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: grayscale(1) contrast(1.06) sepia(0.12);
+}
+.atractor-ficha figcaption { padding: 0.35rem 0.15rem 0.55rem; text-align: center; }
+.atractor-nombre {
+  display: block;
+  font-family: var(--f-lapiz);
+  font-weight: 700;
+  font-size: 1.35rem;
+  color: var(--tinta-azul);
+  line-height: 1.1;
+}
+.atractor-escuela {
+  display: block;
+  font-family: var(--f-maquina);
+  font-size: 0.52rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--grafito-claro);
+  margin-top: 0.25rem;
+}
+.atractor-sello {
+  position: absolute;
+  left: -0.4rem;
+  right: -0.4rem;
+  bottom: 24%;
+  font-family: var(--f-maquina);
+  font-size: 0.66rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  text-align: center;
+  color: var(--sello);
+  border: 2.5px solid var(--sello);
+  border-radius: 3px;
+  padding: 0.2rem 0;
+  background: rgba(240, 232, 212, 0.86);
+  opacity: 0;
+  transform: rotate(-9deg);
+}
+.atractor-sello.estampa { animation: estampar 9.6s ease-out forwards; }
+@keyframes estampar {
+  0%, 12% { opacity: 0; transform: rotate(-26deg) scale(2.6); }
+  18% { opacity: 0.95; transform: rotate(-9deg) scale(1); }
+  21% { transform: rotate(-9deg) scale(1.06); }
+  25%, 88% { opacity: 0.92; transform: rotate(-9deg) scale(1); }
+  100% { opacity: 0; transform: rotate(-9deg) scale(1); }
+}
+
+/* apunte a lápiz sobre la ficha de ingreso, aparece cuando habla la voz */
+.atractor-flecha {
+  position: absolute;
+  top: -2.6rem;
+  right: 0.4rem;
+  font-family: var(--f-lapiz);
+  font-weight: 700;
+  font-size: 1.45rem;
+  color: var(--papel);
+  background: var(--sello);
+  padding: 0.05em 0.6em 0.16em;
+  border-radius: 2px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.6);
+  transform: rotate(-3deg);
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  pointer-events: none;
+}
+.atractor-flecha.se-ve { opacity: 1; animation: apunta 1.6s ease-in-out infinite; }
+@keyframes apunta {
+  0%, 100% { transform: rotate(-3deg) translateY(0); }
+  50% { transform: rotate(-3deg) translateY(5px); }
+}
+.boton-sello.llama { animation: sello-llama 2.2s ease-in-out infinite; }
+@keyframes sello-llama {
+  0%, 100% { box-shadow: 0 0 0 rgba(165, 35, 29, 0); background: transparent; }
+  50% { box-shadow: 0 0 24px rgba(165, 35, 29, 0.5); background: rgba(165, 35, 29, 0.09); }
+}
+
+/* en ventanas chicas la ficha y el apunte le comen lugar al formulario */
+@media (max-width: 1000px), (max-height: 560px) {
+  .atractor-ficha { display: none; }
+}
+/* el apunte necesita aire arriba de la ficha de ingreso: si la pantalla es
+   baja se le monta al título, así que ahí no aparece */
+@media (max-width: 1000px), (max-height: 780px) {
+  .atractor-flecha { display: none; }
+}

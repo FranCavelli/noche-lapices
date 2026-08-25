@@ -19,8 +19,21 @@ const ruta = (p) => import.meta.env.BASE_URL.replace(/\/$/, "") + p;
   </head>
   <body>
     <section id="portada" class="pantalla activa">
-      <img class="fondo-full" src={ruta("/expediente/frame-01.jpg")} alt="" />
+      <img class="fondo-full fondo-vivo" src={ruta("/expediente/frame-01.jpg")} alt="" />
       <div class="vineta"></div>
+
+      <div class="atractor" aria-hidden="true">
+        <div class="atractor-haz"></div>
+        <div class="atractor-polvo"></div>
+        <figure id="atractor-ficha" class="atractor-ficha">
+          <div class="atractor-vista"><img id="atractor-img" src="" alt="" /></div>
+          <figcaption>
+            <span id="atractor-nombre" class="atractor-nombre"></span>
+            <span id="atractor-escuela" class="atractor-escuela"></span>
+          </figcaption>
+          <span id="atractor-sello" class="atractor-sello"></span>
+        </figure>
+      </div>
 
       <header class="portada-titulo">
         <p class="eyebrow">República Argentina · La Plata · 16.09.1976</p>
@@ -45,9 +58,10 @@ const ruta = (p) => import.meta.env.BASE_URL.replace(/\/$/, "") + p;
         />
         <label for="email">Mail <span class="opcional">(opcional, para mandarte tu foto)</span></label>
         <input id="email" name="email" type="email" maxlength="60" placeholder="escribí tu mail" />
-        <button type="submit" class="boton-sello">Abrir expediente</button>
+        <button id="boton-abrir" type="submit" class="boton-sello">Abrir expediente</button>
         <p class="tarjeta-pie">7 misiones al azar · cada expediente es distinto · tu puntaje queda en el registro</p>
         <p class="tarjeta-anios">1976 — 2026 · a cincuenta años</p>
+        <p id="atractor-flecha" class="atractor-flecha">tocá y escribí tu nombre ↓</p>
       </form>
 
       <aside id="podio" class="podio oculta">
