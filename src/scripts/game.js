@@ -225,13 +225,13 @@ fondoPortada.addEventListener("playing", () => {
   pantallas.portada.classList.add("con-video");
 }, { once: true });
 fondoPortada.play().catch(() => {});
-// El cartel rojo va cambiando: de lejos tiene que leerse que esto es un juego.
+// El cartel rojo va cambiando para que de lejos se entienda qué hay acá.
 const LLAMADOS = [
   "7 misiones · ¿cuánto sabés?",
   "Restaurá lo que quisieron borrar",
-  "El mejor puntaje queda en el podio",
+  "El expediente está abierto",
   "Restaurá lo que quisieron borrar",
-  "Escribí tu nombre y jugá",
+  "Escribí tu nombre y entrá",
   "Restaurá lo que quisieron borrar"
 ];
 let turnoLlamado = 0;
