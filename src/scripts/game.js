@@ -463,8 +463,26 @@ document.addEventListener("keydown", (e) => {
 });
 function arrancarTimer(segundos) {
   estado.t0 = Date.now();
+  estado.pausadoEn = null;
   estado.timer = gsap.to($("timer-barra"), { scaleX: 0, duration: segundos, ease: "none" });
   estado.timeoutId = setTimeout(() => resolverMision(true), segundos * 1e3);
+}
+// El solucionario (Ctrl+Alt+R) congela la misión mientras está abierto: si el
+// reloj siguiera corriendo detrás del overlay, consultarlo costaría la misión.
+export function pausarMision() {
+  if (!estado.timer || estado.resuelta || estado.pausadoEn) return;
+  estado.timer.pause();
+  clearTimeout(estado.timeoutId);
+  estado.pausadoEn = Date.now();
+}
+export function reanudarMision() {
+  if (!estado.timer || estado.resuelta || !estado.pausadoEn) return;
+  // el t0 se corre lo que duró la pausa, así el bono por tiempo no se penaliza
+  estado.t0 += Date.now() - estado.pausadoEn;
+  estado.pausadoEn = null;
+  const resta = (estado.timer.duration() - estado.timer.time()) * 1e3;
+  estado.timer.resume();
+  estado.timeoutId = setTimeout(() => resolverMision(true), resta);
 }
 function anotarSub(valor) {
   estado.sub.hechos++;

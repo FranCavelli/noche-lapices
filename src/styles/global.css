@@ -1260,3 +1260,110 @@ html, body {
   70% { transform: rotate(-1.2deg) scale(1.05); }
   100% { opacity: 1; transform: rotate(-1.2deg) scale(1); }
 }
+
+/* ── Solucionario (Ctrl+Alt+R): todas las misiones con su respuesta ── */
+
+.solucionario-buscar {
+  font-family: var(--f-cuerpo);
+  font-size: 0.75rem;
+  color: var(--papel);
+  background: rgba(0, 0, 0, 0.25);
+  border: 1px solid var(--grafito-claro);
+  border-radius: 3px;
+  padding: 0.3rem 0.6rem;
+  width: 11rem;
+}
+.solucionario-buscar::placeholder { color: var(--grafito-claro); }
+.solucionario-buscar:focus-visible { outline: 1px solid var(--manila); }
+/* grid en vez de columnas CSS: así se lee 01-02 / 03-04 en vez de saltar
+   de la misión 1 a la 22 al pasar de columna */
+.solucionario-lista { grid-template-columns: repeat(auto-fill, minmax(21rem, 1fr)); align-content: start; }
+
+.sol-ficha {
+  align-self: start;
+  padding: 0.7rem 0.85rem;
+  background: var(--papel);
+  color: var(--grafito);
+  border-radius: 3px;
+  font-family: var(--f-cuerpo);
+  font-size: 0.82rem;
+  line-height: 1.45;
+}
+.sol-actual { outline: 2px solid var(--manila); }
+.sol-cab {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  border-bottom: 1px dotted var(--grafito-claro);
+  padding-bottom: 0.35rem;
+  margin-bottom: 0.45rem;
+}
+.sol-num { font-family: var(--f-maquina); color: var(--sello); }
+.sol-cab h3 {
+  flex: 1;
+  font-family: var(--f-maquina);
+  font-size: 0.9rem;
+  letter-spacing: 0.04em;
+}
+.sol-tipo {
+  font-size: 0.66rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--grafito-claro);
+}
+.sol-consigna { font-size: 0.72rem; color: var(--grafito-claro); margin-bottom: 0.45rem; }
+.sol-texto { margin-bottom: 0.5rem; }
+.sol-nota { font-size: 0.72rem; color: var(--grafito-claro); margin-bottom: 0.4rem; }
+.sol-dato {
+  margin-top: 0.5rem;
+  padding-top: 0.4rem;
+  border-top: 1px dotted var(--grafito-claro);
+  font-family: var(--f-lapiz);
+  font-size: 0.95rem;
+  color: var(--tinta-azul);
+}
+.sol-ok { color: var(--sello); font-weight: 700; }
+.sol-marca { color: var(--sello); margin-right: 0.35rem; font-style: normal; }
+
+.sol-chips { display: flex; flex-wrap: wrap; gap: 0.3rem; }
+.sol-chip {
+  font-size: 0.72rem;
+  padding: 0.12rem 0.45rem;
+  border-radius: 2px;
+  border: 1px solid var(--papel-sombra);
+}
+.sol-chip-ok { border-color: var(--sello); color: var(--sello); }
+.sol-chip-mal { color: var(--grafito-claro); text-decoration: line-through; }
+
+.sol-sello {
+  font-family: var(--f-maquina);
+  letter-spacing: 0.12em;
+  border: 2px solid currentcolor;
+  border-radius: 2px;
+  padding: 0.1rem 0.5rem;
+  display: inline-block;
+  transform: rotate(-2deg);
+}
+.sol-sello-si { color: var(--tinta-azul); }
+.sol-sello-no { color: var(--sello); }
+
+.sol-linea { list-style: none; counter-reset: sol; }
+.sol-linea li { counter-increment: sol; display: flex; gap: 0.4rem; align-items: baseline; }
+.sol-linea li::before { content: counter(sol) "."; color: var(--sello); font-family: var(--f-maquina); }
+.sol-anio {
+  font-family: var(--f-maquina);
+  font-size: 0.72rem;
+  color: var(--grafito-claro);
+  min-width: 4.2rem;
+}
+.sol-pares { list-style: none; display: grid; gap: 0.25rem; }
+.sol-pares li { display: grid; grid-template-columns: 8.5rem 0.9rem 1fr; gap: 0.2rem; }
+.sol-par-izq { font-weight: 700; }
+.sol-flecha { color: var(--sello); }
+.sol-opciones { list-style: none; display: grid; gap: 0.15rem; }
+.sol-opciones li { display: flex; align-items: baseline; }
+
+@media (max-width: 640px) {
+  .solucionario-lista { grid-template-columns: 1fr; }
+  .solucionario-buscar { width: 7rem; }
+}
