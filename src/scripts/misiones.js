@@ -61,7 +61,12 @@ const MISIONES = [
     blancos: ["escribiendo"],
     senuelos: ["esperando", "marchando"],
     dato: "La dijo Pablo Díaz al recordar a sus compañeros. Hoy la repiten miles de estudiantes cada 16 de septiembre.",
-    voz: "«Los lápices siguen escribiendo» la dijo Pablo Díaz, uno de los sobrevivientes, al recordar a sus compañeros. Con los años se volvió el símbolo de esta historia, y hoy la repiten miles de estudiantes en todo el país, cada 16 de septiembre."
+    // acá el relator explica primero y recién después entra el video del recital
+    datoVideo: "/media/video/lapices-escribiendo.mp4",
+    datoVozPrimero: true,
+    datoDesde: 0,
+    datoHasta: 21,
+    voz: "«Los lápices siguen escribiendo» la dijo Pablo Díaz, uno de los sobrevivientes, al recordar a sus compañeros. Con los años se volvió el símbolo de esta historia: hoy la repiten miles de estudiantes en todo el país cada 16 de septiembre, y también la tomaron los artistas, que la llevaron a los escenarios."
   },
   {
     tipo: "veredicto",
@@ -445,6 +450,12 @@ const MISIONES = [
       ["La memoria", "De León Gieco: sobre lo que no se puede olvidar"],
       ["Marcha de la bronca", "De Pedro y Pablo: protesta que la censura prohibió"]
     ],
+    // cada músico cae con su foto cuando la voz lo nombra
+    fotosEventos: [
+      { hito: "Charly García", img: "/media/musicos/charly-garcia.jpg" },
+      { hito: "León Gieco", img: "/media/musicos/leon-gieco.jpg" },
+      { hito: "Pedro y Pablo", img: "/media/musicos/pedro-y-pablo.jpg" }
+    ],
     dato: "Cuando no se podía hablar, la música guardó la memoria.",
     voz: "Cuando no se podía hablar, la música guardó la memoria. Charly García cantó el miedo a que los amigos desaparecieran en Los dinosaurios. León Gieco le puso voz al recuerdo en La memoria. Y la Marcha de la bronca, de Pedro y Pablo, estuvo prohibida por la censura."
   },
@@ -489,7 +500,14 @@ const MISIONES = [
     afirmacion: "Durante la dictadura, las radios tenían listas de canciones que no podían pasar.",
     esCierto: true,
     dato: "Hubo listas negras de temas y de artistas; muchos músicos se fueron al exilio.",
-    voz: "Es cierto. Existían listas de canciones prohibidas que las radios no podían pasar, y listas negras de artistas. Muchos músicos tuvieron que irse del país. Cantar también era una forma de resistir y de recordar."
+    // cada músico cae con su foto cuando la voz lo nombra
+    fotosEventos: [
+      { hito: "Mercedes Sosa", img: "/media/musicos/mercedes-sosa.jpg" },
+      { hito: "León Gieco", img: "/media/musicos/leon-gieco.jpg" },
+      { hito: "Charly García", img: "/media/musicos/charly-garcia.jpg" },
+      { hito: "Pedro y Pablo", img: "/media/musicos/pedro-y-pablo.jpg" }
+    ],
+    voz: "Es cierto. Había listas negras: canciones que las radios tenían prohibido pasar y artistas que era mejor no nombrar. A Mercedes Sosa la detuvieron en pleno recital y terminó yéndose del país. León Gieco vio prohibidas sus canciones y también se fue. A Charly García le censuraron letras enteras. Y la Marcha de la bronca, de Pedro y Pablo, ya estaba prohibida desde antes. Cantar también era una forma de resistir."
   }
 ];
 const slugMision = (titulo) => titulo.toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");

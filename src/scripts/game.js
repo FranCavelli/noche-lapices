@@ -842,6 +842,11 @@ function construirEscena(m, cuerpo) {
   estado.revelar = () => botones.find((o) => o.dataset.correcta === "1")?.classList.add("hecho");
 }
 const CONSTRUCTORES = { tachado: construirTachado, veredicto: construirVeredicto, orden: construirOrden, unir: construirUnir, escena: construirEscena };
+// Las fotos de Gabriela Villalba llevan su crédito; el resto del material de
+// archivo va sin firma. Son las del interior del Pozo de Banfield y la de
+// Pablo Díaz con los chicos.
+const esDeVillalba = (src) =>
+  (/\/media\/photos\//.test(src) && !/teresa-laborde/.test(src)) || /pablo-diaz-chicos/.test(src);
 function mostrarGaleria(slug) {
   const lista = estado.medios?.[slug];
   if (!lista?.length) return;
@@ -874,7 +879,7 @@ function mostrarGaleria(slug) {
     }
     vista.append(el);
     marco.append(vista);
-    if (/\/media\/photos\//.test(src) && !/teresa-laborde/.test(src)) {
+    if (esDeVillalba(src)) {
       const credito = document.createElement("figcaption");
       credito.className = "foto-credito";
       credito.textContent = "PH: Gabriela Villalba";
@@ -1088,13 +1093,15 @@ function resolverMision(porTiempo) {
   }
   $("anota-puntos").textContent = ganados > 0 ? `+${ganados} pts ✎` : "quedó asentado en el expediente";
   $("mis-dato").textContent = m.dato;
-  // si la misión revela con un tramo de video, ese tramo reemplaza a la voz del relator
+  // si la misión revela con un tramo de video, ese tramo reemplaza a la voz del
+  // relator; salvo con datoVozPrimero, donde la voz explica y el video va al final
   const videoFicha = $("mis-cuerpo").querySelector("video");
   const hayTramo = Boolean(m.datoHasta && (videoFicha || m.datoVideo));
-  estado.audioDato = hayTramo ? null : reproducirVoz(slugMision(m.titulo));
+  const vozPrimero = hayTramo && Boolean(m.datoVozPrimero);
+  estado.audioDato = hayTramo && !vozPrimero ? null : reproducirVoz(slugMision(m.titulo));
   if (m.caras) mostrarCaras(tiemposDeNombres(m.voz));
   else if (m.fotosEventos) mostrarFotosEventos(m);
-  else if (ganados > 0 && !hayTramo) mostrarGaleria(slugMision(m.titulo));
+  else if (ganados > 0 && (!hayTramo || vozPrimero)) mostrarGaleria(slugMision(m.titulo));
   gsap.fromTo(sello, { opacity: 0, scale: 2.2 }, { opacity: 0.9, scale: 1, duration: 0.28, ease: "power4.in" });
   gsap.to($("anota-puntos"), { opacity: 1, duration: 0.4, delay: 0.35 });
   gsap.to($("mis-dato"), { opacity: 1, duration: 0.5, delay: 0.6 });
@@ -1106,10 +1113,13 @@ function resolverMision(porTiempo) {
       else terminarJuego();
     }, 430);
   };
-  if (hayTramo) {
-    setTimeout(() => reproducirTramo(videoFicha, m, seguir), 2600);
+  const arrancarTramo = () => reproducirTramo(videoFicha, m, seguir);
+  if (hayTramo && !vozPrimero) {
+    setTimeout(arrancarTramo, 2600);
     return;
   }
+  // con voz primero, al terminar el relato entra el video en vez de pasar de ficha
+  const alTerminarLaVoz = vozPrimero ? arrancarTramo : seguir;
   setTimeout(() => {
     const voz = estado.audioDato;
     if (voz && !voz.paused && !voz.ended) {
@@ -1117,7 +1127,7 @@ function resolverMision(porTiempo) {
       const unaVez = () => {
         if (!fue) {
           fue = true;
-          seguir();
+          alTerminarLaVoz();
         }
       };
       voz.addEventListener("ended", unaVez, { once: true });
@@ -1125,7 +1135,7 @@ function resolverMision(porTiempo) {
       const restante = isFinite(voz.duration) && voz.duration > 0 ? voz.duration - voz.currentTime : 0;
       setTimeout(unaVez, restante > 0 ? restante * 1e3 + 2e3 : 3e4);
     } else {
-      setTimeout(seguir, voz && !voz.sono ? 4500 : 0);
+      setTimeout(alTerminarLaVoz, voz && !voz.sono ? 4500 : 0);
     }
   }, 4200);
 }
