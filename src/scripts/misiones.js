@@ -246,7 +246,8 @@ const MISIONES = [
     fotosEventos: [
       { hito: "Pablo Díaz", img: "/media/pablo-diaz/pablo-diaz-teatro.jpg" },
       { hito: "Emilce Moler", img: "/media/sobrevivientes/emilce-moler.jpg" },
-      { hito: "Gustavo Calotti", img: "/media/sobrevivientes/gustavo-calotti.jpg" }
+      { hito: "Gustavo Calotti", img: "/media/sobrevivientes/gustavo-calotti.jpg" },
+      { hito: "Patricia Miranda", img: "/media/nunca-mas/silueta-nunca-mas.jpg" }
     ],
     voz: "De los diez estudiantes secuestrados sobrevivieron cuatro: Pablo Díaz, Emilce Moler, Gustavo Calotti y Patricia Miranda. Pasaron por centros clandestinos y por la cárcel, y años después su palabra fue prueba en los juicios."
   },
@@ -448,7 +449,8 @@ const MISIONES = [
     fotosEventos: [
       { hito: "Pablo Díaz", img: "/media/pablo-diaz/pablo-diaz-teatro.jpg" },
       { hito: "Emilce Moler", img: "/media/sobrevivientes/emilce-moler.jpg" },
-      { hito: "Gustavo Calotti", img: "/media/sobrevivientes/gustavo-calotti.jpg" }
+      { hito: "Gustavo Calotti", img: "/media/sobrevivientes/gustavo-calotti.jpg" },
+      { hito: "Patricia Miranda", img: "/media/nunca-mas/silueta-nunca-mas.jpg" }
     ],
     voz: "Pablo Díaz declaró en el Juicio a las Juntas. Emilce Moler recorre las escuelas contando la historia. Gustavo Calotti y Patricia Miranda también sobrevivieron, y su palabra fue prueba en los juicios. Cuatro voces que mantienen viva la memoria."
   },

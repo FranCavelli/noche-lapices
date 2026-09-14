@@ -6,16 +6,23 @@
 // antes del acto, nada más. Si alguna vez hiciera falta algo serio, tendría
 // que resolverse en un servidor, y este sitio es estático.
 const CLAVE = "2576";
-const LLAVE = "nlp_puerta_v1";
+const LLAVE = "nlp_puerta_dia";
 
 const $ = (id) => document.getElementById(id);
 const puerta = $("puerta");
 const campo = $("puerta-clave");
 const error = $("puerta-error");
 
+// La clave se pide una vez por día: lo que queda guardado en la máquina es el
+// día en que se abrió, así que a la mañana siguiente vuelve a preguntar.
+const hoy = () => {
+  const d = new Date();
+  return `${d.getFullYear()}-${d.getMonth() + 1}-${d.getDate()}`;
+};
+
 const habilitada = () => {
   try {
-    return localStorage.getItem(LLAVE) === "1";
+    return localStorage.getItem(LLAVE) === hoy();
   } catch {
     return false;
   }
@@ -23,7 +30,7 @@ const habilitada = () => {
 
 function abrir() {
   try {
-    localStorage.setItem(LLAVE, "1");
+    localStorage.setItem(LLAVE, hoy());
   } catch {
     // en modo incógnito no se puede guardar: se abre igual, pero va a volver
     // a preguntar en la próxima visita
