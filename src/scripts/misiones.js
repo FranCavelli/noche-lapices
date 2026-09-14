@@ -113,7 +113,7 @@ const MISIONES = [
   {
     tipo: "veredicto",
     titulo: "La película",
-    img: "/fichas/cine.jpg",
+    img: "/media/pelicula/afiche-la-noche-de-los-lapices.jpg",
     afirmacion: "La película «La noche de los lápices» se estrenó en plena dictadura.",
     esCierto: false,
     dato: "Se estrenó en 1986, ya en democracia, dirigida por Héctor Olivera.",
@@ -193,7 +193,7 @@ const MISIONES = [
   {
     tipo: "tachado",
     titulo: "La agrupación",
-    img: "/fichas/colectivo.jpg",
+    img: "/media/educacion-publica/panuelo-educacion-publica.jpg",
     texto: "Muchos de los estudiantes militaban en la [[0]], la agrupación que había impulsado el reclamo del [[1]].",
     blancos: ["UES", "boleto"],
     senuelos: ["Franja Morada", "comedor"],
