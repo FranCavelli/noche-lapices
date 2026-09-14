@@ -18,6 +18,36 @@ const ruta = (p) => import.meta.env.BASE_URL.replace(/\/$/, "") + p;
     />
   </head>
   <body>
+    <div id="puerta" class="puerta">
+      <img class="fondo-full puerta-fondo" src={ruta("/expediente/frame-01.jpg")} alt="" />
+      <form id="puerta-ficha" class="puerta-ficha">
+        <p class="puerta-sello">Acceso restringido</p>
+        <h1 class="puerta-titulo">Expediente reservado</h1>
+        <label class="puerta-label" for="puerta-clave">Clave de apertura:</label>
+        <input
+          id="puerta-clave"
+          class="puerta-campo"
+          type="password"
+          inputmode="numeric"
+          autocomplete="off"
+          autocapitalize="off"
+          spellcheck="false"
+          required
+        />
+        <p id="puerta-error" class="puerta-error" role="alert"></p>
+        <button class="boton-sello puerta-boton" type="submit">Abrir</button>
+      </form>
+    </div>
+    <script is:inline>
+      // Se corre antes de que pinte nada: si la máquina ya está habilitada, la
+      // puerta no llega a verse. Con el módulo diferido se vería un parpadeo.
+      try {
+        if (localStorage.getItem("nlp_puerta_v1") === "1") {
+          document.getElementById("puerta").classList.add("oculta");
+        }
+      } catch (e) {}
+    </script>
+
     <section id="portada" class="pantalla activa">
       <img class="fondo-full fondo-vivo" src={ruta("/expediente/frame-01.jpg")} alt="" />
       <video
@@ -239,6 +269,7 @@ const ruta = (p) => import.meta.env.BASE_URL.replace(/\/$/, "") + p;
     <div id="recuerdo-impresion" class="recuerdo-impresion"></div>
 
     <script>
+      import "../scripts/puerta.js";
       import "../scripts/game.js";
       import "../scripts/panel.js";
       import "../scripts/solucionario.js";

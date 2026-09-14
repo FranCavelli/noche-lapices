@@ -17,6 +17,9 @@ const MISIONES = [
     blancos: ["boleto estudiantil", "lograron"],
     senuelos: ["comedor escolar", "perdieron"],
     dato: "Un año después, la dictadura persiguió a muchos de los pibes que habían marchado por ese derecho.",
+    datoVideo: "/media/video/marchaboleto.mp4",
+    datoDesde: 0,
+    datoHasta: 83,
     voz: "En 1975, miles de estudiantes secundarios de La Plata marcharon para conseguir el boleto estudiantil, un pasaje más barato para poder ir a estudiar. Y lo lograron. Un año después, la dictadura persiguió a muchos de esos mismos pibes por haberse organizado para reclamar sus derechos."
   },
   {
@@ -130,6 +133,9 @@ const MISIONES = [
       { txt: "Vuelve la democracia", anio: "1983" }
     ],
     dato: "La dictadura les quitó el boleto que habían ganado en la calle; muchos de los secuestrados eran los pibes que volvieron a reclamarlo.",
+    datoVideo: "/media/video/marchaboleto.mp4",
+    datoDesde: 0,
+    datoHasta: 83,
     voz: "Primero, en 1975, los estudiantes marcharon y consiguieron el boleto estudiantil. En marzo de 1976 llegó el golpe de Estado, y la dictadura suspendió ese derecho que los pibes habían ganado en la calle. Por eso volvieron a reclamarlo. En septiembre llegó la Noche de los Lápices: se llevaron a muchos de los que habían marchado. Recién en 1983 volvió la democracia."
   },
   {
@@ -371,12 +377,15 @@ const MISIONES = [
     titulo: "El boleto, ida y vuelta",
     img: "/fichas/colectivo.jpg",
     eventos: [
-      { txt: "Los estudiantes lo consiguen en la calle", anio: "1975" },
+      { txt: "Los estudiantes consiguen el boleto en la calle", anio: "1975" },
       { txt: "La dictadura lo suspende", anio: "1976" },
       { txt: "Vuelve la democracia", anio: "1983" },
       { txt: "El boleto gratuito se convierte en ley", anio: "2015" }
     ],
     dato: "El derecho por el que marcharon hoy es ley.",
+    datoVideo: "/media/video/marchaboleto.mp4",
+    datoDesde: 0,
+    datoHasta: 83,
     voz: "El boleto estudiantil se consiguió en 1975 con los pibes en la calle. La dictadura lo suspendió en 1976. Con la democracia volvió a discutirse, y en 2015 se convirtió en ley gratuita en la provincia de Buenos Aires. Un derecho puede tardar cuarenta años en volver."
   },
   {

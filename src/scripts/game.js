@@ -26,7 +26,7 @@ const ATRACTOR = [
   ["francisco-lopez-muntaner.jpg", "Francisco López Muntaner", "Bachillerato de Bellas Artes", "sigue desaparecido"]
 ];
 // la voz de la portada rota entre estas frases para que no se repita siempre
-const INVITACIONES = ["invitacion", "invitacion-2", "invitacion-3", "invitacion-4", "invitacion-5"];
+const INVITACIONES = ["invitacion", "invitacion-2", "invitacion-3", "invitacion-4"];
 const ESPERA_VOZ = 45000;
 const QUIETO = 15000;
 const BASE_MISION = 120;
@@ -113,9 +113,20 @@ function elegirMisiones() {
   const porTipo = {};
   MISIONES.forEach((m) => (porTipo[m.tipo] ||= []).push(m));
   const elegidas = [];
-  for (const [tipo, n] of Object.entries(CUPOS)) elegidas.push(...barajar(porTipo[tipo] || []).slice(0, n));
+  // Un solo tramo de video por partida: son largos y dos en el mismo turno
+  // estiran de más la visita. Si la candidata trae video y ya hay uno, se
+  // saltea y el cupo lo llena la siguiente del mismo tipo.
+  const sumar = (candidatas, n) => {
+    for (const m of candidatas) {
+      if (n <= 0) break;
+      if (m.datoVideo && elegidas.some((e) => e.datoVideo)) continue;
+      elegidas.push(m);
+      n--;
+    }
+  };
+  for (const [tipo, n] of Object.entries(CUPOS)) sumar(barajar(porTipo[tipo] || []), n);
   const resto = MISIONES.filter((m) => !elegidas.includes(m));
-  elegidas.push(...barajar(resto).slice(0, MISIONES_POR_PARTIDA - elegidas.length));
+  sumar(barajar(resto), MISIONES_POR_PARTIDA - elegidas.length);
   const mezcladas = barajar(elegidas);
   // la escena de la canción cierra siempre: lo que cantan los chicos enlaza
   // sin cortes con el informe final
@@ -171,6 +182,9 @@ let turnoVoz = 0;
 let ultimoToque = -1e9;
 function invitar(forzar = false) {
   if (!pantallas.portada.classList.contains("activa")) return;
+  // con la puerta cerrada nadie llegó todavía a la portada: no le hablamos
+  // a una pantalla que solo muestra el pedido de contraseña
+  if (!$("puerta").classList.contains("oculta")) return;
   if (vozInvitacion && !vozInvitacion.paused) return;
   // si alguien está completando la ficha, no le hablamos encima
   if (!forzar && performance.now() - ultimoToque < QUIETO) return;
@@ -199,6 +213,8 @@ function apagarSenal() {
 );
 setTimeout(() => invitar(true), 1500);
 setInterval(invitar, ESPERA_VOZ);
+// si la portada estuvo esperando detrás de la puerta, arranca al abrirse
+document.addEventListener("puerta-abierta", () => setTimeout(() => invitar(true), 900));
 let turnoFicha = 0;
 function pasarFicha() {
   if (!pantallas.portada.classList.contains("activa")) return;
