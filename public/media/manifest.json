@@ -22,6 +22,8 @@
     "/media/photos/retratos-mujeres.jpg"
   ],
   "la-memoria": [
+    "/media/actos/estudiantes-sitio-de-memoria.jpg",
+    "/media/actos/conmemoracion-lomas-de-zamora.jpg",
     "/fichas/marcha.jpg"
   ],
   "la-frase": [
@@ -50,7 +52,7 @@
     "/media/juicio/01.jpg"
   ],
   "la-pelicula": [
-    "/fichas/cine.jpg"
+    "/media/pelicula/afiche-la-noche-de-los-lapices.jpg"
   ],
   "el-boleto-hoy": [
     "/fichas/colectivo.jpg"
@@ -61,7 +63,10 @@
     "/media/junta/03.png"
   ],
   "la-memoria-se-construye": [
-    "/media/juicio/01.jpg"
+    "/media/junta/01.jpg",
+    "/media/juicio/01.jpg",
+    "/media/pelicula/afiche-la-noche-de-los-lapices.jpg",
+    "/media/nunca-mas/libro-nunca-mas.jpg"
   ],
   "los-nombres-i": [
     "/media/pablo-diaz/pablo-diaz-escuela.jpg",
@@ -70,9 +75,11 @@
     "/media/pablo-diaz/pablo-diaz-chicos.jpg"
   ],
   "los-nombres-ii": [
-    "/media/sobrevivientes/01.jpg"
+    "/media/sobrevivientes/emilce-moler-ficha.jpg"
   ],
   "la-agrupacion": [
+    "/media/educacion-publica/sin-educacion-no-hay-futuro.jpg",
+    "/media/educacion-publica/panuelo-educacion-publica.jpg",
     "/fichas/colectivo.jpg"
   ],
   "las-escuelas": [
@@ -82,6 +89,8 @@
     "/media/documentos/04.jpg"
   ],
   "el-informe": [
+    "/media/nunca-mas/libro-nunca-mas.jpg",
+    "/media/nunca-mas/silueta-nunca-mas.jpg",
     "/media/juicio/01.jpg"
   ],
   "el-fiscal": [
@@ -89,7 +98,7 @@
   ],
   "los-sobrevivientes": [
     "/media/pablo-diaz/pablo-diaz-homenaje.jpg",
-    "/media/sobrevivientes/01.jpg",
+    "/media/sobrevivientes/emilce-moler-ficha.jpg",
     "/media/pablo-diaz/pablo-diaz-chicos.jpg"
   ],
   "la-mas-chica": [
@@ -122,10 +131,11 @@
     "/fichas/mano.jpg"
   ],
   "la-escuela-de-claudio": [
-    "/fichas/pupitres.jpg"
+    "/media/caras/claudio-de-acha.jpg",
+    "/media/escuelas/colegio-nacional-la-plata.jpg"
   ],
   "la-censura": [
-    "/fichas/cine.jpg"
+    "/media/censura/libros-prohibidos.jpg"
   ],
   "la-vida-de-claudia": [
     "/media/documentos/01.jpg",
@@ -144,7 +154,7 @@
     "/media/documentos/04.jpg"
   ],
   "las-cuatro-voces": [
-    "/media/sobrevivientes/01.jpg"
+    "/media/sobrevivientes/emilce-moler-ficha.jpg"
   ],
   "la-justicia": [
     "/media/juicio/01.jpg"
@@ -163,7 +173,9 @@
     "/fichas/cine.jpg"
   ],
   "los-sonidos": [
-    "/fichas/marcha.jpg"
+    "/media/musicos/charly-garcia.jpg",
+    "/media/musicos/leon-gieco.jpg",
+    "/media/musicos/pedro-y-pablo.jpg"
   ],
   "la-musica-prohibida": [
     "/fichas/cine.jpg"

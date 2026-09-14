@@ -776,7 +776,7 @@ function construirEscena(m, cuerpo) {
   const marco = document.createElement("div");
   marco.className = "escena-video";
   const video = document.createElement("video");
-  video.src = ruta("/media/video/suigenerisnochelapices.mp4");
+  video.src = ruta("/media/video/sui-generis-rasguna-las-piedras.mp4");
   video.autoplay = true;
   video.controls = false;
   video.playsInline = true;

@@ -17,7 +17,7 @@ const MISIONES = [
     blancos: ["boleto estudiantil", "lograron"],
     senuelos: ["comedor escolar", "perdieron"],
     dato: "Un año después, la dictadura persiguió a muchos de los pibes que habían marchado por ese derecho.",
-    datoVideo: "/media/video/marchaboleto.mp4",
+    datoVideo: "/media/video/marcha-del-boleto.mp4",
     datoDesde: 0,
     datoHasta: 83,
     voz: "En 1975, miles de estudiantes secundarios de La Plata marcharon para conseguir el boleto estudiantil, un pasaje más barato para poder ir a estudiar. Y lo lograron. Un año después, la dictadura persiguió a muchos de esos mismos pibes por haberse organizado para reclamar sus derechos."
@@ -65,7 +65,7 @@ const MISIONES = [
     datoVideo: "/media/video/lapices-escribiendo.mp4",
     datoVozPrimero: true,
     datoDesde: 0,
-    datoHasta: 21,
+    datoHasta: 15,
     voz: "«Los lápices siguen escribiendo» la dijo Pablo Díaz, uno de los sobrevivientes, al recordar a sus compañeros. Con los años se volvió el símbolo de esta historia: hoy la repiten miles de estudiantes en todo el país cada 16 de septiembre, y también la tomaron los artistas, que la llevaron a los escenarios."
   },
   {
@@ -75,6 +75,8 @@ const MISIONES = [
     afirmacion: "Los estudiantes secuestrados tenían entre 16 y 18 años.",
     esCierto: true,
     dato: "Eran pibes de la escuela secundaria, como los de hoy.",
+    // mientras la voz dice que eran pibes como los de hoy, caen las seis caras
+    caras: true,
     voz: "Es cierto. Los estudiantes secuestrados tenían entre dieciséis y dieciocho años. Eran pibes de la escuela secundaria, con carpetas, amigos y sueños, como los de hoy."
   },
   {
@@ -103,7 +105,7 @@ const MISIONES = [
     afirmacion: "La historia se conoció en todo el país gracias al testimonio de un sobreviviente.",
     esCierto: true,
     dato: "Pablo Díaz la contó en el Juicio a las Juntas, en 1985.",
-    datoVideo: "/media/video/testimoniopablo.mp4",
+    datoVideo: "/media/video/testimonio-pablo-diaz.mp4",
     datoDesde: 1,
     datoHasta: 38,
     voz: "Es cierto. En 1985, ya en democracia, el sobreviviente Pablo Díaz declaró en el Juicio a las Juntas. Su testimonio hizo que todo el país conociera la historia de la Noche de los Lápices."
@@ -138,7 +140,7 @@ const MISIONES = [
       { txt: "Vuelve la democracia", anio: "1983" }
     ],
     dato: "La dictadura les quitó el boleto que habían ganado en la calle; muchos de los secuestrados eran los pibes que volvieron a reclamarlo.",
-    datoVideo: "/media/video/marchaboleto.mp4",
+    datoVideo: "/media/video/marcha-del-boleto.mp4",
     datoDesde: 0,
     datoHasta: 83,
     voz: "Primero, en 1975, los estudiantes marcharon y consiguieron el boleto estudiantil. En marzo de 1976 llegó el golpe de Estado, y la dictadura suspendió ese derecho que los pibes habían ganado en la calle. Por eso volvieron a reclamarlo. En septiembre llegó la Noche de los Lápices: se llevaron a muchos de los que habían marchado. Recién en 1983 volvió la democracia."
@@ -155,9 +157,9 @@ const MISIONES = [
     ],
     // cada hito cae con su foto cuando la voz lo nombra
     fotosEventos: [
-      { hito: "1983", img: "/fichas/marcha.jpg" },
+      { hito: "1983", img: "/media/nunca-mas/sabato-entrega-el-informe.jpg" },
       { hito: "1985", img: "/media/juicio/01.jpg" },
-      { hito: "1986", img: "/fichas/cine.jpg" },
+      { hito: "1986", img: "/media/pelicula/afiche-la-noche-de-los-lapices.jpg" },
       { hito: "2015", img: "/fichas/colectivo.jpg" }
     ],
     dato: "La memoria no fue automática: la construyeron testigos, libros, películas y nuevas leyes.",
@@ -227,7 +229,7 @@ const MISIONES = [
     blancos: ["Strassera", "Nunca más"],
     senuelos: ["Sabato", "Hasta siempre"],
     dato: "«Señores jueces: nunca más», dijo Julio César Strassera en 1985.",
-    datoVideo: "/media/video/DiscursoStrasseraNuncaMas.mp4",
+    datoVideo: "/media/video/strassera-nunca-mas.mp4",
     datoDesde: 0,
     datoHasta: 22,
     voz: "En 1985, el fiscal Julio César Strassera cerró su alegato en el Juicio a las Juntas con dos palabras que ya eran de todos: nunca más. La sala entera se puso de pie."
@@ -240,6 +242,12 @@ const MISIONES = [
     blancos: ["cuatro", "Patricia"],
     senuelos: ["dos", "Marta"],
     dato: "Pablo Díaz, Emilce Moler, Gustavo Calotti y Patricia Miranda sobrevivieron y pudieron contarlo.",
+    // cada sobreviviente cae con su foto cuando la voz lo nombra
+    fotosEventos: [
+      { hito: "Pablo Díaz", img: "/media/pablo-diaz/pablo-diaz-teatro.jpg" },
+      { hito: "Emilce Moler", img: "/media/sobrevivientes/emilce-moler.jpg" },
+      { hito: "Gustavo Calotti", img: "/media/sobrevivientes/gustavo-calotti.jpg" }
+    ],
     voz: "De los diez estudiantes secuestrados sobrevivieron cuatro: Pablo Díaz, Emilce Moler, Gustavo Calotti y Patricia Miranda. Pasaron por centros clandestinos y por la cárcel, y años después su palabra fue prueba en los juicios."
   },
   {
@@ -267,6 +275,12 @@ const MISIONES = [
     afirmacion: "Las Madres de Plaza de Mayo empezaron a marchar durante la propia dictadura.",
     esCierto: true,
     dato: "Desde 1977 dieron vueltas a la Plaza pidiendo por sus hijos.",
+    // el archivo de la policía mandándolas a circular; con tramo de video no
+    // suena la voz del relator. Es el mismo tramo que «La ronda»: el cupo de
+    // un solo video por partida se encarga de que nunca salgan las dos juntas
+    datoVideo: "/media/video/madres-circulen-de-a-dos.mp4",
+    datoDesde: 0,
+    datoHasta: 22,
     voz: "Es cierto. En plena dictadura, en 1977, las madres de los desaparecidos empezaron a dar vueltas a la Plaza de Mayo con pañuelos blancos, preguntando por sus hijos. Lo hicieron cuando casi nadie se animaba a hablar."
   },
   {
@@ -286,6 +300,10 @@ const MISIONES = [
     afirmacion: "Las Madres empezaron a caminar en ronda porque estaba prohibido quedarse reunidas.",
     esCierto: true,
     dato: "La policía les gritaba «circulen». Ellas circularon: en ronda, alrededor de la Pirámide.",
+    // el mismo tramo que «Las madres»: se escucha el «circulen de a dos»
+    datoVideo: "/media/video/madres-circulen-de-a-dos.mp4",
+    datoDesde: 0,
+    datoHasta: 22,
     voz: "Es cierto. Con el estado de sitio estaba prohibido que se juntaran tres personas o más. Cuando las Madres se paraban en la Plaza, la policía les gritaba: circulen. Y ellas circularon. Empezaron a caminar en ronda alrededor de la Pirámide de Mayo, y esa vuelta se convirtió en su forma de resistir."
   },
   {
@@ -297,6 +315,11 @@ const MISIONES = [
     blancos: ["vida", "desaparecidos"],
     senuelos: ["justicia", "encarcelados"],
     dato: "No pedían tumbas ni listas: pedían que sus hijos volvieran vivos.",
+    // acá el archivo de las rondas reemplaza al relator: el tramo de video
+    // deja muda la voz grabada
+    datoVideo: "/media/video/madres-plaza-de-mayo.mp4",
+    datoDesde: 0,
+    datoHasta: 20,
     voz: "Que aparezcan con vida los detenidos desaparecidos. Eso decía el cartel. No pedían tumbas ni listas: pedían que sus hijos volvieran vivos. La primera ronda fue el treinta de abril de mil novecientos setenta y siete, cuando catorce mujeres se animaron a preguntar en voz alta lo que nadie preguntaba."
   },
   {
@@ -388,7 +411,7 @@ const MISIONES = [
       { txt: "El boleto gratuito se convierte en ley", anio: "2015" }
     ],
     dato: "El derecho por el que marcharon hoy es ley.",
-    datoVideo: "/media/video/marchaboleto.mp4",
+    datoVideo: "/media/video/marcha-del-boleto.mp4",
     datoDesde: 0,
     datoHasta: 83,
     voz: "El boleto estudiantil se consiguió en 1975 con los pibes en la calle. La dictadura lo suspendió en 1976. Con la democracia volvió a discutirse, y en 2015 se convirtió en ley gratuita en la provincia de Buenos Aires. Un derecho puede tardar cuarenta años en volver."
@@ -403,6 +426,12 @@ const MISIONES = [
       ["Claudio de Acha", "Colegio Nacional de La Plata"]
     ],
     dato: "Tres escuelas públicas de La Plata que hoy los recuerdan.",
+    // la cara de cada uno cae cuando la voz dice su nombre
+    fotosEventos: [
+      { hito: "Claudia Falcone", img: "/media/caras/claudia-falcone.jpg" },
+      { hito: "Horacio Ungaro", img: "/media/caras/horacio-ungaro.jpg" },
+      { hito: "Claudio de Acha", img: "/media/caras/claudio-de-acha.jpg" }
+    ],
     voz: "Claudia Falcone estudiaba en el Bachillerato de Bellas Artes. Horacio Ungaro, en la Escuela Normal número tres. Claudio de Acha, en el Colegio Nacional de La Plata. Tres escuelas públicas que hoy los recuerdan con placas, murales y actos."
   },
   {
@@ -415,6 +444,12 @@ const MISIONES = [
       ["Patricia Miranda", "Sobrevivió; su palabra llegó a los juicios"]
     ],
     dato: "Cuatro sobrevivieron: Pablo, Emilce, Gustavo y Patricia.",
+    // cada sobreviviente cae con su foto cuando la voz lo nombra
+    fotosEventos: [
+      { hito: "Pablo Díaz", img: "/media/pablo-diaz/pablo-diaz-teatro.jpg" },
+      { hito: "Emilce Moler", img: "/media/sobrevivientes/emilce-moler.jpg" },
+      { hito: "Gustavo Calotti", img: "/media/sobrevivientes/gustavo-calotti.jpg" }
+    ],
     voz: "Pablo Díaz declaró en el Juicio a las Juntas. Emilce Moler recorre las escuelas contando la historia. Gustavo Calotti y Patricia Miranda también sobrevivieron, y su palabra fue prueba en los juicios. Cuatro voces que mantienen viva la memoria."
   },
   {
@@ -427,6 +462,12 @@ const MISIONES = [
       ["Ernesto Sabato", "Escritor que presidió la CONADEP"]
     ],
     dato: "La verdad y la justicia también se construyeron con nombres propios.",
+    // cada nombre cae con su foto cuando la voz lo dice
+    fotosEventos: [
+      { hito: "Nunca Más", img: "/media/nunca-mas/libro-nunca-mas.jpg" },
+      { hito: "Ernesto Sabato", img: "/media/nunca-mas/sabato-entrega-el-informe.jpg" },
+      { hito: "Julio César Strassera", img: "/media/juicio/01.jpg" }
+    ],
     voz: "La CONADEP reunió la verdad en el informe Nunca Más, presidida por el escritor Ernesto Sabato. Y en el Juicio a las Juntas, el fiscal Julio César Strassera cerró su alegato con dos palabras: nunca más."
   },
   {
