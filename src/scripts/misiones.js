@@ -157,7 +157,7 @@ const MISIONES = [
     ],
     // cada hito cae con su foto cuando la voz lo nombra
     fotosEventos: [
-      { hito: "1983", img: "/media/nunca-mas/sabato-entrega-el-informe.jpg" },
+      { hito: "1983", img: "/media/democracia/festejos-1983.jpg" },
       { hito: "1985", img: "/media/juicio/01.jpg" },
       { hito: "1986", img: "/media/pelicula/afiche-la-noche-de-los-lapices.jpg" },
       { hito: "2015", img: "/fichas/colectivo.jpg" }
