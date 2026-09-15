@@ -115,11 +115,14 @@ function elegirMisiones() {
   const elegidas = [];
   // Un solo tramo de video por partida: son largos y dos en el mismo turno
   // estiran de más la visita. Si la candidata trae video y ya hay uno, se
-  // saltea y el cupo lo llena la siguiente del mismo tipo.
+  // saltea y el cupo lo llena la siguiente del mismo tipo. Lo mismo con las
+  // que comparten grupo: La libertad y El secreto caen con las mismas fotos
+  // de las celdas, así que entra una sola por partida.
   const sumar = (candidatas, n) => {
     for (const m of candidatas) {
       if (n <= 0) break;
       if (m.datoVideo && elegidas.some((e) => e.datoVideo)) continue;
+      if (m.grupo && elegidas.some((e) => e.grupo === m.grupo)) continue;
       elegidas.push(m);
       n--;
     }
