@@ -174,6 +174,12 @@ const MISIONES = [
       ["Claudia Falcone", "Tenía 16 años; sigue desaparecida"],
       ["Héctor Olivera", "Dirigió la película de 1986"]
     ],
+    // cada uno cae con su foto cuando la voz lo nombra
+    fotosEventos: [
+      { hito: "Pablo Díaz", img: "/media/pablo-diaz/pablo-diaz-escuela.jpg" },
+      { hito: "Claudia Falcone", img: "/media/caras/claudia-falcone-sonriendo.jpg" },
+      { hito: "Héctor Olivera", img: "/media/pelicula/hector-olivera.jpg" }
+    ],
     dato: "Esta historia se armó con nombres propios: víctimas, sobrevivientes y quienes la contaron.",
     voz: "Pablo Díaz sobrevivió y declaró en el Juicio a las Juntas. Claudia Falcone tenía dieciséis años y sigue desaparecida. Héctor Olivera dirigió la película que contó esta historia al país. Víctimas, sobrevivientes y quienes la contaron: la memoria se arma con nombres propios."
   },
@@ -399,6 +405,13 @@ const MISIONES = [
       { txt: "La CONADEP reúne la verdad en el Nunca Más", anio: "1984" },
       { txt: "Juicio a las Juntas: los responsables son condenados", anio: "1985" },
       { txt: "El libro y la película cuentan la historia al país", anio: "1986" }
+    ],
+    // cada hito cae con su foto cuando la voz nombra el año
+    fotosEventos: [
+      { hito: "1976", img: "/media/junta/videla-asume-1976.jpg" },
+      { hito: "1984", img: "/media/nunca-mas/libro-nunca-mas.jpg" },
+      { hito: "1985", img: "/media/juicio/01.jpg" },
+      { hito: "1986", img: "/media/pelicula/afiche-la-noche-de-los-lapices.jpg" }
     ],
     dato: "Primero la verdad, después la justicia, después la memoria.",
     voz: "Después del golpe de 1976 vinieron años de silencio. Con la democracia, en 1984, la CONADEP reunió la verdad en el informe Nunca Más. En 1985 llegó la justicia con el Juicio a las Juntas. Y en 1986, el libro y la película hicieron que todo el país conociera esta historia."
