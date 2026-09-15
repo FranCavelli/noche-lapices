@@ -1,0 +1,408 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Etiquetas para las lapiceras — 16.09.1976</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Special+Elite&family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=Caveat:wght@500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    color-scheme: light;
+    --fondo: #DCCFAF;
+    --texto-fondo: #2A2117;
+    --sombra: rgba(30, 24, 15, 0.28);
+    --hoja: #F6EFDC;
+    --hoja-2: #EDE3C9;
+    --linea: #C9B893;
+    --tinta: #241D14;
+    --tinta-suave: #61563F;
+    --sello: #A5231D;
+    --azul: #2B4A7A;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --fondo: #16110B;
+      --texto-fondo: #E6DCC3;
+      --sombra: rgba(0, 0, 0, 0.6);
+    }
+  }
+  :root[data-theme="dark"] {
+    --fondo: #16110B;
+    --texto-fondo: #E6DCC3;
+    --sombra: rgba(0, 0, 0, 0.6);
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    padding: clamp(0.8rem, 3vw, 2.4rem);
+    background: var(--fondo);
+    color: var(--texto-fondo);
+    font-family: "Courier Prime", "Courier New", monospace;
+    font-size: 16px;
+    line-height: 1.6;
+  }
+  .pila { max-width: 1000px; margin: 0 auto; display: flex; flex-direction: column; gap: clamp(1rem, 2.6vw, 1.9rem); }
+
+  .hoja {
+    background: var(--hoja);
+    color: var(--tinta);
+    border: 1px solid var(--linea);
+    box-shadow: 0 10px 26px var(--sombra);
+    padding: clamp(1.1rem, 3vw, 2.2rem);
+  }
+  .hoja > * + * { margin-top: 1.1rem; }
+
+  h1, h2, h3 { font-family: "Special Elite", "Courier New", monospace; font-weight: 400; margin: 0; }
+  h1 { font-size: clamp(1.7rem, 4.6vw, 2.7rem); line-height: 1.04; text-transform: uppercase; text-wrap: balance; }
+  h2 { font-size: clamp(1.1rem, 2.6vw, 1.45rem); text-transform: uppercase; letter-spacing: 0.06em; text-wrap: balance; }
+  h3 { font-size: 1rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--sello); }
+  p { margin: 0; }
+  .eyebrow {
+    font-family: "Special Elite", "Courier New", monospace;
+    font-size: 0.72rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--sello);
+  }
+  .lapiz { font-family: "Caveat", cursive; font-size: 1.35rem; line-height: 1.3; color: var(--azul); }
+  .apunte { color: var(--tinta-suave); font-size: 0.88rem; }
+  .regla { border: 0; border-top: 1px dashed var(--linea); margin: 0; }
+  ul.limpia { margin: 0; padding-left: 1.3rem; }
+  ul.limpia li { margin-top: 0.3rem; }
+  kbd {
+    font-family: "Courier Prime", monospace; font-size: 0.85em;
+    background: var(--hoja-2); border: 1px solid var(--linea); border-bottom-width: 2px; padding: 0.05em 0.4em;
+  }
+
+  /* ---- mandos ---- */
+  .mandos { display: flex; flex-wrap: wrap; align-items: flex-end; gap: 0.7rem 1.1rem; }
+  .campo { display: flex; flex-direction: column; gap: 0.25rem; }
+  .campo span {
+    font-family: "Special Elite", "Courier New", monospace;
+    font-size: 0.68rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--tinta-suave);
+  }
+  select, button {
+    font-family: "Special Elite", "Courier New", monospace;
+    font-size: 0.8rem; letter-spacing: 0.08em;
+    color: var(--sello); background: var(--hoja-2);
+    border: 2px solid var(--sello); border-radius: 3px;
+    padding: 0.4rem 0.8rem; cursor: pointer;
+  }
+  button.principal { background: var(--sello); color: var(--hoja); text-transform: uppercase; }
+  select:focus-visible, button:focus-visible { outline: 3px solid var(--azul); outline-offset: 2px; }
+  .medida {
+    font-family: "Special Elite", "Courier New", monospace;
+    font-size: 0.78rem; letter-spacing: 0.1em; color: var(--tinta-suave);
+    border-left: 3px solid var(--sello); padding-left: 0.7rem;
+  }
+
+  /* ---- el arte de la etiqueta ---- */
+  .arte {
+    container-type: size;
+    position: relative;
+    overflow: hidden;
+    background: #F3EAD3;
+    color: #16130F;
+    line-height: 1.15;
+  }
+  .arte, .arte * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+
+  /* colgante: tarjeta vertical con agujero para el hilo */
+  .arte.colgante .borde { position: absolute; inset: 4cqh 5cqw; border: 1.1cqh solid #A5231D; }
+  .arte.colgante .borde-2 { position: absolute; inset: 6.6cqh 8.5cqw; border: 0.35cqh solid #16130F; }
+  .arte.colgante .agujero {
+    position: absolute; top: 9cqh; left: 50%; width: 13cqw; height: 13cqw;
+    margin-left: -6.5cqw; border: 0.3cqh dashed #8a8a8a; border-radius: 50%;
+  }
+  .arte.colgante .cuerpo {
+    position: absolute; inset: 6.6cqh 8.5cqw;
+    padding: 24cqh 4cqw 3cqh;
+    display: grid; grid-template-rows: 1fr auto; gap: 2cqh;
+    text-align: center;
+  }
+  .arte.colgante .centro { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3cqh; }
+  .arte.colgante .titulo {
+    font-family: "Special Elite", monospace; text-transform: uppercase;
+    font-size: 11cqw; line-height: 1.05; letter-spacing: -0.01em;
+  }
+  .arte.colgante .frase {
+    font-family: "Caveat", cursive; font-weight: 700; color: #A5231D;
+    font-size: 13cqw; line-height: 0.98;
+  }
+  .arte.colgante .cierre { display: flex; flex-direction: column; gap: 1.4cqh; }
+  .arte.colgante .sello {
+    font-family: "Special Elite", monospace; color: #A5231D;
+    font-size: 5.6cqw; letter-spacing: 0.1em; text-transform: uppercase;
+    border-top: 0.3cqh solid #16130F; padding-top: 1.8cqh;
+  }
+  .arte.colgante .anios {
+    font-family: "Courier Prime", monospace; color: #61563F;
+    font-size: 5cqw; letter-spacing: 0.12em; text-transform: uppercase;
+  }
+
+  /* banderita: dos alas y un lomo que abraza la lapicera */
+  .arte.banderita { display: grid; grid-template-columns: 1fr var(--lomo) 1fr; }
+  .arte.banderita .ala { position: relative; padding: 9cqh 3cqh; display: flex; flex-direction: column; justify-content: center; gap: 4cqh; text-align: center; }
+  .arte.banderita .ala::before { content: ""; position: absolute; inset: 5cqh 4cqh; border: 0.9cqh solid #A5231D; }
+  .arte.banderita .ala > * { position: relative; }
+  .arte.banderita .lomo {
+    border-left: 0.6cqh dashed #8a8a8a; border-right: 0.6cqh dashed #8a8a8a;
+    background: repeating-linear-gradient(90deg, #E7DBBE 0 1.2cqh, #F3EAD3 1.2cqh 2.4cqh);
+  }
+  .arte.banderita .titulo {
+    font-family: "Special Elite", monospace; text-transform: uppercase;
+    font-size: 15cqh; line-height: 1.05;
+  }
+  .arte.banderita .frase {
+    font-family: "Caveat", cursive; font-weight: 700; color: #A5231D;
+    font-size: 19cqh; line-height: 0.95;
+  }
+  .arte.banderita .sello {
+    font-family: "Special Elite", monospace; color: #A5231D;
+    font-size: 9cqh; letter-spacing: 0.1em; text-transform: uppercase;
+  }
+  .arte.banderita .anios {
+    font-family: "Courier Prime", monospace; color: #61563F;
+    font-size: 8.5cqh; letter-spacing: 0.1em; text-transform: uppercase;
+  }
+
+  /* ---- la hoja lista para imprimir ---- */
+  .visor {
+    background: var(--hoja-2);
+    border: 1px solid var(--linea);
+    padding: clamp(0.6rem, 2vw, 1.2rem);
+    overflow: auto;
+  }
+  .marco { position: relative; margin: 0 auto; }
+  .pliego {
+    position: absolute; top: 0; left: 0;
+    width: var(--papel-w); height: var(--papel-h);
+    background: #fff;
+    transform-origin: top left;
+    transform: scale(var(--k, 1));
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.18);
+  }
+  .casilla { position: absolute; outline: 0.25mm dashed #9a9a9a; }
+  .casilla .arte { width: 100%; height: 100%; }
+
+  @media print {
+    body { background: #fff; padding: 0; }
+    .pila > *:not(.visor) { display: none !important; }
+    .visor { border: 0; padding: 0; background: #fff; overflow: visible; }
+    .marco { height: auto !important; width: auto !important; }
+    .pliego { position: static; transform: none; box-shadow: none; }
+    @page { margin: 0; }
+  }
+</style>
+</head>
+<body>
+<div class="pila">
+
+  <header class="hoja">
+    <p class="eyebrow">Puesto Archivo · Material de regalo</p>
+    <h1>Etiquetas para<br>las lapiceras</h1>
+    <p class="lapiz">La misma carátula del expediente, del tamaño de una lapicera: se imprime, se corta y se ata.</p>
+  </header>
+
+  <section class="hoja">
+    <p class="eyebrow">Hoja</p>
+    <h2>Elegí el papel y cuántas entran</h2>
+    <div class="mandos">
+      <label class="campo">
+        <span>Modelo</span>
+        <select id="modelo">
+          <option value="colgante" selected>Colgante · se ata con hilo</option>
+          <option value="banderita">Banderita · abraza la lapicera</option>
+        </select>
+      </label>
+      <label class="campo">
+        <span>Tamaño</span>
+        <select id="tamano">
+          <option value="chica">Chica</option>
+          <option value="mediana" selected>Mediana</option>
+          <option value="grande">Grande</option>
+        </select>
+      </label>
+      <label class="campo">
+        <span>Papel</span>
+        <select id="papel">
+          <option value="210,297" selected>A4 · 21 × 29,7 cm</option>
+          <option value="216,330">Oficio · 21,6 × 33 cm</option>
+          <option value="216,356">Legal · 21,6 × 35,6 cm</option>
+          <option value="216,279">Carta · 21,6 × 27,9 cm</option>
+        </select>
+      </label>
+      <label class="campo">
+        <span>Orientación</span>
+        <select id="orientacion">
+          <option value="vertical" selected>Vertical</option>
+          <option value="horizontal">Horizontal</option>
+        </select>
+      </label>
+      <label class="campo">
+        <span>Cuántas</span>
+        <select id="cuantas">
+          <option value="todas" selected>Todas las que entren</option>
+          <option value="una">Una sola por hoja</option>
+        </select>
+      </label>
+      <button type="button" class="principal" id="imprimir">Imprimir las etiquetas</button>
+    </div>
+    <p class="medida" id="medida"></p>
+    <p class="apunte">Entre etiqueta y etiqueta queda un espacio de 4 mm para la tijera, y 8 mm de margen contra el borde de la hoja, que es lo que ninguna impresora hogareña alcanza a imprimir. Las copias se piden en el cuadro de impresión: una hoja rinde todas las etiquetas que ves acá abajo.</p>
+  </section>
+
+  <div class="visor">
+    <div class="marco" id="marco">
+      <div class="pliego" id="pliego"></div>
+    </div>
+  </div>
+
+  <section class="hoja">
+    <p class="eyebrow">En el cuadro de impresión</p>
+    <h2>Tres cosas que hay que tocar</h2>
+    <ul class="limpia">
+      <li><b>Márgenes: ninguno.</b> El margen ya está adentro del diseño; si además lo pone la impresora, las etiquetas salen más chicas.</li>
+      <li><b>Escala: 100%.</b> Nada de «ajustar a la página»: si la achica, dejan de medir lo que dice el cartelito de arriba.</li>
+      <li><b>Gráficos de fondo</b>, si tu impresora lo pregunta: sin eso, el papel crema y el marco rojo salen en blanco.</li>
+    </ul>
+    <p class="apunte">Papel de 120 o 180 g queda como una tarjeta y aguanta el manoseo; en papel común conviene el modelo banderita, que va pegado a la lapicera y no se dobla.</p>
+    <hr class="regla">
+    <h3>Cómo se arman</h3>
+    <ul class="limpia">
+      <li><b>Colgante:</b> cortá por la línea punteada, hacé el agujero donde está el círculo gris y pasá un hilo de algodón rojo; el nudo va al clip de la lapicera.</li>
+      <li><b>Banderita:</b> cortá, doblá por las dos rayas grises del medio, apoyá la lapicera en el lomo y pegá las dos alas entre sí con cinta o pegamento en barra. Queda una banderita que sobresale del cuerpo.</li>
+    </ul>
+    <p class="apunte">Ojo: en esta página <kbd>Ctrl</kbd>+<kbd>P</kbd> imprime solamente la hoja de etiquetas, no las explicaciones.</p>
+  </section>
+
+  <p class="apunte" style="text-align:center">1976 — 2026 · a cincuenta años</p>
+</div>
+
+<script>
+  (function () {
+    var MARGEN = 8;   // mm que la impresora no alcanza: ahí no ponemos nada
+    var ESPACIO = 4;  // mm entre etiqueta y etiqueta, para la tijera
+    var LOMO = 9;     // mm del lomo de la banderita: el cuerpo de una lapicera
+
+    // medidas de cada etiqueta en mm (ancho × alto)
+    var MEDIDAS = {
+      colgante: { chica: [32, 62], mediana: [40, 75], grande: [50, 92] },
+      banderita: { chica: [26, 20], mediana: [32, 24], grande: [38, 28] }
+    };
+
+    var ARTE = {
+      colgante: function () {
+        return '<div class="arte colgante">' +
+          '<div class="borde"></div><div class="borde-2"></div><div class="agujero"></div>' +
+          '<div class="cuerpo">' +
+            '<div class="centro">' +
+              '<p class="titulo">La Noche de los Lápices</p>' +
+              '<p class="frase">Los lápices siguen escribiendo</p>' +
+            '</div>' +
+            '<div class="cierre">' +
+              '<p class="sello">Expediente 16.09.1976</p>' +
+              '<p class="anios">1976 — 2026</p>' +
+            '</div>' +
+          '</div></div>';
+      },
+      banderita: function () {
+        return '<div class="arte banderita" style="--lomo:' + LOMO + 'mm">' +
+          '<div class="ala">' +
+            '<p class="titulo">La Noche<br>de los Lápices</p>' +
+            '<p class="sello">16.09.1976</p>' +
+          '</div>' +
+          '<div class="lomo"></div>' +
+          '<div class="ala">' +
+            '<p class="frase">Los lápices<br>siguen escribiendo</p>' +
+            '<p class="anios">1976 — 2026</p>' +
+          '</div></div>';
+      }
+    };
+
+    var modelo = document.getElementById("modelo");
+    var tamano = document.getElementById("tamano");
+    var papel = document.getElementById("papel");
+    var orientacion = document.getElementById("orientacion");
+    var cuantas = document.getElementById("cuantas");
+    var pliego = document.getElementById("pliego");
+    var marco = document.getElementById("marco");
+    var medida = document.getElementById("medida");
+
+    // la banderita se imprime abierta: dos alas y el lomo del medio
+    function medidaEtiqueta() {
+      var m = MEDIDAS[modelo.value][tamano.value];
+      if (modelo.value === "banderita") return [m[0] * 2 + LOMO, m[1]];
+      return [m[0], m[1]];
+    }
+
+    function armar() {
+      var p = papel.value.split(",").map(Number);
+      var papelW = p[0], papelH = p[1];
+      if (orientacion.value === "horizontal") { papelW = p[1]; papelH = p[0]; }
+
+      var e = medidaEtiqueta();
+      var anchoEt = e[0], altoEt = e[1];
+      var utilW = papelW - MARGEN * 2, utilH = papelH - MARGEN * 2;
+      var cols = Math.max(1, Math.floor((utilW + ESPACIO) / (anchoEt + ESPACIO)));
+      var filas = Math.max(1, Math.floor((utilH + ESPACIO) / (altoEt + ESPACIO)));
+      var entran = anchoEt <= utilW && altoEt <= utilH;
+      if (cuantas.value === "una") { cols = 1; filas = 1; }
+
+      // la grilla queda centrada en la hoja: sobra lo mismo de cada lado
+      var usadoW = cols * anchoEt + (cols - 1) * ESPACIO;
+      var usadoH = filas * altoEt + (filas - 1) * ESPACIO;
+      var desdeX = (papelW - usadoW) / 2;
+      var desdeY = (papelH - usadoH) / 2;
+
+      pliego.style.setProperty("--papel-w", papelW + "mm");
+      pliego.style.setProperty("--papel-h", papelH + "mm");
+
+      var hoja = document.getElementById("medida-pagina");
+      if (hoja) hoja.remove();
+      hoja = document.createElement("style");
+      hoja.id = "medida-pagina";
+      hoja.textContent = "@media print { @page { size: " + papelW + "mm " + papelH + "mm; margin: 0 } }";
+      document.head.appendChild(hoja);
+
+      var html = "";
+      if (entran) {
+        for (var f = 0; f < filas; f++) {
+          for (var c = 0; c < cols; c++) {
+            html += '<div class="casilla" style="left:' + (desdeX + c * (anchoEt + ESPACIO)).toFixed(2) + "mm;top:" +
+              (desdeY + f * (altoEt + ESPACIO)).toFixed(2) + "mm;width:" + anchoEt + "mm;height:" + altoEt + 'mm">' +
+              ARTE[modelo.value]() + "</div>";
+          }
+        }
+      }
+      pliego.innerHTML = html;
+
+      // la vista previa es la hoja de verdad, achicada hasta entrar en la pantalla
+      var porMm = 96 / 25.4;
+      var disponible = marco.parentElement.clientWidth - 2;
+      var k = Math.min(1, disponible / (papelW * porMm));
+      pliego.style.setProperty("--k", k.toFixed(4));
+      marco.style.width = (papelW * porMm * k) + "px";
+      marco.style.height = (papelH * porMm * k) + "px";
+
+      if (!entran) {
+        medida.textContent = "Esta etiqueta (" + anchoEt + " × " + altoEt + " mm) no entra en esta hoja: probá con otra orientación o un tamaño más chico.";
+        return;
+      }
+      medida.textContent = (cols * filas) + (cols * filas === 1 ? " etiqueta" : " etiquetas") + " por hoja · " +
+        anchoEt + " × " + altoEt + " mm cada una" +
+        (cuantas.value === "una" ? " · una sola, centrada" : " · " + cols + " por fila, " + filas + " filas");
+    }
+
+    [modelo, tamano, papel, orientacion, cuantas].forEach(function (s) {
+      s.addEventListener("change", armar);
+    });
+    addEventListener("resize", armar);
+    document.getElementById("imprimir").addEventListener("click", function () {
+      window.print();
+    });
+    armar();
+  })();
+</script>
+</body>
+</html>
