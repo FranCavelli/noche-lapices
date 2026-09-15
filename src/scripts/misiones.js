@@ -12,7 +12,7 @@ const MISIONES = [
   {
     tipo: "tachado",
     titulo: "El boleto",
-    img: "/fichas/colectivo.jpg",
+    img: "/media/boleto/boleto-estudiantil-secundario.jpg",
     texto: "En 1975, los estudiantes secundarios de La Plata marcharon para conseguir el [[0]]: un pasaje de colectivo más barato para poder ir a estudiar. Lo [[1]].",
     blancos: ["boleto estudiantil", "lograron"],
     senuelos: ["comedor escolar", "perdieron"],
@@ -122,7 +122,7 @@ const MISIONES = [
   {
     tipo: "veredicto",
     titulo: "El boleto hoy",
-    img: "/fichas/colectivo.jpg",
+    img: "/media/boleto/boleto-estudiantil-secundario.jpg",
     afirmacion: "Hoy el boleto estudiantil gratuito es ley en la provincia de Buenos Aires.",
     esCierto: true,
     dato: "La lucha de aquellos estudiantes siguió escribiéndose: la ley se sancionó en 2015.",
@@ -160,7 +160,7 @@ const MISIONES = [
       { hito: "1983", img: "/media/democracia/festejos-1983.jpg" },
       { hito: "1985", img: "/media/juicio/01.jpg" },
       { hito: "1986", img: "/media/pelicula/afiche-la-noche-de-los-lapices.jpg" },
-      { hito: "2015", img: "/fichas/colectivo.jpg" }
+      { hito: "2015", img: "/media/boleto/boleto-estudiantil-secundario.jpg" }
     ],
     dato: "La memoria no fue automática: la construyeron testigos, libros, películas y nuevas leyes.",
     voz: "La memoria no fue automática: hubo que construirla. En 1983 volvió la democracia. En 1985, Pablo Díaz declaró en el Juicio a las Juntas. En 1986 llegaron el libro y la película. Y en 2015, el boleto gratuito se hizo ley. Testigos, libros, películas y leyes: así se construye la memoria."
@@ -382,7 +382,7 @@ const MISIONES = [
     fotosEventos: [
       { hito: "1960", img: "/media/caras/claudia-falcone.jpg" },
       { hito: "1973", img: "/media/documentos/02.jpg" },
-      { hito: "1975", img: "/fichas/colectivo.jpg" },
+      { hito: "1975", img: "/media/boleto/boleto-estudiantil-secundario.jpg" },
       { hito: "1976", img: "/fichas/lapices.jpg" }
     ],
     dato: "Los datos salen de su propia ficha escolar, que se conserva hasta hoy.",
@@ -404,7 +404,7 @@ const MISIONES = [
   {
     tipo: "orden",
     titulo: "El boleto, ida y vuelta",
-    img: "/fichas/colectivo.jpg",
+    img: "/media/boleto/boleto-estudiantil-secundario.jpg",
     eventos: [
       { txt: "Los estudiantes consiguen el boleto en la calle", anio: "1975" },
       { txt: "La dictadura lo suspende", anio: "1976" },

@@ -1,12 +1,11 @@
 {
   "la-noche": [
-    "/media/documentos/01.jpg",
-    "/media/documentos/02.jpg",
-    "/media/documentos/03.jpg",
-    "/media/documentos/04.jpg"
+    "/media/secuestros/detencion-en-la-calle.jpg",
+    "/media/secuestros/bajada-del-celular.jpg",
+    "/media/secuestros/detenidos-en-el-celular.jpg"
   ],
   "el-boleto": [
-    "/fichas/colectivo.jpg"
+    "/media/boleto/boleto-estudiantil-secundario.jpg"
   ],
   "los-estudiantes": [
     "/media/documentos/01.jpg",
@@ -23,8 +22,7 @@
   ],
   "la-memoria": [
     "/media/actos/estudiantes-sitio-de-memoria.jpg",
-    "/media/actos/conmemoracion-lomas-de-zamora.jpg",
-    "/fichas/marcha.jpg"
+    "/media/actos/conmemoracion-lomas-de-zamora.jpg"
   ],
   "la-frase": [
     "/media/pablo-diaz/pablo-diaz-teatro.jpg",
@@ -55,7 +53,7 @@
     "/media/pelicula/afiche-la-noche-de-los-lapices.jpg"
   ],
   "el-boleto-hoy": [
-    "/fichas/colectivo.jpg"
+    "/media/boleto/boleto-estudiantil-secundario.jpg"
   ],
   "los-hechos": [
     "/media/junta/01.jpg",
@@ -144,7 +142,7 @@
     "/media/juicio/01.jpg"
   ],
   "el-boleto-ida-y-vuelta": [
-    "/fichas/colectivo.jpg"
+    "/media/boleto/boleto-estudiantil-secundario.jpg"
   ],
   "tres-escuelas": [
     "/media/documentos/01.jpg",
