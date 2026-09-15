@@ -549,7 +549,12 @@ const MISIONES = [
     img: "/fichas/marcha.jpg",
     tiempo: 75,
     consigna: "Tocá cada sonido para escucharlo y unilo con la canción que suena.",
-    sonidos: ["/media/musica/los-dinosaurios.mp3", "/media/musica/marcha-de-la-bronca.mp3", "/media/musica/la-memoria.mp3"],
+    // cada pedazo arranca donde la canción se reconoce de una
+    sonidos: [
+      { src: "/media/musica/los-dinosaurios.mp3", desde: 28 },
+      { src: "/media/musica/marcha-de-la-bronca.mp3", desde: 0 },
+      { src: "/media/musica/la-memoria.mp3", desde: 22 }
+    ],
     pares: [
       ["Sonido 1", "«Los dinosaurios», de Charly García: los que desaparecían"],
       ["Sonido 2", "«La marcha de la bronca», de Pedro y Pablo: prohibida en las radios"],

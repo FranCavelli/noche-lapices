@@ -74,12 +74,38 @@ function pararClip() {
   estado.audioClip.botonRef?.classList.remove("sonando");
   estado.audioClip = null;
 }
-function reproducirClip(src, boton) {
+// De cada canción suena un pedazo de diez segundos, desde donde la ficha dice:
+// la idea es reconocerla, no escucharla entera. El último segundo se apaga de a
+// poco para que no quede un corte seco.
+const CLIP_SEGUNDOS = 10;
+function reproducirClip(clip, boton) {
   pararClip();
-  const a = new Audio(ruta(src));
+  const src = typeof clip === "string" ? clip : clip.src;
+  const desde = (typeof clip === "string" ? 0 : clip.desde) || 0;
+  // el #t= le pide al navegador que arranque en ese segundo; si no lo respeta,
+  // saltamos a mano en cuanto el archivo dice cuánto dura
+  const a = new Audio(ruta(src) + (desde ? `#t=${desde}` : ""));
   a.botonRef = boton;
   boton.classList.add("sonando");
-  a.addEventListener("ended", () => boton.classList.remove("sonando"));
+  const soltar = () => boton.classList.remove("sonando");
+  a.addEventListener("ended", soltar);
+  a.addEventListener("loadedmetadata", () => {
+    if (Math.abs(a.currentTime - desde) > 0.5) {
+      try {
+        a.currentTime = desde;
+      } catch {
+      }
+    }
+  }, { once: true });
+  a.addEventListener("timeupdate", () => {
+    const corrido = a.currentTime - desde;
+    if (corrido >= CLIP_SEGUNDOS) {
+      a.pause();
+      soltar();
+    } else if (corrido > CLIP_SEGUNDOS - 1) {
+      a.volume = Math.max(0, CLIP_SEGUNDOS - corrido);
+    }
+  });
   a.play().catch(() => {});
   estado.audioClip = acompanar(a);
 }
@@ -718,11 +744,14 @@ function construirUnir(m, cuerpo) {
     if (m.sonidos) b.classList.add("unir-sonido");
     b.dataset.idx = idx;
     b.addEventListener("click", () => {
-      if (estado.resuelta || b.classList.contains("hecho")) return;
+      if (estado.resuelta) return;
+      // el pedazo se puede volver a escuchar todas las veces que haga falta,
+      // incluso después de unirlo con su canción
+      if (m.sonidos) reproducirClip(m.sonidos[idx], b);
+      if (b.classList.contains("hecho")) return;
       izquierdos.forEach((o) => o.classList.remove("sel"));
       b.classList.add("sel");
       seleccion = b;
-      if (m.sonidos) reproducirClip(m.sonidos[idx], b);
     });
     izquierdos.push(b);
     colIzq.append(b);
