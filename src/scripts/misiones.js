@@ -192,6 +192,13 @@ const MISIONES = [
       ["María Seoane", "Coescribió el libro que reveló el caso"],
       ["Pozo de Banfield", "Centro clandestino donde estuvieron detenidos"]
     ],
+    // cada uno cae con su foto cuando la voz lo nombra
+    fotosEventos: [
+      { hito: "Emilce Moler", img: "/media/sobrevivientes/emilce-moler.jpg" },
+      { hito: "María Seoane", img: "/media/libro/maria-seoane.jpg" },
+      { hito: "el libro", pie: "El libro, 1986", img: "/media/libro/tapa-la-noche-de-los-lapices.jpg" },
+      { hito: "Pozo de Banfield", img: "/media/sitios-memoria/pozo-de-banfield.jpg" }
+    ],
     dato: "El libro lo escribieron María Seoane y Héctor Ruiz Núñez en 1986.",
     voz: "Emilce Moler sobrevivió, y hoy recorre las escuelas contando la historia. María Seoane escribió, junto a Héctor Ruiz Núñez, el libro que reveló el caso en 1986. Y el Pozo de Banfield fue uno de los centros clandestinos donde estuvieron detenidos los estudiantes."
   },
@@ -483,7 +490,7 @@ const MISIONES = [
     fotosEventos: [
       { hito: "Nunca Más", img: "/media/nunca-mas/libro-nunca-mas.jpg" },
       { hito: "Ernesto Sabato", img: "/media/nunca-mas/sabato-entrega-el-informe.jpg" },
-      { hito: "Julio César Strassera", img: "/media/juicio/01.jpg" }
+      { hito: "Julio César Strassera", img: "/media/juicio/strassera-y-moreno-ocampo.jpg" }
     ],
     voz: "La CONADEP reunió la verdad en el informe Nunca Más, presidida por el escritor Ernesto Sabato. Y en el Juicio a las Juntas, el fiscal Julio César Strassera cerró su alegato con dos palabras: nunca más."
   },

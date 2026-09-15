@@ -929,7 +929,9 @@ function mostrarFotosEventos(m) {
   const cargas = eventos.map((ev) => new Promise((res) => {
     const img = new Image();
     img.src = ruta(ev.img);
-    img.onload = () => res({ img, hito: ev.hito });
+    // el cartel dice el hito, salvo que la ficha traiga un pie propio: así la
+    // foto puede engancharse a un tramo de la voz y llevar otro nombre abajo
+    img.onload = () => res({ img, pie: ev.pie || ev.hito });
     img.onerror = () => res(null);
   }));
   Promise.all(cargas).then((fotos) => {
@@ -945,7 +947,7 @@ function mostrarFotosEventos(m) {
       vista.append(foto.img);
       const cartel = document.createElement("figcaption");
       cartel.className = "cara-nombre";
-      cartel.textContent = foto.hito;
+      cartel.textContent = foto.pie;
       marco.append(vista, cartel);
       galeria.append(marco);
       gsap.fromTo(
