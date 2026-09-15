@@ -1,0 +1,1464 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Puesto Archivo 16.09.1976</title>
+<style>:root{color-scheme:light}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Special+Elite&family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=Caveat:wght@500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<style>
+  :root {
+    --fondo: #DCCFAF;
+    --sombra: rgba(30, 24, 15, 0.28);
+    --texto-fondo: #2A2117;
+
+    --hoja: #F6EFDC;
+    --hoja-2: #EDE3C9;
+    --linea: #C9B893;
+    --linea-suave: #DED0AF;
+    --tinta: #241D14;
+    --tinta-suave: #61563F;
+    --sello: #A5231D;
+    --azul: #2B4A7A;
+    --madera: #4A382A;
+    --madera-2: #6B5238;
+    --equipo: #2E2A25;
+    --luz: #E0A43C;
+
+    --paso: clamp(1rem, 2.4vw, 1.7rem);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --fondo: #16110B;
+      --sombra: rgba(0, 0, 0, 0.6);
+      --texto-fondo: #E6DCC3;
+    }
+  }
+  :root[data-theme="dark"] {
+    --fondo: #16110B;
+    --sombra: rgba(0, 0, 0, 0.6);
+    --texto-fondo: #E6DCC3;
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--fondo);
+    color: var(--texto-fondo);
+    font-family: "Courier Prime", "Courier New", monospace;
+    font-size: 16px;
+    line-height: 1.6;
+    padding: clamp(0.8rem, 3vw, 2.4rem);
+  }
+  .pila {
+    max-width: 1000px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: clamp(1rem, 2.6vw, 1.9rem);
+  }
+
+  /* ---- hoja: todo el contenido vive sobre papel, en los dos temas ---- */
+  .hoja {
+    background: var(--hoja);
+    color: var(--tinta);
+    border: 1px solid var(--linea);
+    box-shadow: 0 10px 26px var(--sombra);
+    padding: clamp(1.1rem, 3vw, 2.2rem);
+  }
+  .hoja > * + * { margin-top: 1.1rem; }
+
+  h1, h2, h3, .maq {
+    font-family: "Special Elite", "Courier New", monospace;
+    font-weight: 400;
+  }
+  h1 {
+    font-size: clamp(1.9rem, 5.2vw, 3.1rem);
+    line-height: 1.02;
+    text-transform: uppercase;
+    margin: 0;
+    text-wrap: balance;
+  }
+  h2 {
+    font-size: clamp(1.15rem, 2.6vw, 1.5rem);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin: 0;
+    text-wrap: balance;
+  }
+  h3 {
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin: 0;
+    color: var(--sello);
+  }
+  p { margin: 0; }
+  .eyebrow {
+    font-family: "Special Elite", "Courier New", monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--sello);
+    margin: 0;
+  }
+  .lapiz {
+    font-family: "Caveat", cursive;
+    font-size: 1.35rem;
+    line-height: 1.3;
+    color: var(--azul);
+  }
+  .apunte { color: var(--tinta-suave); font-size: 0.88rem; }
+  b, strong { font-weight: 700; }
+  a { color: var(--sello); }
+
+  .regla { border: 0; border-top: 1px dashed var(--linea); margin: 0; }
+
+  /* ---- carátula ---- */
+  .caratula { position: relative; overflow: hidden; }
+  .caratula .sello-esquina {
+    position: absolute;
+    top: clamp(0.8rem, 3vw, 1.8rem);
+    right: clamp(0.8rem, 3vw, 1.8rem);
+    border: 3px solid var(--sello);
+    color: var(--sello);
+    font-family: "Special Elite", "Courier New", monospace;
+    font-size: clamp(0.6rem, 1.5vw, 0.78rem);
+    letter-spacing: 0.16em;
+    padding: 0.35rem 0.7rem;
+    transform: rotate(-8deg);
+    border-radius: 3px;
+    text-align: center;
+    line-height: 1.35;
+  }
+  .datos {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 0.9rem;
+    border-top: 1px dashed var(--linea);
+    padding-top: 1.1rem;
+  }
+  .dato .k {
+    font-family: "Special Elite", "Courier New", monospace;
+    font-size: 0.66rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--tinta-suave);
+    display: block;
+  }
+  .dato .v { font-size: 1.05rem; font-variant-numeric: tabular-nums; }
+
+  /* ---- tarjetas ---- */
+  .tarjetas {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 1rem;
+  }
+  .tarjeta {
+    background: var(--hoja-2);
+    border: 1px solid var(--linea);
+    border-left: 4px solid var(--sello);
+    padding: 0.9rem 1rem 1rem;
+  }
+  .tarjeta h3 { margin-bottom: 0.4rem; }
+  .tarjeta.ok { border-left-color: var(--azul); }
+  .tarjeta.ok h3 { color: var(--azul); }
+
+  /* ---- maqueta 3D ---- */
+  .visor {
+    --escala: 1;
+    background:
+      radial-gradient(ellipse at 50% 40%, rgba(224, 164, 60, 0.16), transparent 62%),
+      var(--hoja-2);
+    border: 1px solid var(--linea);
+    height: clamp(330px, 52vw, 480px);
+    display: grid;
+    place-items: center;
+    overflow: hidden;
+    perspective: 2600px;
+    cursor: grab;
+    touch-action: pan-y;
+    user-select: none;
+  }
+  .visor.arrastrando { cursor: grabbing; }
+  .escena.suelta { transition: none; }
+  .escena {
+    transform-style: preserve-3d;
+    transform: scale(var(--escala)) rotateX(58deg) rotateZ(var(--giro, 0deg));
+    transition: transform 0.35s ease;
+  }
+  .mundo { position: relative; transform-style: preserve-3d; width: 0; height: 0; }
+  .cara { position: absolute; top: 0; left: 0; transform-origin: 0 0; }
+  .marca {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: var(--sello);
+    color: var(--hoja);
+    font-family: "Special Elite", "Courier New", monospace;
+    font-size: 16px;
+    line-height: 30px;
+    text-align: center;
+    transform-origin: 50% 50%;
+  }
+
+  .mandos {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.7rem 1.1rem;
+  }
+  .mandos label {
+    font-family: "Special Elite", "Courier New", monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--tinta-suave);
+  }
+  input[type="range"] { accent-color: var(--sello); flex: 1 1 160px; min-width: 140px; }
+  .botones { display: flex; gap: 0.4rem; flex-wrap: wrap; }
+  button {
+    font-family: "Special Elite", "Courier New", monospace;
+    font-size: 0.74rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--sello);
+    background: transparent;
+    border: 2px solid var(--sello);
+    border-radius: 3px;
+    padding: 0.35rem 0.8rem;
+    cursor: pointer;
+  }
+  button[aria-pressed="true"] { background: var(--sello); color: var(--hoja); }
+  button:focus-visible, input:focus-visible { outline: 3px solid var(--azul); outline-offset: 2px; }
+
+  .leyenda {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 0.35rem 1.2rem;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    font-size: 0.9rem;
+  }
+  .leyenda li { display: flex; gap: 0.55rem; align-items: baseline; }
+  .leyenda .n {
+    font-family: "Special Elite", "Courier New", monospace;
+    color: var(--sello);
+    min-width: 1.5em;
+    font-variant-numeric: tabular-nums;
+  }
+
+  figure { margin: 0; }
+  figure svg { display: block; width: 100%; height: auto; }
+  figcaption {
+    font-size: 0.85rem;
+    color: var(--tinta-suave);
+    border-top: 1px dashed var(--linea);
+    padding-top: 0.6rem;
+    margin-top: 0.7rem;
+  }
+  .marco-plano {
+    background: var(--hoja-2);
+    border: 1px solid var(--linea);
+    padding: clamp(0.5rem, 1.6vw, 1rem);
+    overflow-x: auto;
+  }
+
+  /* ---- listas ---- */
+  ul.limpia, ol.limpia { margin: 0; padding-left: 1.3rem; }
+  ul.limpia li, ol.limpia li { margin-top: 0.3rem; }
+
+  .pasos { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.55rem; }
+  .pasos li {
+    display: grid;
+    grid-template-columns: 3.6rem 1fr;
+    gap: 0.9rem;
+    align-items: baseline;
+    border-bottom: 1px dashed var(--linea-suave);
+    padding-bottom: 0.55rem;
+  }
+  .pasos .t {
+    font-family: "Special Elite", "Courier New", monospace;
+    font-size: 0.78rem;
+    color: var(--sello);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .lista-check { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.45rem; }
+  .lista-check li { display: flex; gap: 0.65rem; align-items: flex-start; }
+  .lista-check input { margin-top: 0.35rem; width: 1rem; height: 1rem; accent-color: var(--sello); flex: none; }
+  .lista-check label { cursor: pointer; }
+  .lista-check input:checked + label { color: var(--tinta-suave); text-decoration: line-through; }
+
+  .dos {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: clamp(1rem, 3vw, 2rem);
+  }
+
+  code {
+    font-family: "Courier Prime", monospace;
+    background: var(--hoja-2);
+    border: 1px solid var(--linea);
+    padding: 0.1em 0.4em;
+    font-size: 0.9em;
+    word-break: break-word;
+  }
+  .bloque-codigo {
+    background: var(--hoja-2);
+    border: 1px solid var(--linea);
+    padding: 0.7rem 0.9rem;
+    overflow-x: auto;
+    font-size: 0.85rem;
+    white-space: pre;
+  }
+
+  .pie {
+    text-align: center;
+    font-family: "Special Elite", "Courier New", monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--texto-fondo);
+    opacity: 0.75;
+  }
+
+  /* ---------- vista previa ---------- */
+  .visor-banner { background: var(--hoja-2); border: 1px solid var(--linea); padding: clamp(0.6rem, 2vw, 1.2rem); overflow-x: auto; }
+  .previa { width: 100%; aspect-ratio: var(--ratio); position: relative; }
+  .previa .arte { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .rejilla { position: absolute; inset: 0; display: grid; grid-template-columns: repeat(var(--cols), 1fr); grid-template-rows: repeat(var(--filas), 1fr); pointer-events: none; }
+  .rejilla div {
+    border: 1px dashed rgba(165, 35, 29, 0.75);
+    display: flex; align-items: flex-start; justify-content: flex-start;
+    font-family: "Special Elite", "Courier New", monospace;
+    font-size: clamp(0.6rem, 1.4vw, 0.85rem);
+    color: #A5231D;
+    padding: 0.2rem 0.35rem;
+  }
+
+  /* ---------- el arte del banner ---------- */
+  .arte {
+    container-type: size;
+    background: #F3EAD3;
+    color: #16130F;
+    line-height: 1.2;
+    overflow: hidden;
+    position: relative;
+    display: block;
+  }
+  .arte .borde { position: absolute; inset: 1.1cqh; border: 0.9cqh solid #A5231D; }
+  .arte .borde-2 { position: absolute; inset: 2.6cqh; border: 0.3cqh solid #16130F; }
+  .arte .cuerpo {
+    position: absolute; inset: 2.6cqh;
+    padding: 1.8cqh 1.8cqw;
+    display: grid; grid-template-rows: auto 1fr auto;
+    text-align: center;
+  }
+  .arte .encabezado {
+    display: flex; align-items: center; justify-content: space-between; gap: 2cqw;
+    font-family: "Special Elite", monospace;
+    font-size: 1.8cqw; letter-spacing: 0.24em; text-transform: uppercase; color: #A5231D; white-space: nowrap;
+  }
+  .arte .encabezado .sello {
+    border: 0.5cqh solid #A5231D; border-radius: 0.4cqh;
+    padding: 0.7cqh 1.1cqw; letter-spacing: 0.16em; transform: rotate(-1.6deg); margin-right: 0.9cqw;
+  }
+  .arte .centro { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1.6cqh; }
+  .arte h1.titulo {
+    font-family: "Special Elite", monospace;
+    font-size: 6.5cqw; line-height: 0.98; text-transform: uppercase; margin: 0;
+    letter-spacing: -0.005em; white-space: nowrap;
+  }
+  .arte .frase {
+    font-family: "Caveat", cursive; font-weight: 700;
+    font-size: 4cqw; color: #A5231D; line-height: 1;
+  }
+  .arte .cierre { display: flex; flex-direction: column; gap: 0.9cqh; }
+  .arte .nombres {
+    font-family: "Courier Prime", monospace;
+    font-size: 1.75cqw; line-height: 1.4; letter-spacing: 0.02em;
+    border-top: 0.3cqh solid #16130F; padding-top: 1.6cqh;
+  }
+  .arte .siguen {
+    font-family: "Special Elite", monospace;
+    font-size: 2.2cqw; letter-spacing: 0.3em; text-transform: uppercase; color: #A5231D;
+  }
+  .arte .entrada {
+    font-family: "Special Elite", monospace;
+    font-size: 2.9cqw; letter-spacing: 0.14em; text-transform: uppercase;
+    display: flex; align-items: center; justify-content: center; gap: 1.4cqw; flex-wrap: wrap;
+  }
+  .arte .entrada .flecha { font-size: 1.15em; line-height: 0.6; color: #A5231D; }
+  .arte .anios {
+    font-family: "Courier Prime", monospace;
+    font-size: 1.7cqw; letter-spacing: 0.24em; text-transform: uppercase; color: #61563F; margin-top: 0.6cqh;
+  }
+
+  /* los fondos se imprimen aunque no se tilde «gráficos de fondo» */
+  .arte, .arte * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+
+  /* ---------- las hojas para imprimir ---------- */
+  .paginas { display: none; }
+  .pagina {
+    width: var(--papel-w); height: var(--papel-h);
+    display: flex; align-items: center; justify-content: center;
+    position: relative; background: #fff;
+    page-break-after: always; break-after: page;
+  }
+  .pagina:last-child { page-break-after: auto; break-after: auto; }
+  .recorte { width: var(--util-w); height: var(--util-h); position: relative; overflow: hidden; outline: 0.25mm dashed #9a9a9a; }
+  .recorte .arte { position: absolute; top: 0; left: 0; width: var(--lienzo-w); height: var(--lienzo-h); }
+  .etiqueta {
+    position: absolute; bottom: 1.2mm; right: 4mm;
+    font-family: "Courier Prime", monospace; font-size: 3mm; color: #8a8a8a;
+  }
+
+
+  /* controles del banner */
+  .campo { display: flex; flex-direction: column; gap: 0.25rem; }
+  .campo span {
+    font-family: "Special Elite", "Courier New", monospace;
+    font-size: 0.68rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--tinta-suave);
+  }
+  select {
+    font-family: "Special Elite", "Courier New", monospace;
+    font-size: 0.8rem; letter-spacing: 0.08em; color: var(--sello); background: var(--hoja-2);
+    border: 2px solid var(--sello); border-radius: 3px; padding: 0.4rem 0.8rem; cursor: pointer;
+  }
+  select:focus-visible { outline: 3px solid var(--azul); outline-offset: 2px; }
+  button.principal { background: var(--sello); color: var(--hoja); text-transform: uppercase; }
+  .medida {
+    font-family: "Special Elite", "Courier New", monospace;
+    font-size: 0.78rem; letter-spacing: 0.1em; color: var(--tinta-suave);
+    border-left: 3px solid var(--sello); padding-left: 0.7rem;
+  }
+  .aviso-print {
+    border: 2px solid var(--sello);
+    background: rgba(165, 35, 29, 0.07);
+    padding: 0.6rem 0.9rem;
+    font-size: 0.9rem;
+  }
+  .aviso-print[hidden] { display: none; }
+  ol.armado { margin: 0; padding-left: 1.3rem; }
+  ol.armado li { margin-top: 0.4rem; }
+  kbd {
+    font-family: "Courier Prime", monospace; font-size: 0.85em;
+    background: var(--hoja-2); border: 1px solid var(--linea); border-bottom-width: 2px; padding: 0.05em 0.4em;
+  }
+
+
+  /* ---------- las etiquetas para las lapiceras ---------- */
+  /* colgante: tarjeta vertical con el agujero para el hilo */
+  .arte.colgante .borde { position: absolute; inset: 4cqh 5cqw; border: 1.1cqh solid #A5231D; }
+  .arte.colgante .borde-2 { position: absolute; inset: 6.6cqh 8.5cqw; border: 0.35cqh solid #16130F; }
+  .arte.colgante .agujero {
+    position: absolute; top: 9cqh; left: 50%; width: 13cqw; height: 13cqw;
+    margin-left: -6.5cqw; border: 0.3cqh dashed #8a8a8a; border-radius: 50%;
+  }
+  .arte.colgante .cuerpo {
+    position: absolute; inset: 6.6cqh 8.5cqw;
+    padding: 24cqh 4cqw 3cqh;
+    display: grid; grid-template-rows: 1fr auto; gap: 2cqh;
+    text-align: center;
+  }
+  .arte.colgante .centro { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3cqh; }
+  .arte.colgante .titulo {
+    font-family: "Special Elite", monospace; text-transform: uppercase;
+    font-size: 11cqw; line-height: 1.05; letter-spacing: -0.01em; margin: 0;
+  }
+  .arte.colgante .frase {
+    font-family: "Caveat", cursive; font-weight: 700; color: #A5231D;
+    font-size: 13cqw; line-height: 0.98;
+  }
+  .arte.colgante .cierre { display: flex; flex-direction: column; gap: 1.4cqh; }
+  .arte.colgante .sello {
+    font-family: "Special Elite", monospace; color: #A5231D;
+    font-size: 5.6cqw; letter-spacing: 0.1em; text-transform: uppercase;
+    border: 0; border-top: 0.3cqh solid #16130F; padding: 1.8cqh 0 0; transform: none; margin: 0; border-radius: 0;
+  }
+  .arte.colgante .anios {
+    font-family: "Courier Prime", monospace; color: #61563F;
+    font-size: 5cqw; letter-spacing: 0.12em; text-transform: uppercase; margin: 0;
+  }
+
+  /* banderita: dos alas y un lomo que abraza la lapicera */
+  .arte.banderita { display: grid; grid-template-columns: 1fr var(--lomo) 1fr; }
+  .arte.banderita .ala {
+    position: relative; padding: 9cqh 3cqh;
+    display: flex; flex-direction: column; justify-content: center; gap: 4cqh; text-align: center;
+  }
+  .arte.banderita .ala::before { content: ""; position: absolute; inset: 5cqh 4cqh; border: 0.9cqh solid #A5231D; }
+  .arte.banderita .ala > * { position: relative; }
+  .arte.banderita .lomo {
+    border-left: 0.6cqh dashed #8a8a8a; border-right: 0.6cqh dashed #8a8a8a;
+    background: repeating-linear-gradient(90deg, #E7DBBE 0 1.2cqh, #F3EAD3 1.2cqh 2.4cqh);
+  }
+  .arte.banderita .titulo {
+    font-family: "Special Elite", monospace; text-transform: uppercase;
+    font-size: 15cqh; line-height: 1.05; margin: 0;
+  }
+  .arte.banderita .frase {
+    font-family: "Caveat", cursive; font-weight: 700; color: #A5231D;
+    font-size: 19cqh; line-height: 0.95;
+  }
+  .arte.banderita .sello {
+    font-family: "Special Elite", monospace; color: #A5231D;
+    font-size: 9cqh; letter-spacing: 0.1em; text-transform: uppercase;
+    border: 0; padding: 0; margin: 0; transform: none; border-radius: 0;
+  }
+  .arte.banderita .anios {
+    font-family: "Courier Prime", monospace; color: #61563F;
+    font-size: 8.5cqh; letter-spacing: 0.1em; text-transform: uppercase; margin: 0;
+  }
+
+  /* la hoja de etiquetas: es la hoja de verdad, achicada para que entre */
+  .visor-etiquetas {
+    background: var(--hoja-2);
+    border: 1px solid var(--linea);
+    padding: clamp(0.6rem, 2vw, 1.2rem);
+    overflow: auto;
+  }
+  .marco-etiquetas { position: relative; margin: 0 auto; }
+  .pliego {
+    position: absolute; top: 0; left: 0;
+    width: var(--pliego-w); height: var(--pliego-h);
+    background: #fff;
+    transform-origin: top left;
+    transform: scale(var(--k, 1));
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.18);
+  }
+  .casilla { position: absolute; outline: 0.25mm dashed #9a9a9a; }
+  .casilla .arte { width: 100%; height: 100%; }
+
+  /* En esta página hay dos cosas para imprimir: el banner y las etiquetas. Cada
+     botón marca cuál antes de abrir el cuadro de impresión, y sin marca (Ctrl+P)
+     se imprime la página entera, explicaciones incluidas. */
+  @media print {
+    body[data-imprimir] { background: #fff; padding: 0; }
+    body[data-imprimir] .pila > * { display: none !important; }
+    body[data-imprimir="banner"] .paginas { display: block !important; }
+    body[data-imprimir="etiquetas"] .visor-etiquetas {
+      display: block !important;
+      border: 0; padding: 0; background: #fff; overflow: visible;
+    }
+    body[data-imprimir="etiquetas"] .marco-etiquetas { width: auto !important; height: auto !important; }
+    body[data-imprimir="etiquetas"] .pliego { position: static; transform: none; box-shadow: none; }
+    @page { margin: 0; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .escena { transition: none; }
+  }
+</style>
+
+<div class="pila">
+
+  <header class="hoja caratula">
+    <div class="sello-esquina">Montaje<br>16.09.2026</div>
+    <p class="eyebrow">Plano de montaje · Puesto de juego</p>
+    <h1>Puesto Archivo<br>16.09.1976</h1>
+    <p class="lapiz">Un gazebo de 3 × 3 convertido en oficina de archivo: se entra, se abre un expediente y se sale con una foto.</p>
+    <div class="datos">
+      <div class="dato"><span class="k">Superficie</span><span class="v">3 × 3 m · 9 m²</span></div>
+      <div class="dato"><span class="k">Atiende</span><span class="v">1 persona</span></div>
+      <div class="dato"><span class="k">Juega</span><span class="v">1 por turno, sentado</span></div>
+      <div class="dato"><span class="k">La partida</span><span class="v">4 minutos como mucho</span></div>
+      <div class="dato"><span class="k">Capacidad</span><span class="v">8 a 10 por hora</span></div>
+    </div>
+  </header>
+
+  <section class="hoja">
+    <p class="eyebrow">Lo primero</p>
+    <h2>Afuera y de día, el enemigo es el sol</h2>
+    <p>Un proyector de 3.000 lúmenes repartidos en una imagen de 1,80 × 1 m da unos <b>1.600 lux</b> sobre la tela. A la sombra profunda de un gazebo cerrado hay entre 300 y 800 lux: la imagen gana con claridad. A cielo abierto hay entre 10.000 y 100.000 lux, y no hay proyector que lo dé vuelta. Por eso el puesto no es un gazebo abierto con una pantalla: <b>es una cueva con una sola boca</b>.</p>
+    <div class="tarjetas">
+      <div class="tarjeta">
+        <h3>Cerrar tres lados</h3>
+        <p>Los tres paños laterales, con tela negra por dentro. Si los paños del gazebo son blancos o claros, forralos con friselina negra: la tela clara rebota luz sobre la pantalla y la lava.</p>
+      </div>
+      <div class="tarjeta">
+        <h3>Pollera al frente</h3>
+        <p>Una faja de tela negra de 60 cm colgando del travesaño de entrada, a lo ancho. Corta la luz del cielo, que es la que entra más fuerte, y deja pasar a la gente por debajo.</p>
+      </div>
+      <div class="tarjeta ok">
+        <h3>Plan B: un televisor</h3>
+        <p>Si no se consiguen paños oscuros, un televisor de 50" o más gana siempre: brilla en vez de reflejar. El proyector queda para adentro o para el final del día.</p>
+      </div>
+    </div>
+    <p class="apunte">Orientá la boca del gazebo <b>hacia donde no pega el sol</b> a la hora del acto: al lado sombreado, a una pared, o al menos de espaldas al sol. Media hora de prueba a la misma hora del día anterior evita la sorpresa.</p>
+  </section>
+
+  <section class="hoja">
+    <p class="eyebrow">Maqueta</p>
+    <h2>Cómo queda armado</h2>
+    <div class="visor" id="visor">
+      <div class="escena" id="escena">
+        <div class="mundo" id="mundo"></div>
+      </div>
+    </div>
+    <div class="mandos">
+      <label for="giro">Girar</label>
+      <input id="giro" type="range" min="-180" max="180" value="0" step="1" aria-label="Girar la maqueta">
+      <label for="inclinar">Inclinar</label>
+      <input id="inclinar" type="range" min="2" max="88" value="58" step="1" aria-label="Inclinar la maqueta">
+      <div class="botones">
+        <button type="button" data-vista="0" data-tilt="58" aria-pressed="true">Desde la fila</button>
+        <button type="button" data-vista="26" data-tilt="60">Tres cuartos</button>
+        <button type="button" data-vista="0" data-tilt="6">Planta</button>
+        <button type="button" id="btn-telones" aria-pressed="true">Telones</button>
+      </div>
+    </div>
+    <p class="apunte">Arrastrala con el mouse o con el dedo para girarla en cualquier dirección; en el celular, el dedo de costado la gira y el dedo de arriba abajo sigue moviendo la página. Los deslizadores hacen lo mismo con el teclado.</p>
+    <ul class="leyenda">
+      <li><span class="n">1</span><span>Pantalla de proyección, 180 × 100 cm, borde inferior a 110 cm</span></li>
+      <li><span class="n">2</span><span>Mesa de juego con la notebook y la lámpara</span></li>
+      <li><span class="n">3</span><span>Silla del visitante, de espaldas a la fila</span></li>
+      <li><span class="n">4</span><span>Mesa del archivista: podio en papel, talonario, lápices</span></li>
+      <li><span class="n">5</span><span>Proyector colgado del travesaño de entrada, a 200 cm</span></li>
+      <li><span class="n">6</span><span>Parlante en trípode, apuntando a la fila</span></li>
+      <li><span class="n">7</span><span>Pollera negra de 60 cm sobre la boca</span></li>
+    </ul>
+  </section>
+
+  <section class="hoja">
+    <p class="eyebrow">Plano en planta</p>
+    <h2>Dónde va cada cosa</h2>
+    <div class="marco-plano">
+      <figure>
+        <svg viewBox="0 0 760 640" role="img" aria-label="Plano en planta del gazebo de 3 por 3 metros con la pantalla en la pared del fondo, la mesa de juego al centro, la mesa del archivista a la izquierda, el parlante y el proyector sobre la boca, y la fila afuera">
+          <defs>
+            <marker id="flecha" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+              <path d="M 0 1 L 9 5 L 0 9 z" fill="currentColor"></path>
+            </marker>
+            <pattern id="rayado" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+              <line x1="0" y1="0" x2="0" y2="8" stroke="currentColor" stroke-width="1.4" opacity="0.35"></line>
+            </pattern>
+          </defs>
+
+          <g color="#241D14">
+            <!-- piso del gazebo: 480 x 480 = 300 x 300 cm -->
+            <rect x="140" y="60" width="480" height="480" fill="#EFE6CE" stroke="currentColor" stroke-width="2"></rect>
+
+            <!-- telones cerrados: fondo e izquierda y derecha -->
+            <rect x="140" y="60" width="480" height="10" fill="#241D14"></rect>
+            <rect x="140" y="60" width="10" height="480" fill="#241D14"></rect>
+            <rect x="610" y="60" width="10" height="480" fill="#241D14"></rect>
+
+            <!-- postes -->
+            <g fill="#6B5238">
+              <rect x="136" y="56" width="14" height="14"></rect>
+              <rect x="610" y="56" width="14" height="14"></rect>
+              <rect x="136" y="530" width="14" height="14"></rect>
+              <rect x="610" y="530" width="14" height="14"></rect>
+            </g>
+
+            <!-- 1 pantalla -->
+            <rect x="236" y="70" width="288" height="14" fill="#F6EFDC" stroke="currentColor" stroke-width="2"></rect>
+            <circle cx="380" cy="104" r="13" fill="#A5231D"></circle>
+            <text x="380" y="109" text-anchor="middle" font-size="15" fill="#F6EFDC" font-family="'Special Elite', monospace">1</text>
+
+            <!-- 2 mesa de juego 120x60 -->
+            <rect x="284" y="252" width="192" height="96" fill="#6B5238" stroke="currentColor" stroke-width="2"></rect>
+            <rect x="336" y="284" width="56" height="40" fill="#2E2A25"></rect>
+            <circle cx="452" cy="236" r="9" fill="#E0A43C" stroke="currentColor"></circle>
+            <circle cx="508" cy="300" r="13" fill="#A5231D"></circle>
+            <text x="508" y="305" text-anchor="middle" font-size="15" fill="#F6EFDC" font-family="'Special Elite', monospace">2</text>
+
+            <!-- 3 silla -->
+            <rect x="344" y="372" width="72" height="72" fill="none" stroke="currentColor" stroke-width="2"></rect>
+            <circle cx="380" cy="408" r="20" fill="url(#rayado)" stroke="currentColor" stroke-width="1.5"></circle>
+            <circle cx="452" cy="408" r="13" fill="#A5231D"></circle>
+            <text x="452" y="413" text-anchor="middle" font-size="15" fill="#F6EFDC" font-family="'Special Elite', monospace">3</text>
+
+            <!-- 4 mesa archivista 100x50 -->
+            <rect x="158" y="156" width="80" height="160" fill="#6B5238" stroke="currentColor" stroke-width="2"></rect>
+            <circle cx="198" cy="348" r="13" fill="#A5231D"></circle>
+            <text x="198" y="353" text-anchor="middle" font-size="15" fill="#F6EFDC" font-family="'Special Elite', monospace">4</text>
+
+            <!-- 5 proyector colgado -->
+            <rect x="356" y="500" width="48" height="34" fill="#2E2A25"></rect>
+            <line x1="380" y1="500" x2="380" y2="90" stroke="#A5231D" stroke-width="1.6" stroke-dasharray="7 6"></line>
+            <circle cx="316" cy="516" r="13" fill="#A5231D"></circle>
+            <text x="316" y="521" text-anchor="middle" font-size="15" fill="#F6EFDC" font-family="'Special Elite', monospace">5</text>
+
+            <!-- 6 parlante -->
+            <rect x="556" y="486" width="44" height="40" fill="#2E2A25"></rect>
+            <path d="M 578 530 q -26 34 -66 46" fill="none" stroke="currentColor" stroke-width="1.4" opacity="0.6"></path>
+            <path d="M 578 530 q 4 40 -18 62" fill="none" stroke="currentColor" stroke-width="1.4" opacity="0.6"></path>
+            <circle cx="530" cy="466" r="13" fill="#A5231D"></circle>
+            <text x="530" y="471" text-anchor="middle" font-size="15" fill="#F6EFDC" font-family="'Special Elite', monospace">6</text>
+
+            <!-- 7 pollera -->
+            <line x1="150" y1="540" x2="610" y2="540" stroke="#241D14" stroke-width="7" stroke-dasharray="3 5"></line>
+            <circle cx="180" cy="566" r="13" fill="#A5231D"></circle>
+            <text x="180" y="571" text-anchor="middle" font-size="15" fill="#F6EFDC" font-family="'Special Elite', monospace">7</text>
+
+            <!-- fila -->
+            <g opacity="0.85">
+              <line x1="646" y1="540" x2="646" y2="620" stroke="currentColor" stroke-width="2" stroke-dasharray="6 6"></line>
+              <line x1="150" y1="596" x2="646" y2="596" stroke="currentColor" stroke-width="2" stroke-dasharray="6 6"></line>
+              <g fill="currentColor">
+                <circle cx="600" cy="576" r="11"></circle>
+                <circle cx="548" cy="576" r="11"></circle>
+                <circle cx="496" cy="576" r="11"></circle>
+                <circle cx="444" cy="576" r="11"></circle>
+                <circle cx="392" cy="576" r="11"></circle>
+              </g>
+              <path d="M 350 576 L 300 576" stroke="currentColor" stroke-width="2" marker-end="url(#flecha)"></path>
+              <text x="158" y="626" font-size="15" font-family="'Courier Prime', monospace">la fila mira la pantalla mientras espera</text>
+            </g>
+            <text x="662" y="556" font-size="15" font-family="'Special Elite', monospace">entrada</text>
+
+            <!-- cotas -->
+            <g stroke="currentColor" stroke-width="1.4" font-size="15" font-family="'Courier Prime', monospace">
+              <line x1="140" y1="34" x2="620" y2="34" marker-start="url(#flecha)" marker-end="url(#flecha)"></line>
+              <text x="380" y="26" text-anchor="middle" stroke="none" fill="currentColor">300 cm</text>
+              <line x1="106" y1="60" x2="106" y2="540" marker-start="url(#flecha)" marker-end="url(#flecha)"></line>
+              <text x="98" y="304" text-anchor="middle" stroke="none" fill="currentColor" transform="rotate(-90 98 304)">300 cm</text>
+              <line x1="284" y1="212" x2="476" y2="212" marker-start="url(#flecha)" marker-end="url(#flecha)"></line>
+              <text x="416" y="204" text-anchor="middle" stroke="none" fill="currentColor">120</text>
+              <line x1="640" y1="84" x2="640" y2="252" marker-start="url(#flecha)" marker-end="url(#flecha)"></line>
+              <text x="676" y="172" text-anchor="middle" stroke="none" fill="currentColor">105</text>
+            </g>
+          </g>
+        </svg>
+        <figcaption>Planta a escala: 1,05 m libres entre la pantalla y la mesa, y la silla mirando al fondo. El haz del proyector (línea punteada roja) cruza el gazebo por arriba de la cabeza del que juega.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="hoja">
+    <p class="eyebrow">Corte lateral</p>
+    <h2>Por qué nadie tapa la proyección</h2>
+    <div class="marco-plano">
+      <figure>
+        <svg viewBox="0 0 760 400" role="img" aria-label="Corte lateral del gazebo: el proyector colgado a 200 centímetros manda el haz hacia la pantalla del fondo, pasando por encima de la cabeza del visitante sentado a 125 centímetros">
+          <defs>
+            <marker id="flecha2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+              <path d="M 0 1 L 9 5 L 0 9 z" fill="currentColor"></path>
+            </marker>
+          </defs>
+          <g color="#241D14">
+            <!-- piso y estructura: 1 cm = 1.5 px de alto, 300 cm de ancho en 480 px -->
+            <line x1="120" y1="340" x2="600" y2="340" stroke="currentColor" stroke-width="3"></line>
+            <line x1="120" y1="340" x2="120" y2="10" stroke="#6B5238" stroke-width="8"></line>
+            <line x1="600" y1="340" x2="600" y2="10" stroke="#6B5238" stroke-width="8"></line>
+            <line x1="116" y1="10" x2="604" y2="10" stroke="#6B5238" stroke-width="8"></line>
+
+            <!-- telón del fondo y pantalla -->
+            <rect x="120" y="10" width="10" height="330" fill="#241D14"></rect>
+            <rect x="130" y="115" width="16" height="150" fill="#F6EFDC" stroke="currentColor" stroke-width="2"></rect>
+
+            <!-- pollera -->
+            <rect x="560" y="10" width="40" height="90" fill="#241D14" opacity="0.85"></rect>
+
+            <!-- haz -->
+            <path d="M 566 40 L 146 115 L 146 265 Z" fill="#A5231D" opacity="0.14"></path>
+            <line x1="566" y1="40" x2="146" y2="265" stroke="#A5231D" stroke-width="1.6" stroke-dasharray="7 6"></line>
+            <line x1="566" y1="40" x2="146" y2="115" stroke="#A5231D" stroke-width="1.6" stroke-dasharray="7 6"></line>
+            <rect x="548" y="28" width="42" height="24" fill="#2E2A25"></rect>
+
+            <!-- persona sentada: cabeza a 125 cm -->
+            <g fill="none" stroke="currentColor" stroke-width="2.5">
+              <circle cx="360" cy="222" r="17" fill="#EFE6CE"></circle>
+              <path d="M 360 239 L 360 292 L 322 292"></path>
+              <path d="M 360 268 L 396 268"></path>
+            </g>
+            <rect x="330" y="292" width="60" height="6" fill="#6B5238"></rect>
+            <rect x="386" y="248" width="76" height="6" fill="#6B5238"></rect>
+            <rect x="404" y="230" width="40" height="18" fill="#2E2A25"></rect>
+
+            <!-- persona parada afuera -->
+            <g fill="none" stroke="currentColor" stroke-width="2.5" opacity="0.55">
+              <circle cx="656" cy="150" r="17"></circle>
+              <path d="M 656 167 L 656 340"></path>
+            </g>
+            <text x="656" y="374" text-anchor="middle" font-size="15" font-family="Special Elite, monospace" fill="currentColor" opacity="0.75">la fila</text>
+
+            <!-- cotas -->
+            <g stroke="currentColor" stroke-width="1.4" font-size="15" font-family="'Courier Prime', monospace">
+              <line x1="92" y1="115" x2="92" y2="340" marker-start="url(#flecha2)" marker-end="url(#flecha2)"></line>
+              <text x="84" y="235" text-anchor="middle" stroke="none" fill="currentColor" transform="rotate(-90 84 235)">110 cm</text>
+              <line x1="628" y1="40" x2="628" y2="340" marker-start="url(#flecha2)" marker-end="url(#flecha2)"></line>
+              <text x="700" y="196" text-anchor="middle" stroke="none" fill="currentColor">200 cm</text>
+              <line x1="404" y1="222" x2="404" y2="340" marker-start="url(#flecha2)" marker-end="url(#flecha2)" opacity="0.7"></line>
+              <text x="470" y="316" text-anchor="middle" stroke="none" fill="currentColor" opacity="0.9">125 cm</text>
+            </g>
+            <text x="150" y="366" font-size="15" font-family="'Special Elite', monospace" fill="currentColor">fondo</text>
+            <text x="536" y="366" font-size="15" font-family="'Special Elite', monospace" fill="currentColor">boca</text>
+          </g>
+        </svg>
+        <figcaption>El borde de abajo del haz baja de 200 cm a 110 cm en 3 metros: a la altura de la silla todavía va por 164 cm, bien por encima de una cabeza sentada. Parado, en cambio, cualquiera la tapa — por eso adentro se entra a sentarse y nada más.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="hoja">
+    <p class="eyebrow">Equipo</p>
+    <h2>Lo que hay que llevar</h2>
+    <div class="dos">
+      <div>
+        <h3>Técnico</h3>
+        <ul class="lista-check" data-lista="tecnico">
+          <li><input type="checkbox" id="t1"><label for="t1">Notebook con Chrome y el mouse (el touchpad rema)</label></li>
+          <li><input type="checkbox" id="t2"><label for="t2">Proyector de 3.000 lúmenes o más, con soporte o repisa para colgarlo</label></li>
+          <li><input type="checkbox" id="t3"><label for="t3">Cable HDMI de 5 m (el proyector va lejos de la mesa)</label></li>
+          <li><input type="checkbox" id="t4"><label for="t4">Parlante activo con cable de audio y trípode</label></li>
+          <li><input type="checkbox" id="t5"><label for="t5">Prolongador de 25 m, zapatilla y cinta pisacables</label></li>
+          <li><input type="checkbox" id="t6"><label for="t6">Pantalla o tela blanca mate de 180 × 100, tensada</label></li>
+          <li><input type="checkbox" id="t7"><label for="t7">Cargador de la notebook y una batería o UPS chica</label></li>
+        </ul>
+      </div>
+      <div>
+        <h3>Puesto</h3>
+        <ul class="lista-check" data-lista="puesto">
+          <li><input type="checkbox" id="p1"><label for="p1">Gazebo 3 × 3 con tres paños y bolsas de arena para las patas</label></li>
+          <li><input type="checkbox" id="p2"><label for="p2">Friselina negra: paños interiores y pollera de 60 cm</label></li>
+          <li><input type="checkbox" id="p3"><label for="p3">Mesa de 120 × 60, mesa chica y dos sillas</label></li>
+          <li><input type="checkbox" id="p4"><label for="p4">Lámpara de escritorio con lámpara cálida (ilumina la foto)</label></li>
+          <li><input type="checkbox" id="p5"><label for="p5">Soga o vallas y cuatro postes para la fila</label></li>
+          <li><input type="checkbox" id="p6"><label for="p6">Cartel de entrada y ficha del podio en papel</label></li>
+          <li><input type="checkbox" id="p7"><label for="p7">Utilería: carpetas manila, hilo rojo, sello, vaso con lápices</label></li>
+        </ul>
+      </div>
+    </div>
+    <p class="apunte">Lo tildado queda guardado en esta computadora, así podés usar la lista el día del armado.</p>
+  </section>
+
+  <section class="hoja">
+    <p class="eyebrow">Atención</p>
+    <h2>El turno de una persona</h2>
+    <ul class="pasos">
+      <li><span class="t">0:00</span><span><b>Recepción.</b> El archivista le da un número de expediente en papel del talonario y lo sienta.</span></li>
+      <li><span class="t">0:20</span><span><b>Ficha de ingreso.</b> Nombre y teléfono. El mail es opcional y sirve para mandarle la foto.</span></li>
+      <li><span class="t">0:45</span><span><b>Siete misiones.</b> No pasan de <b>4 minutos</b>: cada misión tiene su reloj y el relato entre una y otra es corto. El proyector muestra todo, así los que esperan siguen la misión desde afuera.</span></li>
+      <li><span class="t">4:45</span><span><b>Informe final</b> con el puntaje y los seis nombres, con la canción de fondo.</span></li>
+      <li><span class="t">5:15</span><span><b>Fotomatón.</b> Tres fotos con la cámara de la notebook y se cierra el expediente.</span></li>
+      <li><span class="t">6:00</span><span><b>Podio.</b> El archivista anota el puntaje con marcador en la ficha de papel y llama al siguiente.</span></li>
+    </ul>
+    <p>La partida en sí <b>no pasa de 4 minutos</b>; con la recepción, la foto y el cambio de visitante, el turno completo ronda los <b>6 minutos</b>. Eso da <b>10 por hora en el papel</b>, pero siempre hay alguien que se cuelga, se saca tres fotos o pregunta: para planificar, contá <b>8 por hora</b>. En una jornada de cuatro horas son <b>entre 30 y 40 visitantes</b>. Si la fila crece, la salida no es apurar el juego: es <b>una segunda notebook</b> en la mesa del archivista, sin proyector, para los que no quieren esperar. También funciona de a dos: entre dos, las respuestas se discuten y la visita rinde más.</p>
+  </section>
+
+  <section class="hoja">
+    <p class="eyebrow">Puesta en escena</p>
+    <h2>Que parezca un archivo, no un stand</h2>
+    <div class="dos">
+      <div>
+        <h3>La escena</h3>
+        <ul class="limpia">
+          <li>Mantel oscuro, la notebook apoyada sobre una carpeta abierta y la lámpara de escritorio prendida: es la misma imagen que se ve en la pantalla del juego.</li>
+          <li>Pilas de carpetas manila atadas con hilo rojo y un par de cajas de archivo apiladas contra el telón.</li>
+          <li>Un sello y una almohadilla sobre la mesa del archivista. Sellar el número de expediente al recibir a cada visitante es el mejor gesto del puesto.</li>
+          <li>Quien atiende, con guardapolvo o un brazalete que diga ARCHIVO.</li>
+        </ul>
+      </div>
+      <div>
+        <h3>El imán</h3>
+        <ul class="limpia">
+          <li>El parlante hacia la fila: la voz invita sola cada 45 segundos y es lo que hace que la gente se dé vuelta.</li>
+          <li>El banner de más abajo colgado sobre la boca: el título se lee desde el otro lado del patio y los seis nombres se leen de cerca, mientras se espera.</li>
+          <li>El podio del día en papel afiche, escrito a mano y actualizado turno a turno. Nada convoca como un puntaje para superar.</li>
+          <li>Los seis retratos impresos y colgados en el telón lateral, con nombre y escuela.</li>
+          <li>Un afiche en blanco con lápices atados: <b>los lápices siguen escribiendo</b>, para que cada visitante deje una línea al salir.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="hoja">
+    <p class="eyebrow">Antes de abrir</p>
+    <h2>La prueba del día anterior</h2>
+    <ul class="lista-check" data-lista="prueba">
+      <li><input type="checkbox" id="v1"><label for="v1"><b>Probar sin internet.</b> El juego está publicado en la web: si el patio no tiene señal, no abre. Llevá la copia local y probala en modo avión.</label></li>
+      <li><input type="checkbox" id="v2"><label for="v2"><b>Chrome en modo kiosco</b>, sin barras ni tentaciones.</label></li>
+      <li><input type="checkbox" id="v3"><label for="v3"><b>Duplicar pantalla</b> a la proyección con Win+P y verificar que el juego se vea entero, sin bordes cortados.</label></li>
+      <li><input type="checkbox" id="v4"><label for="v4"><b>Volumen con ruido real.</b> Probalo con gente hablando alrededor, no en silencio.</label></li>
+      <li><input type="checkbox" id="v5"><label for="v5"><b>Una foto de prueba</b> con la luz del puesto: si sale oscura, acercá la lámpara.</label></li>
+      <li><input type="checkbox" id="v6"><label for="v6"><b>Vaciar el archivo de visitas</b> desde el panel del organizador, para arrancar el día en cero.</label></li>
+      <li><input type="checkbox" id="v7"><label for="v7"><b>Cronometrar una partida entera</b> para confirmar los 4 minutos con el ritmo de lectura de un visitante real.</label></li>
+    </ul>
+    <hr class="regla">
+    <h3>Para que ande sin internet</h3>
+    <p class="apunte">En la notebook, con el proyecto ya compilado, poné el sitio dentro de una carpeta con el mismo nombre que la ruta pública y serví la carpeta madre:</p>
+    <div class="bloque-codigo">npx astro build
+mkdir sitio\noche-lapices
+xcopy dist sitio\noche-lapices /E /I /Y
+npx serve sitio -l 4321</div>
+    <p class="apunte">Después abrí <code>http://localhost:4321/noche-lapices/</code>. Si esa dirección carga las voces, la música y el video, el puesto ya no depende de la señal del patio.</p>
+    <div class="bloque-codigo">chrome.exe --autoplay-policy=no-user-gesture-required --kiosk http://localhost:4321/noche-lapices/</div>
+  </section>
+
+
+  <section class="hoja">
+    <p class="eyebrow">Cartelería</p>
+    <h2>El banner para la fila</h2>
+    <p>Ocho hojas oficio que se cortan y se pegan: un cartel de <b>1,25 × 0,40 m</b> para colgar sobre la boca del gazebo, donde lo vea el que pasa por el patio.</p>
+    <div class="visor-banner">
+      <div class="previa">
+        <div class="arte" id="molde">
+          <div class="borde"></div>
+          <div class="borde-2"></div>
+          <div class="cuerpo">
+            <p class="encabezado"><span>República Argentina · La Plata</span><span class="sello">Expediente 16.09.1976</span></p>
+            <div class="centro">
+              <h1 class="titulo">La Noche de los Lápices</h1>
+              <p class="frase">Restaurá lo que quisieron borrar</p>
+            </div>
+            <div class="cierre">
+              <p class="nombres">Claudia Falcone · María Clara Ciocchini · Horacio Ungaro<br>Daniel Racero · Francisco López Muntaner · Claudio de Acha</p>
+              <p class="siguen">Siguen desaparecidos</p>
+              <p class="entrada"><span>Abrí el expediente</span><span class="flecha">▼</span></p>
+              <p class="anios">1976 — 2026 · a cincuenta años</p>
+            </div>
+          </div>
+        </div>
+        <div class="rejilla" id="rejilla" aria-hidden="true"></div>
+      </div>
+    </div>
+    <p class="apunte">Las líneas punteadas son los cortes: cada rectángulo es una hoja, numerada como sale de la impresora.</p>
+    <div class="mandos">
+      <label class="campo">
+        <span>Hoja</span>
+        <select id="papel">
+          <option value="330,216" selected>Oficio · 21,6 × 33 cm</option>
+          <option value="356,216">Legal · 21,6 × 35,6 cm</option>
+          <option value="297,210">A4 · 21 × 29,7 cm</option>
+          <option value="279,216">Carta · 21,6 × 27,9 cm</option>
+        </select>
+      </label>
+      <label class="campo">
+        <span>Mosaico</span>
+        <select id="mosaico">
+          <option value="4,2" selected>4 × 2 · ocho hojas</option>
+          <option value="3,2">3 × 2 · seis hojas</option>
+          <option value="5,2">5 × 2 · diez hojas</option>
+          <option value="4,1">4 × 1 · cuatro hojas, más finito</option>
+        </select>
+      </label>
+      <button type="button" class="principal" id="imprimir">Imprimir el banner</button>
+    </div>
+    <p class="medida" id="medida"></p>
+    <p class="aviso-print" id="aviso-imprimir" hidden></p>
+    <p class="apunte">El botón manda a la impresora <b>solo el banner</b>, en la medida de hoja elegida y sin márgenes. Con <kbd>Ctrl</kbd>+<kbd>P</kbd>, en cambio, sale la página entera con las explicaciones.</p>
+  </section>
+
+  <section class="hoja">
+    <p class="eyebrow">En el cuadro de impresión</p>
+    <h2>Cuatro opciones que hay que tocar</h2>
+    <div class="dos">
+      <div>
+        <h3>Sí o sí</h3>
+        <ul class="limpia">
+          <li><b>Orientación: horizontal.</b></li>
+          <li><b>Márgenes: ninguno.</b> Si no, la impresora achica el dibujo y las hojas dejan de coincidir.</li>
+          <li><b>Escala: 100%.</b> Lo importante es que las ocho hojas salgan con la misma escala; si tu impresora fuerza un margen, dejalas todas iguales y el banner sale un poco más chico, pero empalma.</li>
+          <li><b>Gráficos de fondo</b>, si tu impresora los pide: el banner ya viene preparado para que el marco y el sello rojos salgan igual, pero si aparecen en blanco, es esa opción.</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Conviene</h3>
+        <ul class="limpia">
+          <li>Imprimí primero <b>una sola hoja</b> de prueba y fijate que la línea punteada entre entera. Si algún lado sale cortado, tu impresora tiene un margen más grande: reimprimí todo con «ajustar al área imprimible» y va a seguir empalmando.</li>
+          <li>Papel un poco más grueso (90 o 120 g) aguanta el viento y no transparenta.</li>
+          <li>Si tenés impresora láser, mejor: la tinta de chorro se corre con la humedad de la mañana.</li>
+        </ul>
+      </div>
+    </div>
+    <hr class="regla">
+    <h3>De ocho hojas a un banner</h3>
+    <ol class="armado">
+      <li><b>Ordená las hojas</b> por el número que sale abajo a la derecha: primero la fila de arriba, de izquierda a derecha.</li>
+      <li><b>Cortá por la línea punteada.</b> Con regla metálica y trincheta sobre una tabla queda derecho; con tijera, andá despacio por la línea.</li>
+      <li><b>Uní a tope, sin superponer.</b> Apoyá las hojas boca abajo sobre la mesa, juntá los bordes y pegá con cinta de embalar por atrás, primero las filas y después las dos tiras entre sí.</li>
+      <li><b>Plastificá el frente</b> pasando tiras de cinta ancha transparente, una al lado de la otra, montando 5 mm. Queda rígido, resiste el sol y no se moja.</li>
+      <li><b>Reforzá las cuatro esquinas</b> con doble cinta y hacé un agujero en cada una: se ata al travesaño del gazebo con hilo de algodón o precintos.</li>
+    </ol>
+    <p class="apunte">Un cartón de una caja pegado por detrás lo convierte en cartel rígido, para apoyarlo en un caballete al costado de la fila.</p>
+  </section>
+
+
+  <section class="hoja">
+    <p class="eyebrow">Para regalar</p>
+    <h2>Las etiquetas de las lapiceras</h2>
+    <p>La misma carátula del expediente, del tamaño de una lapicera: se imprime, se corta y se ata. Elegí el papel y salen todas las que entren, con 4 mm entre una y otra para la tijera y 8 mm de margen contra el borde, que es lo que ninguna impresora hogareña alcanza a imprimir.</p>
+    <div class="mandos">
+      <label class="campo">
+        <span>Modelo</span>
+        <select id="et-modelo">
+          <option value="colgante" selected>Colgante · se ata con hilo</option>
+          <option value="banderita">Banderita · abraza la lapicera</option>
+        </select>
+      </label>
+      <label class="campo">
+        <span>Tamaño</span>
+        <select id="et-tamano">
+          <option value="chica">Chica</option>
+          <option value="mediana" selected>Mediana</option>
+          <option value="grande">Grande</option>
+        </select>
+      </label>
+      <label class="campo">
+        <span>Papel</span>
+        <select id="et-papel">
+          <option value="210,297" selected>A4 · 21 × 29,7 cm</option>
+          <option value="216,330">Oficio · 21,6 × 33 cm</option>
+          <option value="216,356">Legal · 21,6 × 35,6 cm</option>
+          <option value="216,279">Carta · 21,6 × 27,9 cm</option>
+        </select>
+      </label>
+      <label class="campo">
+        <span>Orientación</span>
+        <select id="et-orientacion">
+          <option value="vertical" selected>Vertical</option>
+          <option value="horizontal">Horizontal</option>
+        </select>
+      </label>
+      <label class="campo">
+        <span>Cuántas</span>
+        <select id="et-cuantas">
+          <option value="todas" selected>Todas las que entren</option>
+          <option value="una">Una sola por hoja</option>
+        </select>
+      </label>
+      <button type="button" class="principal" id="et-imprimir">Imprimir las etiquetas</button>
+    </div>
+    <p class="medida" id="et-medida"></p>
+    <p class="apunte">Las copias se piden en el cuadro de impresión: una hoja rinde todas las etiquetas que se ven acá abajo. Papel de 120 o 180 g queda como una tarjeta; en papel común conviene la banderita, que va pegada a la lapicera y no se dobla.</p>
+    <hr class="regla">
+    <h3>Cómo se arman</h3>
+    <ul class="limpia">
+      <li><b>Colgante:</b> cortá por la línea punteada, hacé el agujero donde está el círculo gris y pasá un hilo de algodón rojo; el nudo va al clip de la lapicera.</li>
+      <li><b>Banderita:</b> se imprime abierta. Cortá, doblá por las dos rayas grises del medio, apoyá la lapicera en el lomo y pegá las dos alas entre sí con cinta o pegamento en barra.</li>
+    </ul>
+  </section>
+
+  <div class="visor-etiquetas">
+    <div class="marco-etiquetas" id="et-marco">
+      <div class="pliego" id="et-pliego"></div>
+    </div>
+  </div>
+
+  <div class="paginas" id="paginas"></div>
+
+  <p class="pie">1976 — 2026 · a cincuenta años</p>
+</div>
+
+<script>
+  (function () {
+    var K = 1.45; // 1 cm de la realidad = 1.45 px de maqueta
+    var LADO = 300;
+
+    // x: ancho (0 izquierda), y: profundidad (0 = pared del fondo), z: altura
+    var PIEZAS = [
+      { t: "piso", x: 0, y: 0, w: 300, d: 300 },
+      { t: "pared", eje: "x", x: 0, y: 0, d: 300, h: 220, color: "#2A2119" },
+      { t: "pared", eje: "x", x: 300, y: 0, d: 300, h: 220, color: "#221B13" },
+      { t: "pared", eje: "y", x: 0, y: 0, w: 300, h: 220, color: "#1B1610" },
+      { t: "pared", eje: "y", x: 0, y: 300, w: 300, h: 50, z: 170, color: "#191309" },
+      { t: "pared", eje: "y", x: 60, y: 3, w: 180, h: 100, z: 110, color: "#F2EAD5" },
+      { t: "caja", x: 0, y: 0, w: 7, d: 7, h: 220, color: "#6B5238" },
+      { t: "caja", x: 293, y: 0, w: 7, d: 7, h: 220, color: "#6B5238" },
+      { t: "caja", x: 0, y: 293, w: 7, d: 7, h: 220, color: "#6B5238" },
+      { t: "caja", x: 293, y: 293, w: 7, d: 7, h: 220, color: "#6B5238" },
+      { t: "caja", x: 0, y: 0, w: 300, d: 7, h: 8, z: 220, color: "#7A5E40" },
+      { t: "caja", x: 0, y: 293, w: 300, d: 7, h: 8, z: 220, color: "#7A5E40" },
+      { t: "caja", x: 0, y: 0, w: 7, d: 300, h: 8, z: 220, color: "#7A5E40" },
+      { t: "caja", x: 293, y: 0, w: 7, d: 300, h: 8, z: 220, color: "#7A5E40" },
+      { t: "caja", x: 90, y: 120, w: 120, d: 60, h: 75, color: "#8A6B47" },
+      { t: "caja", x: 128, y: 140, w: 34, d: 24, h: 3, z: 75, color: "#2E2A25" },
+      { t: "pared", eje: "y", x: 128, y: 140, w: 34, h: 22, z: 78, color: "#4B6382" },
+      { t: "caja", x: 188, y: 126, w: 14, d: 14, h: 34, z: 75, color: "#8A6A3A" },
+      { t: "caja", x: 130, y: 195, w: 46, d: 46, h: 45, color: "#71563A" },
+      { t: "caja", x: 5, y: 60, w: 50, d: 100, h: 75, color: "#8A6B47" },
+      { t: "caja", x: 62, y: 95, w: 36, d: 36, h: 45, color: "#71563A" },
+      { t: "caja", x: 8, y: 70, w: 26, d: 34, h: 26, z: 75, color: "#C9A567" },
+      { t: "caja", x: 262, y: 250, w: 20, d: 20, h: 110, color: "#2E2A25" },
+      { t: "caja", x: 256, y: 244, w: 32, d: 26, h: 42, z: 110, color: "#33302B" },
+      { t: "caja", x: 135, y: 250, w: 30, d: 26, h: 13, z: 196, color: "#3A362F" },
+      { t: "caja", x: 232, y: 8, w: 44, d: 34, h: 62, color: "#8A6A3A" },
+      { t: "caja", x: 232, y: 8, w: 44, d: 34, h: 58, z: 62, color: "#7A5E40" }
+    ];
+
+    var MARCAS = [
+      { n: 1, x: 150, y: 26, z: 216 }, { n: 2, x: 150, y: 150, z: 82 }, { n: 3, x: 153, y: 218, z: 52 },
+      { n: 4, x: 30, y: 110, z: 82 }, { n: 5, x: 150, y: 263, z: 212 }, { n: 6, x: 272, y: 262, z: 158 },
+      { n: 7, x: 44, y: 297, z: 176 }
+    ];
+
+    function cara(w, h, transform, color, extra) {
+      return '<div class="cara" style="width:' + w + 'px;height:' + h + 'px;background:' + color +
+        ';transform:' + transform + ';' + (extra || "") + '"></div>';
+    }
+
+    function sombrear(color, f) {
+      var n = parseInt(color.slice(1), 16);
+      var r = Math.round(((n >> 16) & 255) * f);
+      var g = Math.round(((n >> 8) & 255) * f);
+      var b = Math.round((n & 255) * f);
+      return "rgb(" + r + "," + g + "," + b + ")";
+    }
+
+    function dibujar(conTelones) {
+      var html = "";
+      PIEZAS.forEach(function (p) {
+        var x = p.x * K, y = p.y * K, z = (p.z || 0) * K;
+        var w = (p.w || 0) * K, d = (p.d || 0) * K, h = (p.h || 0) * K;
+        var esTelon = p.color === "#2A2119" || p.color === "#221B13" || p.color === "#191309";
+        if (esTelon && !conTelones) return;
+
+        if (p.t === "piso") {
+          html += cara(w, d, "translate3d(" + x + "px," + y + "px,0)", "#C9B893",
+            "background-image:repeating-linear-gradient(0deg,rgba(36,29,20,.22) 0 1px,transparent 1px " + (50 * K) +
+            "px),repeating-linear-gradient(90deg,rgba(36,29,20,.22) 0 1px,transparent 1px " + (50 * K) + "px);");
+          return;
+        }
+        if (p.t === "pared") {
+          if (p.eje === "y") {
+            html += cara(w, h, "translate3d(" + x + "px," + y + "px," + z + "px) rotateX(90deg)", p.color, "opacity:.94;");
+          } else {
+            html += cara(h, d, "translate3d(" + x + "px," + y + "px," + z + "px) rotateY(-90deg)", p.color, "opacity:.94;");
+          }
+          return;
+        }
+        html += cara(w, d, "translate3d(" + x + "px," + y + "px," + (z + h) + "px)", p.color);
+        html += cara(w, h, "translate3d(" + x + "px," + (y + d) + "px," + z + "px) rotateX(90deg)", sombrear(p.color, 0.72));
+        html += cara(h, d, "translate3d(" + (x + w) + "px," + y + "px," + z + "px) rotateY(-90deg)", sombrear(p.color, 0.55));
+      });
+      MARCAS.forEach(function (m) {
+        var r = 15;
+        html += "<div class=\"marca\" style=\"transform:translate3d(" + (m.x * K - r) + "px," + (m.y * K - r) +
+          "px," + (m.z * K) + "px) rotateZ(var(--anti,0deg))\">" + m.n + "</div>";
+      });
+      return html;
+    }
+
+    var mundo = document.getElementById("mundo");
+    var escena = document.getElementById("escena");
+    var visor = document.getElementById("visor");
+    var giro = document.getElementById("giro");
+    var inclinar = document.getElementById("inclinar");
+    var btnTelones = document.getElementById("btn-telones");
+    var conTelones = true;
+    var anguloZ = 0;   // giro alrededor del eje vertical
+    var anguloX = 58;  // inclinación de la cámara: 0 es planta pura
+
+    function pintar() {
+      mundo.innerHTML = dibujar(conTelones);
+      mundo.style.transform = "translate3d(" + (-LADO * K / 2) + "px," + (-LADO * K / 2) + "px,0)";
+    }
+
+    function normalizar(a) {
+      while (a > 180) a -= 360;
+      while (a < -180) a += 360;
+      return a;
+    }
+
+    function aplicar() {
+      var rad = anguloX * Math.PI / 180;
+      var ancho = visor.clientWidth - 40;
+      var alto = visor.clientHeight - 40;
+      var planta = LADO * K * 1.42;
+      var altoEscena = planta * Math.cos(rad) + 235 * K * Math.sin(rad);
+      var e = Math.max(0.3, Math.min(ancho / planta, alto / altoEscena, 1.05));
+      var baja = 0.42 * 235 * K * Math.sin(rad) * e;
+      escena.style.setProperty("--escala", e);
+      escena.style.setProperty("--anti", (-anguloZ) + "deg");
+      escena.style.transform = "translateY(" + baja + "px) scale(" + e + ") rotateX(" +
+        anguloX + "deg) rotateZ(" + anguloZ + "deg)";
+      if (Math.round(Number(giro.value)) !== Math.round(anguloZ)) giro.value = Math.round(anguloZ);
+      if (Math.round(Number(inclinar.value)) !== Math.round(anguloX)) inclinar.value = Math.round(anguloX);
+    }
+
+    giro.addEventListener("input", function () { anguloZ = Number(giro.value); aplicar(); });
+    inclinar.addEventListener("input", function () { anguloX = Number(inclinar.value); aplicar(); });
+
+    // arrastrar con el mouse (o el dedo) para girar en cualquier dirección
+    var tirando = false, x0 = 0, y0 = 0, z0 = 0, i0 = 0;
+    visor.addEventListener("pointerdown", function (ev) {
+      tirando = true;
+      x0 = ev.clientX;
+      y0 = ev.clientY;
+      z0 = anguloZ;
+      i0 = anguloX;
+      visor.classList.add("arrastrando");
+      escena.classList.add("suelta");
+      try { visor.setPointerCapture(ev.pointerId); } catch (e) {}
+      if (ev.pointerType !== "touch") ev.preventDefault();
+    });
+    visor.addEventListener("pointermove", function (ev) {
+      if (!tirando) return;
+      anguloZ = normalizar(z0 + (ev.clientX - x0) * 0.45);
+      anguloX = Math.max(2, Math.min(88, i0 - (ev.clientY - y0) * 0.35));
+      aplicar();
+      document.querySelectorAll("[data-vista]").forEach(function (o) { o.setAttribute("aria-pressed", "false"); });
+    });
+    function soltar(ev) {
+      if (!tirando) return;
+      tirando = false;
+      visor.classList.remove("arrastrando");
+      escena.classList.remove("suelta");
+      try { visor.releasePointerCapture(ev.pointerId); } catch (e) {}
+    }
+    visor.addEventListener("pointerup", soltar);
+    visor.addEventListener("pointercancel", soltar);
+
+    document.querySelectorAll("[data-vista]").forEach(function (b) {
+      b.addEventListener("click", function () {
+        document.querySelectorAll("[data-vista]").forEach(function (o) { o.setAttribute("aria-pressed", "false"); });
+        b.setAttribute("aria-pressed", "true");
+        anguloZ = Number(b.dataset.vista);
+        anguloX = Number(b.dataset.tilt);
+        aplicar();
+      });
+    });
+
+    btnTelones.addEventListener("click", function () {
+      conTelones = !conTelones;
+      btnTelones.setAttribute("aria-pressed", String(conTelones));
+      pintar();
+    });
+
+    window.addEventListener("resize", aplicar);
+
+    pintar();
+    aplicar();
+
+    // el checklist se acuerda de lo tildado en esta computadora
+    document.querySelectorAll(".lista-check input").forEach(function (c) {
+      var clave = "puesto-archivo:" + c.id;
+      try {
+        if (localStorage.getItem(clave) === "1") c.checked = true;
+      } catch (e) {}
+      c.addEventListener("change", function () {
+        try {
+          if (c.checked) localStorage.setItem(clave, "1");
+          else localStorage.removeItem(clave);
+        } catch (e) {}
+      });
+    });
+  })();
+</script>
+
+<script>
+  // el @page es uno solo para toda la página: lo escribe el que está por imprimir
+  function fijarPagina(anchoMm, altoMm) {
+    var vieja = document.getElementById("medida-pagina");
+    if (vieja) vieja.remove();
+    var hoja = document.createElement("style");
+    hoja.id = "medida-pagina";
+    hoja.textContent = "@media print { @page { size: " + anchoMm + "mm " + altoMm + "mm; margin: 0 } }";
+    document.head.appendChild(hoja);
+  }
+</script>
+
+<script>
+  (function () {
+    var papel = document.getElementById("papel");
+    var mosaico = document.getElementById("mosaico");
+    var molde = document.getElementById("molde");
+    var rejilla = document.getElementById("rejilla");
+    var paginas = document.getElementById("paginas");
+    var medida = document.getElementById("medida");
+    var raiz = document.documentElement;
+    var MARGEN = 8; // mm de seguridad por lado: ahí va el corte
+
+    function armar() {
+      var p = papel.value.split(",").map(Number);   // largo, ancho (apaisado)
+      var m = mosaico.value.split(",").map(Number); // columnas, filas
+      var papelW = p[0], papelH = p[1];
+      var utilW = papelW - MARGEN * 2, utilH = papelH - MARGEN * 2;
+      var cols = m[0], filas = m[1];
+      var lienzoW = utilW * cols, lienzoH = utilH * filas;
+
+      raiz.style.setProperty("--papel-w", papelW + "mm");
+      raiz.style.setProperty("--papel-h", papelH + "mm");
+      raiz.style.setProperty("--util-w", utilW + "mm");
+      raiz.style.setProperty("--util-h", utilH + "mm");
+      raiz.style.setProperty("--cols", cols);
+      raiz.style.setProperty("--filas", filas);
+      raiz.style.setProperty("--lienzo-w", lienzoW + "mm");
+      raiz.style.setProperty("--lienzo-h", lienzoH + "mm");
+      raiz.style.setProperty("--ratio", (lienzoW / lienzoH).toFixed(4));
+
+      fijarPagina(papelW, papelH);
+
+      rejilla.innerHTML = "";
+      paginas.innerHTML = "";
+      var n = 0;
+      for (var f = 0; f < filas; f++) {
+        for (var c = 0; c < cols; c++) {
+          n++;
+          var celda = document.createElement("div");
+          celda.textContent = n;
+          rejilla.appendChild(celda);
+
+          var pagina = document.createElement("div");
+          pagina.className = "pagina";
+          var util = document.createElement("div");
+          util.className = "recorte";
+          var copia = molde.cloneNode(true);
+          copia.removeAttribute("id");
+          copia.style.transform = "translate(" + (-c * utilW) + "mm," + (-f * utilH) + "mm)";
+          util.appendChild(copia);
+          var et = document.createElement("span");
+          et.className = "etiqueta";
+          et.textContent = "hoja " + n + " de " + (cols * filas) + " · fila " + (f + 1) + " columna " + (c + 1);
+          pagina.appendChild(util);
+          pagina.appendChild(et);
+          paginas.appendChild(pagina);
+        }
+      }
+
+      medida.textContent = "Banner terminado: " + (lienzoW / 10).toFixed(1) + " × " + (lienzoH / 10).toFixed(1) +
+        " cm · " + (cols * filas) + " hojas · área útil por hoja " + utilW + " × " + utilH + " mm";
+    }
+
+    papel.addEventListener("change", armar);
+    mosaico.addEventListener("change", armar);
+    document.getElementById("imprimir").addEventListener("click", function () {
+      armar(); // deja la medida de hoja del banner en el @page antes de imprimir
+      document.body.dataset.imprimir = "banner";
+      window.print();
+    });
+    addEventListener("afterprint", function () {
+      delete document.body.dataset.imprimir;
+    });
+    armar();
+  })();
+</script>
+
+<script>
+  (function () {
+    var MARGEN = 8;   // mm que la impresora no alcanza: ahí no ponemos nada
+    var ESPACIO = 4;  // mm entre etiqueta y etiqueta, para la tijera
+    var LOMO = 9;     // mm del lomo de la banderita: el cuerpo de una lapicera
+
+    // medidas de cada etiqueta en mm (ancho x alto); en la banderita es un ala
+    var MEDIDAS = {
+      colgante: { chica: [32, 62], mediana: [40, 75], grande: [50, 92] },
+      banderita: { chica: [26, 20], mediana: [32, 24], grande: [38, 28] }
+    };
+
+    var ARTE = {
+      colgante: function () {
+        return '<div class="arte colgante">' +
+          '<div class="borde"></div><div class="borde-2"></div><div class="agujero"></div>' +
+          '<div class="cuerpo">' +
+            '<div class="centro">' +
+              '<p class="titulo">La Noche de los Lápices</p>' +
+              '<p class="frase">Los lápices siguen escribiendo</p>' +
+            '</div>' +
+            '<div class="cierre">' +
+              '<p class="sello">Expediente 16.09.1976</p>' +
+              '<p class="anios">1976 — 2026</p>' +
+            '</div>' +
+          '</div></div>';
+      },
+      banderita: function () {
+        return '<div class="arte banderita" style="--lomo:' + LOMO + 'mm">' +
+          '<div class="ala">' +
+            '<p class="titulo">La Noche<br>de los Lápices</p>' +
+            '<p class="sello">16.09.1976</p>' +
+          '</div>' +
+          '<div class="lomo"></div>' +
+          '<div class="ala">' +
+            '<p class="frase">Los lápices<br>siguen escribiendo</p>' +
+            '<p class="anios">1976 — 2026</p>' +
+          '</div></div>';
+      }
+    };
+
+    var modelo = document.getElementById("et-modelo");
+    var tamano = document.getElementById("et-tamano");
+    var papel = document.getElementById("et-papel");
+    var orientacion = document.getElementById("et-orientacion");
+    var cuantas = document.getElementById("et-cuantas");
+    var pliego = document.getElementById("et-pliego");
+    var marco = document.getElementById("et-marco");
+    var medida = document.getElementById("et-medida");
+
+    // la banderita se imprime abierta: dos alas y el lomo del medio
+    function medidaEtiqueta() {
+      var m = MEDIDAS[modelo.value][tamano.value];
+      if (modelo.value === "banderita") return [m[0] * 2 + LOMO, m[1]];
+      return [m[0], m[1]];
+    }
+
+    function armar() {
+      var p = papel.value.split(",").map(Number);
+      var papelW = p[0], papelH = p[1];
+      if (orientacion.value === "horizontal") { papelW = p[1]; papelH = p[0]; }
+
+      var e = medidaEtiqueta();
+      var anchoEt = e[0], altoEt = e[1];
+      var utilW = papelW - MARGEN * 2, utilH = papelH - MARGEN * 2;
+      var entran = anchoEt <= utilW && altoEt <= utilH;
+      var cols = Math.max(1, Math.floor((utilW + ESPACIO) / (anchoEt + ESPACIO)));
+      var filas = Math.max(1, Math.floor((utilH + ESPACIO) / (altoEt + ESPACIO)));
+      if (cuantas.value === "una") { cols = 1; filas = 1; }
+
+      // la grilla queda centrada: sobra lo mismo de los dos lados
+      var usadoW = cols * anchoEt + (cols - 1) * ESPACIO;
+      var usadoH = filas * altoEt + (filas - 1) * ESPACIO;
+      var desdeX = (papelW - usadoW) / 2;
+      var desdeY = (papelH - usadoH) / 2;
+
+      pliego.style.setProperty("--pliego-w", papelW + "mm");
+      pliego.style.setProperty("--pliego-h", papelH + "mm");
+      fijarPagina(papelW, papelH);
+
+      var html = "";
+      if (entran) {
+        for (var f = 0; f < filas; f++) {
+          for (var c = 0; c < cols; c++) {
+            html += '<div class="casilla" style="left:' + (desdeX + c * (anchoEt + ESPACIO)).toFixed(2) + "mm;top:" +
+              (desdeY + f * (altoEt + ESPACIO)).toFixed(2) + "mm;width:" + anchoEt + "mm;height:" + altoEt + 'mm">' +
+              ARTE[modelo.value]() + "</div>";
+          }
+        }
+      }
+      pliego.innerHTML = html;
+
+      // la vista previa es la hoja de verdad, achicada hasta entrar en pantalla
+      var porMm = 96 / 25.4;
+      var caja = marco.parentElement;
+      var estilo = getComputedStyle(caja);
+      var disponible = caja.clientWidth - parseFloat(estilo.paddingLeft) - parseFloat(estilo.paddingRight);
+      var k = Math.min(1, disponible / (papelW * porMm));
+      pliego.style.setProperty("--k", k.toFixed(4));
+      marco.style.width = (papelW * porMm * k) + "px";
+      marco.style.height = (papelH * porMm * k) + "px";
+
+      if (!entran) {
+        medida.textContent = "Esta etiqueta (" + anchoEt + " × " + altoEt + " mm) no entra en esta hoja: probá con otra orientación o un tamaño más chico.";
+        return;
+      }
+      medida.textContent = (cols * filas) + (cols * filas === 1 ? " etiqueta" : " etiquetas") + " por hoja · " +
+        anchoEt + " × " + altoEt + " mm cada una" +
+        (cuantas.value === "una" ? " · una sola, centrada" : " · " + cols + " por fila, " + filas + " filas");
+    }
+
+    [modelo, tamano, papel, orientacion, cuantas].forEach(function (s) {
+      s.addEventListener("change", armar);
+    });
+    addEventListener("resize", armar);
+    document.getElementById("et-imprimir").addEventListener("click", function () {
+      armar(); // deja la medida de hoja de las etiquetas en el @page
+      document.body.dataset.imprimir = "etiquetas";
+      window.print();
+    });
+    armar();
+  })();
+</script>
+
+</body></html>
