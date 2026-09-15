@@ -548,15 +548,15 @@ const MISIONES = [
     titulo: "Los sonidos",
     img: "/fichas/marcha.jpg",
     tiempo: 75,
-    consigna: "Tocá cada sonido para escucharlo y unilo con el momento de la historia que suena así.",
-    sonidos: ["/media/musica/boleto.mp3", "/media/musica/dictadura.mp3", "/media/musica/democracia.mp3"],
+    consigna: "Tocá cada sonido para escucharlo y unilo con la canción que suena.",
+    sonidos: ["/media/musica/los-dinosaurios.mp3", "/media/musica/marcha-de-la-bronca.mp3", "/media/musica/la-memoria.mp3"],
     pares: [
-      ["Sonido 1", "La alegría del boleto ganado (1975)"],
-      ["Sonido 2", "Los años oscuros de la dictadura"],
-      ["Sonido 3", "La vuelta de la democracia (1983)"]
+      ["Sonido 1", "«Los dinosaurios», de Charly García: los que desaparecían"],
+      ["Sonido 2", "«La marcha de la bronca», de Pedro y Pablo: prohibida en las radios"],
+      ["Sonido 3", "«La memoria», de León Gieco: lo que no hay que olvidar"]
     ],
-    dato: "Escuchá cada sonido y decidí qué momento de la historia suena así.",
-    voz: "La música también cuenta la historia. Un mismo país sonó distinto: la alegría de los pibes que ganaron su boleto, el miedo de los años oscuros, y la esperanza del regreso de la democracia."
+    dato: "Tres canciones y tres momentos: la bronca de los pibes, el miedo de la dictadura y la memoria en democracia.",
+    voz: "La música también cuenta la historia. La Marcha de la bronca, de Pedro y Pablo, ya estaba prohibida antes del golpe. Los dinosaurios, de Charly García, cuenta cómo los amigos del barrio podían desaparecer de un día para el otro. Y La memoria, de León Gieco, nombra en democracia todo lo que no hay que olvidar."
   },
   {
     tipo: "veredicto",
