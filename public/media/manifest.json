@@ -86,9 +86,9 @@
     "/media/documentos/04.jpg"
   ],
   "el-informe": [
+    "/media/nunca-mas/sabato-entrega-el-informe.jpg",
     "/media/nunca-mas/libro-nunca-mas.jpg",
-    "/media/nunca-mas/silueta-nunca-mas.jpg",
-    "/media/juicio/01.jpg"
+    "/media/nunca-mas/silueta-nunca-mas.jpg"
   ],
   "el-fiscal": [
     "/media/juicio/01.jpg"
@@ -103,7 +103,9 @@
     "/media/caras/claudia-falcone.jpg"
   ],
   "el-lugar": [
-    "/fichas/puerta.jpg"
+    "/media/secuestros/detencion-en-la-calle.jpg",
+    "/media/secuestros/bajada-del-celular.jpg",
+    "/media/secuestros/detenidos-en-el-celular.jpg"
   ],
   "las-madres": [
     "/media/madres-plaza-mayo/madres-panuelos.jpg",
