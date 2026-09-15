@@ -233,10 +233,12 @@ function apagarSenal() {
   $("atractor-flecha").classList.remove("se-ve");
   $("boton-abrir").classList.remove("llama");
 }
+// Tocar la pantalla apaga la flecha y posterga la próxima invitación, pero no
+// corta la que está sonando: la voz se calla recién cuando se abre el
+// expediente, así no se pierde a mitad de frase por un clic al pasar.
 ["pointerdown", "keydown"].forEach((ev) =>
   document.addEventListener(ev, () => {
     ultimoToque = performance.now();
-    vozInvitacion?.pause();
     apagarSenal();
   })
 );
