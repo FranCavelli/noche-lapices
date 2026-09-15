@@ -42,7 +42,9 @@ const ruta = (p) => import.meta.env.BASE_URL.replace(/\/$/, "") + p;
       // Se corre antes de que pinte nada: si la máquina ya está habilitada, la
       // puerta no llega a verse. Con el módulo diferido se vería un parpadeo.
       try {
-        if (localStorage.getItem("nlp_puerta_v1") === "1") {
+        const d = new Date();
+        const hoy = `${d.getFullYear()}-${d.getMonth() + 1}-${d.getDate()}`;
+        if (localStorage.getItem("nlp_puerta_dia") === hoy) {
           document.getElementById("puerta").classList.add("oculta");
         }
       } catch (e) {}

@@ -9,7 +9,29 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Special+Elite&family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=Caveat:wght@500;700&display=swap" rel="stylesheet">
 </head>
-<body>
+<body class="trabado">
+<script>
+  // Corre antes de que se pinte nada: si esta máquina ya puso la clave hoy, la
+  // puerta no llega a verse. Es la misma llave que usa el juego.
+  (function () {
+    var d = new Date();
+    var hoy = d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate();
+    try {
+      if (localStorage.getItem("nlp_puerta_dia") === hoy) document.body.classList.remove("trabado");
+    } catch (e) {}
+  })();
+</script>
+
+<div class="puerta" id="puerta">
+  <form class="puerta-ficha" id="puerta-ficha">
+    <p class="eyebrow">Acceso restringido</p>
+    <h2>Expediente reservado</h2>
+    <label class="campo" for="puerta-clave"><span>Clave de apertura</span></label>
+    <input id="puerta-clave" type="password" inputmode="numeric" autocomplete="off" autocapitalize="off" spellcheck="false" required>
+    <p class="puerta-error" id="puerta-error" role="alert"></p>
+    <button type="submit" class="principal">Abrir</button>
+  </form>
+</div>
 
 <style>
   :root {
@@ -540,10 +562,35 @@
   .casilla { position: absolute; outline: 0.25mm dashed #9a9a9a; }
   .casilla .arte { width: 100%; height: 100%; }
 
+  /* ---------- la puerta ---------- */
+  .puerta { position: fixed; inset: 0; z-index: 50; display: none; place-items: center; background: var(--fondo); padding: 1.2rem; }
+  body.trabado .puerta { display: grid; }
+  body.trabado .pila { display: none; }
+  .puerta-ficha {
+    background: var(--hoja); color: var(--tinta);
+    border: 1px solid var(--linea); box-shadow: 0 10px 26px var(--sombra);
+    padding: clamp(1.2rem, 4vw, 2rem);
+    width: min(380px, 100%);
+    display: grid; gap: 0.8rem;
+  }
+  .puerta-ficha h2 { margin: 0; }
+  .puerta-campo, #puerta-clave {
+    font-family: "Courier Prime", "Courier New", monospace;
+    font-size: 1.2rem; letter-spacing: 0.35em; text-align: center;
+    color: var(--tinta); background: var(--hoja-2);
+    border: 1px solid var(--linea); border-bottom: 2px solid var(--sello);
+    padding: 0.5rem 0.6rem; width: 100%;
+  }
+  #puerta-clave:focus-visible { outline: 3px solid var(--azul); outline-offset: 2px; }
+  .puerta-error { color: var(--sello); font-size: 0.85rem; min-height: 1.25em; }
+  .mal-intento { animation: sacudir 0.36s; }
+  @keyframes sacudir { 25% { transform: translateX(-7px); } 75% { transform: translateX(7px); } }
+
   /* En esta página hay dos cosas para imprimir: el banner y las etiquetas. Cada
      botón marca cuál antes de abrir el cuadro de impresión, y sin marca (Ctrl+P)
      se imprime la página entera, explicaciones incluidas. */
   @media print {
+    body.trabado .puerta { display: none !important; }
     body[data-imprimir] { background: #fff; padding: 0; }
     body[data-imprimir] .pila > * { display: none !important; }
     body[data-imprimir="banner"] .paginas { display: block !important; }
@@ -1246,6 +1293,46 @@ npx serve sitio -l 4321</div>
         } catch (e) {}
       });
     });
+  })();
+</script>
+
+<script>
+  // La clave viaja en el JS del sitio, así que cualquiera que abra el código
+  // fuente puede leerla: no es seguridad de verdad, alcanza para que nadie
+  // entre de casualidad antes del acto. Es la misma que la del juego.
+  (function () {
+    var CLAVE = "2576";
+    var LLAVE = "nlp_puerta_dia";
+    var campo = document.getElementById("puerta-clave");
+    var error = document.getElementById("puerta-error");
+
+    function hoy() {
+      var d = new Date();
+      return d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate();
+    }
+
+    if (document.body.classList.contains("trabado")) campo.focus();
+
+    document.getElementById("puerta-ficha").addEventListener("submit", function (e) {
+      e.preventDefault();
+      if (campo.value.trim() !== CLAVE) {
+        error.textContent = "Clave incorrecta.";
+        campo.value = "";
+        campo.focus();
+        campo.classList.add("mal-intento");
+        setTimeout(function () { campo.classList.remove("mal-intento"); }, 380);
+        return;
+      }
+      error.textContent = "";
+      try {
+        // se guarda el día: a la mañana siguiente vuelve a preguntar
+        localStorage.setItem(LLAVE, hoy());
+      } catch (err) {
+        // en incógnito no se puede guardar: abre igual y vuelve a preguntar
+      }
+      document.body.classList.remove("trabado");
+      dispatchEvent(new Event("resize")); // la hoja de etiquetas se mide recién ahora
+    })
   })();
 </script>
 
