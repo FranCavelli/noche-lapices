@@ -2,7 +2,6 @@ const MISIONES = [
   {
     tipo: "tachado",
     titulo: "La noche",
-    img: "/fichas/lapices.jpg",
     texto: "En la madrugada del [[0]] de 1976, en plena dictadura cívico-militar, grupos armados secuestraron de sus casas a estudiantes secundarios de [[1]].",
     blancos: ["16 de septiembre", "La Plata"],
     senuelos: ["24 de marzo", "Rosario"],
@@ -46,7 +45,6 @@ const MISIONES = [
   {
     tipo: "tachado",
     titulo: "La memoria",
-    img: "/fichas/marcha.jpg",
     texto: "Cada [[0]] se conmemora en la Argentina el Día de los Derechos del Estudiante [[1]].",
     blancos: ["16 de septiembre", "secundario"],
     senuelos: ["21 de septiembre", "universitario"],
@@ -250,7 +248,7 @@ const MISIONES = [
   {
     tipo: "tachado",
     titulo: "Los sobrevivientes",
-    img: "/fichas/mano.jpg",
+    img: "/media/juicio/declaracion-en-el-juicio.jpg",
     texto: "De los diez estudiantes, sobrevivieron [[0]]: Pablo, Emilce, Gustavo y [[1]].",
     blancos: ["cuatro", "Patricia"],
     senuelos: ["dos", "Marta"],
