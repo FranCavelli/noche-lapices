@@ -1,0 +1,3 @@
+# El expediente no es para encontrarlo buscando: se entra con el link y la clave.
+User-agent: *
+Disallow: /
