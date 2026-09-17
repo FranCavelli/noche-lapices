@@ -2,6 +2,11 @@
 import "../styles/global.css";
 
 const ruta = (p) => import.meta.env.BASE_URL.replace(/\/$/, "") + p;
+
+// Interruptor de la puerta de clave. En false el sitio abre derecho en la
+// portada: la puerta no se dibuja y src/scripts/puerta.js no hace nada.
+// Ponelo en true para que vuelva a pedir la clave (no hay que tocar nada más).
+const PUERTA = false;
 ---
 
 <html lang="es">
@@ -19,29 +24,32 @@ const ruta = (p) => import.meta.env.BASE_URL.replace(/\/$/, "") + p;
     />
   </head>
   <body>
-    <div id="puerta" class="puerta">
-      <img class="fondo-full puerta-fondo" src={ruta("/expediente/frame-01.jpg")} alt="" />
-      <form id="puerta-ficha" class="puerta-ficha">
-        <p class="puerta-sello">Acceso restringido</p>
-        <h1 class="puerta-titulo">Expediente reservado</h1>
-        <label class="puerta-label" for="puerta-clave">Clave de apertura:</label>
-        <input
-          id="puerta-clave"
-          class="puerta-campo"
-          type="password"
-          inputmode="numeric"
-          autocomplete="off"
-          autocapitalize="off"
-          spellcheck="false"
-          required
-        />
-        <p id="puerta-error" class="puerta-error" role="alert"></p>
-        <button class="boton-sello puerta-boton" type="submit">Abrir</button>
-      </form>
-    </div>
+    {PUERTA && (
+      <div id="puerta" class="puerta">
+        <img class="fondo-full puerta-fondo" src={ruta("/expediente/frame-01.jpg")} alt="" />
+        <form id="puerta-ficha" class="puerta-ficha">
+          <p class="puerta-sello">Acceso restringido</p>
+          <h1 class="puerta-titulo">Expediente reservado</h1>
+          <label class="puerta-label" for="puerta-clave">Clave de apertura:</label>
+          <input
+            id="puerta-clave"
+            class="puerta-campo"
+            type="password"
+            inputmode="numeric"
+            autocomplete="off"
+            autocapitalize="off"
+            spellcheck="false"
+            required
+          />
+          <p id="puerta-error" class="puerta-error" role="alert"></p>
+          <button class="boton-sello puerta-boton" type="submit">Abrir</button>
+        </form>
+      </div>
+    )}
     <script is:inline>
       // Se corre antes de que pinte nada: si la máquina ya está habilitada, la
       // puerta no llega a verse. Con el módulo diferido se vería un parpadeo.
+      // Con la puerta apagada no existe el elemento: tira y lo come el catch.
       try {
         const d = new Date();
         const hoy = `${d.getFullYear()}-${d.getMonth() + 1}-${d.getDate()}`;

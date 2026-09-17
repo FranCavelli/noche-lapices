@@ -212,8 +212,10 @@ let ultimoToque = -1e9;
 function invitar(forzar = false) {
   if (!pantallas.portada.classList.contains("activa")) return;
   // con la puerta cerrada nadie llegó todavía a la portada: no le hablamos
-  // a una pantalla que solo muestra el pedido de contraseña
-  if (!$("puerta").classList.contains("oculta")) return;
+  // a una pantalla que solo muestra el pedido de contraseña. Si la puerta está
+  // apagada no existe el elemento y se invita de una.
+  const cerrojo = $("puerta");
+  if (cerrojo && !cerrojo.classList.contains("oculta")) return;
   if (vozInvitacion && !vozInvitacion.paused) return;
   // si alguien está completando la ficha, no le hablamos encima
   if (!forzar && performance.now() - ultimoToque < QUIETO) return;
